@@ -729,6 +729,10 @@ video {
   margin-bottom: 0.25rem;
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .block {
   display: block;
 }
@@ -990,6 +994,10 @@ video {
 
 .gap-\[6px\] {
   gap: 6px;
+}
+
+.gap-y-3 {
+  row-gap: 0.75rem;
 }
 
 .space-y-0\.5 > :not([hidden]) ~ :not([hidden]) {
@@ -2012,6 +2020,10 @@ input[type="password"]::-ms-reveal {
   letter-spacing: 0.4px;
 }
 
+.hover\:tracking-wide:hover {
+  letter-spacing: 0.025em;
+}
+
 .hover\:text-\[\#0079c2\]:hover {
   --tw-text-opacity: 1;
   color: rgb(0 121 194 / var(--tw-text-opacity, 1));
@@ -2025,6 +2037,11 @@ input[type="password"]::-ms-reveal {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-\[\#ffd54f\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 213 79 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover {
