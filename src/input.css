@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Variables ── */
+:root {
+  --primary: #0079c2;
+  --secondary: #038ad9;
+  --dark-blue: #0068ae;
+  --light-blue: #016eb733;
+  --navitem-bg: #98cdea;
+  --error: #f22828;
+  --gold: #f9a825;
+  --gold-light: #ffd54f;
+  --gold-dark: #fb8c00;
+  --placeholder: #bcbec0;
+  --dark-gray: #a1a1a1;
+  --global-radius: 16px;
+}
+
+/* ── Font ── */
+* {
+  font-family: "Cairo", sans-serif;
+}
+
+/* Global Styles */
+ol,
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+/* Global Styles */
+
+/* Global Components */
+
+/* ── Checkbox ── */
+.checkbox-wrapper .checkbox-input {
+  display: none;
+  visibility: hidden;
+}
+
+.checkbox-wrapper .checkbox-label {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.checkbox-wrapper .checkbox-label span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  transform: translate3d(0, 0, 0);
+}
+.checkbox-wrapper .checkbox-label span:first-child {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  transition:
+    background 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s,
+    transform 0.2s;
+}
+.checkbox-wrapper .checkbox-label span:first-child svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16px;
+  stroke-dashoffset: 16px;
+  opacity: 0;
+  transition:
+    stroke-dashoffset 0.28s ease,
+    opacity 0.2s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.checkbox-wrapper .checkbox-label span:first-child::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+  display: block;
+  transform: scale(0);
+  opacity: 1;
+  border-radius: 50%;
+}
+.checkbox-wrapper .checkbox-label span:last-child {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.2px;
+  transition: color 0.2s;
+}
+.checkbox-wrapper .checkbox-label:hover span:first-child {
+  border-color: var(--secondary);
+  background: rgba(3, 138, 217, 0.12);
+  box-shadow: 0 0 0 4px rgba(0, 121, 194, 0.12);
+}
+.checkbox-wrapper .checkbox-label:hover span:last-child {
+  color: #fff;
+}
+
+.checkbox-wrapper .checkbox-input:checked + .checkbox-label span:first-child {
+  background: var(--primary);
+  border-color: var(--secondary);
+  box-shadow:
+    0 0 0 4px rgba(0, 121, 194, 0.2),
+    0 0 14px rgba(0, 121, 194, 0.3);
+  animation: checkbox-pop 0.4s ease;
+}
+.checkbox-wrapper
+  .checkbox-input:checked
+  + .checkbox-label
+  span:first-child
+  svg {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.checkbox-wrapper
+  .checkbox-input:checked
+  + .checkbox-label
+  span:first-child::before {
+  transform: scale(3.5);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+.checkbox-wrapper .checkbox-input:checked + .checkbox-label span:last-child {
+  color: #fff;
+}
+
+@keyframes checkbox-pop {
+  50% {
+    transform: scale(0.88);
+  }
+}
+/* ── Checkbox ── */
+
+/* Progressbar */
+.strength-bar-wrap {
+  margin-top: 8px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.strength-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  background: transparent;
+  transition:
+    width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s;
+}
+.strength-label {
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 5px;
+  min-height: 18px;
+  letter-spacing: 0.2px;
+  transition: color 0.3s;
+}
+/* Progressbar */
+
+/* Global Components */
+
+/* Global Animations */
+
+/* ── Staggered entrance ── */
+.anim-1 {
+  animation: fadeUp 0.55s 0.1s both;
+}
+.anim-2 {
+  animation: fadeUp 0.55s 0.2s both;
+}
+.anim-3 {
+  animation: fadeUp 0.55s 0.3s both;
+}
+.anim-4 {
+  animation: fadeUp 0.55s 0.4s both;
+}
+.anim-5 {
+  animation: fadeUp 0.55s 0.5s both;
+}
+.anim-6 {
+  animation: fadeUp 0.55s 0.6s both;
+}
+.anim-7 {
+  animation: fadeUp 0.55s 0.7s both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Global Animations */
+
+/* Login Page Design */
+
+.login {
+  background-image: url("../assets/loginBG.png");
+  background-size: cover;
+  background-position: center center;
+}
+
+/* ── Card gradient border + entrance animation ── */
+.card {
+  background: rgba(88, 130, 193, 0.28);
+  border: 2.13px solid;
+  border-image-source: linear-gradient(
+    135.59deg,
+    rgba(88, 130, 193, 0.49) 1.28%,
+    rgba(88, 130, 193, 0.11) 96.26%
+  );
+  animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Eye btn combined hover transform ── */
+.eye-btn:hover {
+  transform: translateY(-50%) scale(1.18);
+}
+
+/* ── Sign in shimmer sweep ── */
+.btn-signin::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.32),
+    transparent
+  );
+  transition: left 0.55s ease;
+}
+.btn-signin:hover::before {
+  left: 160%;
+}
+
+/* ── Reset link underline ── */
+.reset-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 2px;
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reset-link:hover::after {
+  width: 100%;
+}
+
+/* ── Register link underline ── */
+.register-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 2px;
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.register-link:hover::after {
+  width: 100%;
+}
+
+/* Login Page Design */
