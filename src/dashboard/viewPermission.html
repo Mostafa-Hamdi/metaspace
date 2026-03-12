@@ -8,7 +8,146 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../dist/output.css" />
+    <!-- Choices.js -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="../../dist/output.css" />
+
+    Main content · HTML Copy
+
+    <!-- ══════════════════════════════════════
+     INTERNAL CSS — only what Tailwind can't cover
+══════════════════════════════════════ -->
+    <style>
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      /* Active status pulse */
+      .status-active::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #1a8c45;
+        margin-left: 5px;
+        animation: pulse-dot 1.5s infinite;
+      }
+
+      /* Permission tag hover */
+      .perm-tag:hover {
+        transform: translateY(-2px);
+      }
+      .perm-tag {
+        transition:
+          background 0.15s,
+          transform 0.15s;
+      }
+
+      /* User item slide on hover */
+      .user-item:hover {
+        transform: translateX(-3px);
+      }
+      .user-item {
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          transform 0.15s;
+      }
+
+      /* Activity row hover */
+      .activity-item:hover {
+        background: rgba(0, 121, 194, 0.025);
+      }
+      .activity-item {
+        transition: background 0.15s;
+      }
+
+      /* Table row hover */
+      .data-table tbody tr:hover {
+        background: rgba(0, 121, 194, 0.025);
+      }
+      .data-table tbody tr {
+        transition: background 0.15s;
+      }
+
+      /* ── Delete Modal ── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 500;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        padding: 16px;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .modal-box {
+        background: #fff;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 420px;
+        overflow: hidden;
+        transform: translateY(16px) scale(0.97);
+        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+      }
+      .modal-overlay.open .modal-box {
+        transform: translateY(0) scale(1);
+      }
+
+      /* ── Extra button variants ── */
+      .btn--danger {
+        background: linear-gradient(135deg, #ff6b6b, #ee0979);
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(238, 9, 121, 0.25);
+      }
+      .btn--danger:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(238, 9, 121, 0.4);
+      }
+
+      .btn--outline {
+        background: #fff;
+        color: #374151;
+        border: 1.5px solid rgba(0, 121, 194, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+      .btn--outline:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateY(-1px);
+      }
+
+      /* ── Toast animation ── */
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
   </head>
   <body class="bg-[#f4f7fb]">
     <div class="flex h-screen overflow-hidden">
@@ -1695,134 +1834,739 @@
           </div>
         </header>
 
-        <!-- MAIN CONTENT -->
+        <!-- ══════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════ -->
         <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+          <!-- Top Bar -->
+          <div class="topbar">
+            <nav class="breadcrumb">
+              <a href="#" class="breadcrumb__link">الرئيسية</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">الأدوار والصلاحيات</a>
+              <span class="breadcrumb__sep">›</span>
+              <span class="breadcrumb__current">مدير النظام</span>
+            </nav>
+            <span class="topbar-date" id="currentDate"></span>
+          </div>
+
+          <!-- Page Title -->
+          <h1 class="page-title">تفاصيل الدور</h1>
+
+          <!-- ══ HERO CARD ══ -->
           <div
-            class="flex flex-col items-center justify-center min-h-[calc(100vh-200px)]"
+            class="anim-2 relative bg-white rounded-2xl border border-[#0079c2]/[.08] shadow-[0_2px_12px_rgba(0,104,174,.06)] p-7 mb-6 flex flex-col sm:flex-row items-start gap-6 overflow-hidden"
           >
-            <div class="relative mb-8">
-              <div
-                class="w-28 h-28 rounded-full bg-[linear-gradient(135deg,#0079c2,#038ad9)] flex items-center justify-center shadow-[0_12px_40px_rgba(0,121,194,0.3)]"
+            <!-- Decorative gradient -->
+            <div
+              class="absolute top-0 right-0 w-48 h-full bg-gradient-to-bl from-[#0079c2]/[.05] to-transparent pointer-events-none"
+            ></div>
+
+            <!-- Icon -->
+            <div
+              class="w-[72px] h-[72px] rounded-[18px] bg-[#0079c2]/10 flex items-center justify-center flex-shrink-0 shadow-[0_4px_16px_rgba(0,121,194,.15)]"
+            >
+              <svg
+                fill="none"
+                stroke="#0079c2"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+                width="36"
+                height="36"
               >
-                <img
-                  src="../../assets/logo.png"
-                  alt="شعار"
-                  class="w-16 h-16 object-contain"
-                />
-              </div>
-              <div
-                class="absolute inset-0 rounded-full border-2 border-dashed border-[#0079c2]/30 scale-[1.25] animate-spin"
-                style="animation-duration: 12s"
-              ></div>
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                <path d="M16 3.13a4 4 0 01 0 7.75" />
+              </svg>
             </div>
-            <h1
-              class="text-[28px] sm:text-[36px] md:text-[44px] font-bold text-[#1a2a3a] text-center leading-tight mb-4"
-            >
-              مرحباً بك في <span class="text-[#0079c2]">Meta Space</span>
-            </h1>
-            <p
-              class="text-[#6b7a8d] text-sm sm:text-base text-center max-w-md leading-relaxed mb-8"
-            >
-              منصتك الشاملة لإدارة المنتجات والطلبات والمخزن بكل سهولة وكفاءة.
-            </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
+
+            <!-- Info -->
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <h2 class="text-[20px] font-extrabold text-[#1a2a3a]">
+                  مدير النظام
+                </h2>
+                <!-- Badge -->
+                <span
+                  class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#0079c2]/10 text-[#0079c2] border border-[#0079c2]/20"
+                  >مدير</span
+                >
+                <!-- Status -->
+                <span
+                  class="status-active inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-[#1a8c45]/10 text-[#1a8c45] border border-[#1a8c45]/20"
+                  >نشط</span
+                >
+              </div>
+
+              <!-- Meta row -->
+              <div class="flex flex-wrap gap-5">
                 <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+                  class="flex items-center gap-1.5 text-[12px] text-[#6b7a8d]"
                 >
                   <svg
-                    class="w-5 h-5 text-[#0079c2]"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
                     viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
                   >
-                    <path
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                    />
-                    <rect x="9" y="3" width="6" height="4" rx="1" />
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
                   </svg>
+                  المستخدمون: <strong class="text-[#1a2a3a] font-700">3</strong>
                 </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >الطلبات</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
                 <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+                  class="flex items-center gap-1.5 text-[12px] text-[#6b7a8d]"
                 >
                   <svg
-                    class="w-5 h-5 text-[#0079c2]"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
                     viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
                   >
-                    <path
-                      d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"
-                    />
-                    <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 01 10 0v4" />
                   </svg>
+                  الصلاحيات: <strong class="text-[#1a2a3a] font-700">24</strong>
                 </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المنتجات</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
                 <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+                  class="flex items-center gap-1.5 text-[12px] text-[#6b7a8d]"
                 >
                   <svg
-                    class="w-5 h-5 text-[#0079c2]"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
                     viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
                   >
-                    <path
-                      d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                    />
-                    <polyline points="14 2 14 8 20 8" />
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
                   </svg>
+                  تاريخ الإنشاء:
+                  <strong class="text-[#1a2a3a] font-700">12/01/2024</strong>
                 </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >التقارير</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
                 <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+                  class="flex items-center gap-1.5 text-[12px] text-[#6b7a8d]"
                 >
                   <svg
-                    class="w-5 h-5 text-[#0079c2]"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
                     viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
                   >
-                    <path
-                      d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
-                    />
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
                   </svg>
+                  آخر تعديل:
+                  <strong class="text-[#1a2a3a] font-700">05/03/2026</strong>
                 </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المخزن</span
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-row gap-2 flex-shrink-0">
+              <button
+                onclick="alert('تعديل الدور')"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] text-[13px] font-bold text-white bg-gradient-to-br from-[#0079c2] to-[#005fa3] shadow-[0_4px_14px_rgba(0,121,194,.3)] hover:shadow-[0_6px_20px_rgba(0,121,194,.45)] hover:-translate-y-px transition-all"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  viewBox="0 0 24 24"
                 >
-              </a>
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path
+                    d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                  />
+                </svg>
+                تعديل
+              </button>
+              <button
+                onclick="openDelete('مدير النظام')"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-[10px] text-[13px] font-bold text-white bg-gradient-to-br from-[#ff6b6b] to-[#ee0979] shadow-[0_4px_14px_rgba(238,9,121,.25)] hover:shadow-[0_6px_20px_rgba(238,9,121,.4)] hover:-translate-y-px transition-all"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="3 6 5 6 21 6" />
+                  <path d="M19 6l-1 14H6L5 6" />
+                </svg>
+                حذف
+              </button>
             </div>
           </div>
+
+          <!-- ══ STATS ROW ══ -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div
+              class="stat-card anim-2 bg-white rounded-2xl border border-[#0079c2]/[.08] shadow-[0_2px_12px_rgba(0,104,174,.06)] p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,121,194,.12)] transition-all"
+            >
+              <div
+                class="stat-icon w-12 h-12 rounded-[12px] bg-[#0079c2]/10 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  fill="none"
+                  stroke="#0079c2"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                >
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                  <path d="M16 3.13a4 4 0 01 0 7.75" />
+                </svg>
+              </div>
+              <div>
+                <p
+                  class="text-[22px] font-extrabold text-[#1a2a3a] leading-none"
+                >
+                  3
+                </p>
+                <p class="text-[11px] text-[#6b7a8d] mt-1">
+                  مستخدمون بهذا الدور
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="stat-card anim-3 bg-white rounded-2xl border border-[#0079c2]/[.08] shadow-[0_2px_12px_rgba(0,104,174,.06)] p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,121,194,.12)] transition-all"
+            >
+              <div
+                class="stat-icon w-12 h-12 rounded-[12px] bg-[#1a8c45]/10 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  fill="none"
+                  stroke="#1a8c45"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 01 10 0v4" />
+                </svg>
+              </div>
+              <div>
+                <p
+                  class="text-[22px] font-extrabold text-[#1a2a3a] leading-none"
+                >
+                  24
+                </p>
+                <p class="text-[11px] text-[#6b7a8d] mt-1">صلاحية ممنوحة</p>
+              </div>
+            </div>
+
+            <div
+              class="stat-card anim-4 bg-white rounded-2xl border border-[#0079c2]/[.08] shadow-[0_2px_12px_rgba(0,104,174,.06)] p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,121,194,.12)] transition-all"
+            >
+              <div
+                class="stat-icon w-12 h-12 rounded-[12px] bg-[#c17900]/10 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  fill="none"
+                  stroke="#c17900"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                >
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <div>
+                <p
+                  class="text-[22px] font-extrabold text-[#1a2a3a] leading-none"
+                >
+                  5
+                </p>
+                <p class="text-[11px] text-[#6b7a8d] mt-1">أقسام مُدارة</p>
+              </div>
+            </div>
+
+            <div
+              class="stat-card anim-5 bg-white rounded-2xl border border-[#0079c2]/[.08] shadow-[0_2px_12px_rgba(0,104,174,.06)] p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,121,194,.12)] transition-all"
+            >
+              <div
+                class="stat-icon w-12 h-12 rounded-[12px] bg-[#5e35b1]/10 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  fill="none"
+                  stroke="#5e35b1"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="22"
+                  height="22"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+              <div>
+                <p
+                  class="text-[22px] font-extrabold text-[#1a2a3a] leading-none"
+                >
+                  42
+                </p>
+                <p class="text-[11px] text-[#6b7a8d] mt-1">يوم منذ آخر تعديل</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ PERMISSIONS + USERS GRID ══ -->
+          <div class="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-5 mb-5">
+            <!-- LEFT: Permissions -->
+            <div
+              class="anim-3 bg-white rounded-2xl border border-[#0079c2]/[.08] shadow-[0_2px_12px_rgba(0,104,174,.06)] overflow-hidden"
+            >
+              <!-- Header -->
+              <div
+                class="flex items-center justify-between px-5 py-4 border-b border-[#e8edf4] bg-gradient-to-l from-[#0079c2]/[.02] to-transparent"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-[34px] h-[34px] rounded-[9px] bg-[#0079c2]/10 flex items-center justify-center"
+                  >
+                    <svg
+                      fill="none"
+                      stroke="#0079c2"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="16"
+                      height="16"
+                    >
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                      <path d="M7 11V7a5 5 0 01 10 0v4" />
+                    </svg>
+                  </div>
+                  <h3 class="text-[14px] font-bold text-[#1a2a3a]">
+                    الصلاحيات الممنوحة
+                  </h3>
+                </div>
+                <span
+                  class="px-2.5 py-1 rounded-full bg-[#0079c2]/10 text-[#0079c2] text-[11px] font-bold"
+                  >24 صلاحية</span
+                >
+              </div>
+
+              <div class="p-5 space-y-5">
+                <!-- Group template (repeat per section) -->
+                <!-- إدارة المنتجات -->
+                <div>
+                  <div
+                    class="flex items-center gap-2 text-[11px] font-bold text-[#6b7a8d] uppercase tracking-wide mb-2.5 pb-2 border-b border-dashed border-[#e8edf4]"
+                  >
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="13"
+                      height="13"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                      />
+                    </svg>
+                    إدارة المنتجات
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >عرض المنتجات</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >إضافة منتج</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تعديل منتج</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >حذف منتج</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >إدارة الفئات</span
+                    >
+                  </div>
+                </div>
+
+                <!-- إدارة الطلبات -->
+                <div>
+                  <div
+                    class="flex items-center gap-2 text-[11px] font-bold text-[#6b7a8d] uppercase tracking-wide mb-2.5 pb-2 border-b border-dashed border-[#e8edf4]"
+                  >
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="13"
+                      height="13"
+                    >
+                      <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
+                      />
+                    </svg>
+                    إدارة الطلبات
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >عرض الطلبات</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تحديث حالة الطلب</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >إلغاء الطلب</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تصدير الطلبات</span
+                    >
+                  </div>
+                </div>
+
+                <!-- إدارة المستخدمين -->
+                <div>
+                  <div
+                    class="flex items-center gap-2 text-[11px] font-bold text-[#6b7a8d] uppercase tracking-wide mb-2.5 pb-2 border-b border-dashed border-[#e8edf4]"
+                  >
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="13"
+                      height="13"
+                    >
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                    </svg>
+                    إدارة المستخدمين
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >عرض المستخدمين</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >إضافة مستخدم</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تعديل مستخدم</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >حذف مستخدم</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >إدارة الأدوار</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تعيين الصلاحيات</span
+                    >
+                  </div>
+                </div>
+
+                <!-- الإعدادات -->
+                <div>
+                  <div
+                    class="flex items-center gap-2 text-[11px] font-bold text-[#6b7a8d] uppercase tracking-wide mb-2.5 pb-2 border-b border-dashed border-[#e8edf4]"
+                  >
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="13"
+                      height="13"
+                    >
+                      <circle cx="12" cy="12" r="3" />
+                      <path
+                        d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                      />
+                    </svg>
+                    الإعدادات
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >الإعدادات العامة</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >إعدادات الأمان</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >إدارة الإشعارات</span
+                    >
+                  </div>
+                </div>
+
+                <!-- التقارير -->
+                <div>
+                  <div
+                    class="flex items-center gap-2 text-[11px] font-bold text-[#6b7a8d] uppercase tracking-wide mb-2.5 pb-2 border-b border-dashed border-[#e8edf4]"
+                  >
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="13"
+                      height="13"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                      />
+                      <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    التقارير
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تقارير المبيعات</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تقارير المالية</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تقارير المخزن</span
+                    >
+                    <span
+                      class="perm-tag inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-600 bg-[#0079c2]/[.07] text-[#0079c2] border border-[#0079c2]/15 cursor-default"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-[#0079c2] flex-shrink-0"
+                      ></span
+                      >تصدير التقارير</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: Users -->
+            <div
+              class="anim-4 bg-white rounded-2xl border border-[#0079c2]/[.08] shadow-[0_2px_12px_rgba(0,104,174,.06)] overflow-hidden"
+            >
+              <!-- Header -->
+              <div
+                class="flex items-center justify-between px-5 py-4 border-b border-[#e8edf4] bg-gradient-to-l from-[#0079c2]/[.02] to-transparent"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-[34px] h-[34px] rounded-[9px] bg-[#0079c2]/10 flex items-center justify-center"
+                  >
+                    <svg
+                      fill="none"
+                      stroke="#0079c2"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                    </svg>
+                  </div>
+                  <h3 class="text-[14px] font-bold text-[#1a2a3a]">
+                    المستخدمون بهذا الدور
+                  </h3>
+                </div>
+                <span
+                  class="px-2.5 py-1 rounded-full bg-[#0079c2]/10 text-[#0079c2] text-[11px] font-bold"
+                  >3 مستخدمين</span
+                >
+              </div>
+
+              <div class="p-4 flex flex-col gap-3">
+                <!-- User 1 -->
+                <div
+                  class="user-item flex items-center gap-3 p-3 rounded-xl border border-[#e8edf4] bg-[#f4f7fb] hover:bg-[#e8f3fb] hover:border-[#0079c2]/20"
+                >
+                  <div
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-extrabold text-white flex-shrink-0 bg-gradient-to-br from-[#0079c2] to-[#005fa3]"
+                  >
+                    م
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-[13px] font-bold text-[#1a2a3a] truncate">
+                      محمد أحمد
+                    </p>
+                    <p class="text-[11px] text-[#6b7a8d] truncate">
+                      mohammed@metaspace.com
+                    </p>
+                  </div>
+                  <span
+                    class="w-2 h-2 rounded-full bg-[#1a8c45] flex-shrink-0 shadow-[0_0_0_3px_rgba(26,140,69,.18)]"
+                  ></span>
+                </div>
+
+                <!-- User 2 -->
+                <div
+                  class="user-item flex items-center gap-3 p-3 rounded-xl border border-[#e8edf4] bg-[#f4f7fb] hover:bg-[#e8f3fb] hover:border-[#0079c2]/20"
+                >
+                  <div
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-extrabold text-white flex-shrink-0 bg-gradient-to-br from-[#1a8c45] to-[#0f5c2e]"
+                  >
+                    ل
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-[13px] font-bold text-[#1a2a3a] truncate">
+                      ليلى حسن
+                    </p>
+                    <p class="text-[11px] text-[#6b7a8d] truncate">
+                      layla@metaspace.com
+                    </p>
+                  </div>
+                  <span
+                    class="w-2 h-2 rounded-full bg-[#1a8c45] flex-shrink-0 shadow-[0_0_0_3px_rgba(26,140,69,.18)]"
+                  ></span>
+                </div>
+
+                <!-- User 3 -->
+                <div
+                  class="user-item flex items-center gap-3 p-3 rounded-xl border border-[#e8edf4] bg-[#f4f7fb] hover:bg-[#e8f3fb] hover:border-[#0079c2]/20"
+                >
+                  <div
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-[14px] font-extrabold text-white flex-shrink-0 bg-gradient-to-br from-[#c17900] to-[#8a5500]"
+                  >
+                    د
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-[13px] font-bold text-[#1a2a3a] truncate">
+                      دودا سعيد
+                    </p>
+                    <p class="text-[11px] text-[#6b7a8d] truncate">
+                      doda@metaspace.com
+                    </p>
+                  </div>
+                  <span
+                    class="w-2 h-2 rounded-full bg-[#ccc] flex-shrink-0"
+                  ></span>
+                </div>
+
+                <!-- Add user btn -->
+                <button
+                  onclick="alert('إضافة مستخدم للدور')"
+                  class="mt-1 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-bold text-[#0079c2] bg-white border-2 border-dashed border-[#0079c2]/25 hover:border-[#0079c2]/50 hover:bg-[#e8f3fb] hover:-translate-y-px transition-all"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  إضافة مستخدم لهذا الدور
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- /grid -->
         </main>
       </div>
     </div>
@@ -1834,6 +2578,102 @@
       onclick="closeMobile()"
     ></div>
 
+    <!-- ════════════════════════════════
+         DELETE MODAL
+    ════════════════════════════════ -->
+    <div class="modal-overlay" id="deleteModal">
+      <div class="modal-box">
+        <!-- Header -->
+        <div
+          class="flex items-center justify-between px-6 py-4"
+          style="background: linear-gradient(135deg, #ee0979, #ff6b6b)"
+        >
+          <h2 class="text-white font-bold text-base">تأكيد الحذف</h2>
+          <button
+            onclick="closeDelete()"
+            class="w-8 h-8 flex items-center justify-center rounded-lg text-white"
+            style="
+              background: rgba(255, 255, 255, 0.2);
+              border: none;
+              cursor: pointer;
+            "
+          >
+            <svg
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Body -->
+        <div class="px-6 py-8 text-center">
+          <div
+            class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            style="background: rgba(238, 9, 121, 0.1)"
+          >
+            <svg
+              fill="none"
+              stroke="#ee0979"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="32"
+              height="32"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+              <path d="M9 6V4h6v2" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-[#1a2a3a] mb-2">
+            هل أنت متأكد من حذف هذا الدور؟
+          </h3>
+          <p class="text-sm text-[#6b7a8d] mb-2">
+            سيتم حذف الدور:
+            <strong id="deleteRoleName" class="text-[#ee0979]"></strong>
+          </p>
+          <p class="text-xs text-[#a1a1a1]">
+            هذا الإجراء لا يمكن التراجع عنه. سيفقد جميع المستخدمين المرتبطين
+            بهذا الدور صلاحياتهم.
+          </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-center gap-3 px-6 pb-6">
+          <button class="btn btn--danger" onclick="confirmDelete()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.3"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+            </svg>
+            نعم، حذف الدور
+          </button>
+          <button class="btn btn--outline" onclick="closeDelete()">
+            إلغاء
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast container -->
+    <div
+      class="fixed bottom-6 left-6 flex flex-col gap-2 z-[600]"
+      id="toastContainer"
+    ></div>
     <script>
       const sidebar = document.getElementById("sidebar");
       const mainWrapper = document.getElementById("mainWrapper");
@@ -1945,6 +2785,99 @@
             .forEach((d) => d.classList.remove("open"));
         }
       });
+    </script>
+
+    <script>
+      /* ── Delete Modal ── */
+      let pendingRow = null;
+
+      function openDelete(roleName) {
+        document.getElementById("deleteRoleName").textContent = roleName;
+        document.getElementById("deleteModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+        pendingRow =
+          [...document.querySelectorAll("#tableBody tr")].find(
+            (tr) => tr.dataset.name === roleName,
+          ) || null;
+      }
+
+      function closeDelete() {
+        document.getElementById("deleteModal").classList.remove("open");
+        document.body.style.overflow = "";
+        pendingRow = null;
+      }
+
+      function confirmDelete() {
+        const name = document.getElementById("deleteRoleName").textContent;
+        if (pendingRow) {
+          pendingRow.style.transition = "opacity 0.3s, transform 0.3s";
+          pendingRow.style.opacity = "0";
+          pendingRow.style.transform = "translateX(20px)";
+          setTimeout(() => pendingRow && pendingRow.remove(), 300);
+        }
+        closeDelete();
+        showToast('تم حذف الدور "' + name + '" بنجاح', "success");
+      }
+
+      document.getElementById("deleteModal").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("deleteModal")) closeDelete();
+      });
+
+      /* ── Toast ── */
+      function showToast(msg, type) {
+        const colors = {
+          success: "#1a8c45",
+          error: "#ee0979",
+          info: "#0079c2",
+        };
+        const icons = { success: "✓", error: "✕", info: "ℹ" };
+        const c = document.getElementById("toastContainer");
+        const t = document.createElement("div");
+        t.style.cssText = [
+          "display:flex",
+          "align-items:center",
+          "gap:10px",
+          "padding:12px 18px",
+          "border-radius:10px",
+          "font-size:13px",
+          "font-weight:600",
+          "font-family:Cairo,sans-serif",
+          "box-shadow:0 6px 20px rgba(0,0,0,0.14)",
+          "min-width:240px",
+          "color:#fff",
+          "animation:toastIn 0.3s ease",
+          "background:" + (colors[type] || colors.info),
+        ].join(";");
+        t.innerHTML =
+          '<span style="font-size:16px;">' +
+          (icons[type] || "ℹ") +
+          "</span><span>" +
+          msg +
+          "</span>";
+        c.appendChild(t);
+        setTimeout(() => {
+          t.style.transition = "opacity 0.35s";
+          t.style.opacity = "0";
+          setTimeout(() => t.remove(), 350);
+        }, 3500);
+      }
+    </script>
+    <script>
+      /* Date */
+      (function () {
+        const el = document.getElementById("currentDate");
+        if (!el) return;
+        const now = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        el.textContent =
+          now.getFullYear() +
+          "/" +
+          pad(now.getMonth() + 1) +
+          "/" +
+          pad(now.getDate()) +
+          "   " +
+          now.toLocaleTimeString("ar", { hour: "2-digit", minute: "2-digit" });
+      })();
     </script>
   </body>
 </html>

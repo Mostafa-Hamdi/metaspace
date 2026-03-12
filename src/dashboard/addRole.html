@@ -1,0 +1,4325 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ميتا سبيس - الرئيسية</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Choices.js -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
+  <body class="bg-[#f4f7fb]">
+    <div class="flex h-screen overflow-hidden">
+      <!-- ══════════════════════════════════
+           SIDEBAR
+      ══════════════════════════════════ -->
+      <aside
+        id="sidebar"
+        style="
+          position: fixed;
+          right: 0;
+          top: 0;
+          height: 100%;
+          width: 220px;
+          background: #0079c2;
+          display: flex;
+          flex-direction: column;
+          z-index: 40;
+          transition: width 0.3s ease;
+          box-shadow: -4px 0 24px rgba(0, 121, 194, 0.18);
+          overflow: hidden;
+        "
+      >
+        <!-- Logo -->
+        <div
+          class="logo-wrap flex items-center justify-center min-h-[72px] flex-shrink-0"
+          style="position: relative"
+        >
+          <img
+            src="../../assets/logo.png"
+            alt="شعار"
+            class="logo-full h-12 object-contain"
+          />
+          <div
+            class="logo-ms hidden w-10 h-10 rounded-[10px] bg-white/20 items-center justify-center flex-shrink-0"
+          >
+            <span class="text-white font-bold text-sm">MS</span>
+          </div>
+
+          <!-- Close button (mobile only) -->
+          <button
+            id="sidebarCloseBtn"
+            onclick="closeMobile()"
+            style="
+              display: none;
+              position: absolute;
+              left: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 32px;
+              height: 32px;
+              background: rgba(255, 255, 255, 0.15);
+              border: none;
+              border-radius: 8px;
+              color: #fff;
+              cursor: pointer;
+              align-items: center;
+              justify-content: center;
+              transition: background 0.2s;
+              flex-shrink: 0;
+            "
+            onmouseenter="this.style.background='rgba(255,255,255,0.28)'"
+            onmouseleave="this.style.background='rgba(255,255,255,0.15)'"
+          >
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Nav -->
+        <nav style="flex: 1; overflow-y: auto; padding: 12px 8px">
+          <ul
+            style="
+              list-style: none;
+              margin: 0;
+              padding: 0;
+              display: flex;
+              flex-direction: column;
+              gap: 2px;
+            "
+          >
+            <!-- الصفحة الرئيسية -->
+            <li>
+              <a
+                href="/src/index.html"
+                class="nav-parent open mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: #0068ae;
+                  font-weight: 600;
+                  font-size: 14px;
+                  background: #98cdea;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  style="width: 18px; height: 18px; flex-shrink: 0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1H4a1 1 0 01-1-1V9.75z"
+                  />
+                  <path d="M9 22V12h6v10" />
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >الصفحة الرئيسية</span
+                >
+              </a>
+            </li>
+            <!-- الصلاحيات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    <circle
+                      cx="12"
+                      cy="16"
+                      r="1.5"
+                      fill="currentColor"
+                      stroke="none"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الصلاحيات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="./dashboard/permissions.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    كل الصلاحيات
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./dashboard/addRole.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    إضافة صلاحية
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المديرين -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2" />
+                    <path d="M19 8v6m3-3h-6" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">إدارة المديرين</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="./dashboard/managers.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    كل المديرين
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./dashboard/addManager.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    إضافة مدير
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- الرسائل -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">chat-messages</title>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M5 12a5 5 0 0 1 7 7m-7-7a5 5 0 0 0-2 4a5 5 0 0 0 .224 1.483c.272.88.076 1.86-.099 2.784a.468.468 0 0 0 .592.539c.848-.232 1.691-.43 2.557-.112A5 5 0 0 0 8 21a4.99 4.99 0 0 0 4-2m-7-7c0-4.685 2.875-9 8-9a8 8 0 0 1 7.532 10.7c-.476 1.326.037 3.102.337 4.568a.451.451 0 0 1-.584.526c-1.312-.41-2.852-.986-4.085-.466c-1.334.562-2.736.672-4.2.672"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الرسائل</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >البريد الوارد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الرسائل المرسلة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إنشاء رسالة</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المنتجات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">box-linear</title>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                    d="m15.578 3.382l2 1.05c2.151 1.129 3.227 1.693 3.825 2.708C22 8.154 22 9.417 22 11.942v.117c0 2.524 0 3.787-.597 4.801c-.598 1.015-1.674 1.58-3.825 2.709l-2 1.049C13.822 21.539 12.944 22 12 22s-1.822-.46-3.578-1.382l-2-1.05c-2.151-1.129-3.227-1.693-3.825-2.708C2 15.846 2 14.583 2 12.06v-.117c0-2.525 0-3.788.597-4.802c.598-1.015 1.674-1.58 3.825-2.708l2-1.05C10.178 2.461 11.056 2 12 2s1.822.46 3.578 1.382ZM21 7.5l-4 2M12 12L3 7.5m9 4.5v9.5m0-9.5l4.5-2.25l.5-.25m0 0V13m0-3.5l-9.5-5"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">إدارة المنتجات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل المنتجات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إضافة منتج</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الفئات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الطلبات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 16 16"
+                >
+                  <title xmlns="">task-list-square-16-regular</title>
+                  <path
+                    fill="currentColor"
+                    d="M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5zM4.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zm4 7.5A.5.5 0 0 1 9 10h2.25a.5.5 0 0 1 0 1H9a.5.5 0 0 1-.5-.5M9 6a.5.5 0 0 0 0 1h2.25a.5.5 0 0 0 0-1zM7.354 9.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.748-.748a.5.5 0 1 1 .708-.708l.394.395l1.146-1.147a.5.5 0 0 1 .708 0m0-3.292a.5.5 0 1 0-.708-.708L5.5 6.293l-.394-.395a.5.5 0 0 0-.708.708l.748.748a.5.5 0 0 0 .708 0z"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الطلبات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل الطلبات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الطلبات الجديدة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >قيد التجهيز</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >جاهزة للشحن</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- المخزن -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 48 48"
+                >
+                  <title xmlns="">warehouse-1</title>
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                  >
+                    <path
+                      d="M26.815 4.16c7.235 3.211 12.719 7.43 15.554 9.867c1.433 1.232 2.232 3.005 2.33 4.892C44.836 21.51 45 25.565 45 30c0 4.237-.15 8.293-.282 11.038a3.835 3.835 0 0 1-3.687 3.66C37.669 44.835 31.926 45 24 45c-7.927 0-13.67-.166-17.032-.301c-2-.08-3.59-1.661-3.687-3.661A238 238 0 0 1 3 30c0-4.435.165-8.49.3-11.081c.1-1.887.898-3.66 2.331-4.892c2.835-2.438 8.32-6.656 15.554-9.867a6.94 6.94 0 0 1 5.63 0Z"
+                    />
+                    <path
+                      d="M38.547 44.788C38.751 42.618 39 38.784 39 33c0-4.802-.172-7.923-.346-9.858c-.159-1.751-1.314-3.119-3.048-3.412c-2.12-.36-5.73-.73-11.606-.73s-9.485.37-11.606.73c-1.734.293-2.89 1.66-3.048 3.412C9.171 25.077 9 28.198 9 33c0 5.784.249 9.618.453 11.788"
+                    />
+                    <path
+                      d="M14.063 33.806c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 14 36c0-.943.027-1.659.063-2.194Z"
+                    />
+                    <path
+                      d="M24.063 33.806c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 24 36c0-.943.027-1.659.063-2.194Zm-5-8c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 19 28c0-.943.027-1.659.063-2.194Z"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">المخزن</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >نظرة عامة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >نقص المخزن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إدارة المخزن</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- التقارير -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  style="width: 18px; height: 18px; flex-shrink: 0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">التقارير</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المبيعات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المخزن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المالية</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- المحفظة/المالية -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 14 14"
+                >
+                  <title xmlns="">wallet</title>
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M12 10.5v2a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V5a3 3 0 0 1 3-3H10v2.5"
+                    />
+                    <path
+                      d="M13 7.5H9.5A.5.5 0 0 0 9 8v2a.5.5 0 0 0 .5.5H13a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5m-1 0v-2a1 1 0 0 0-1-1H3.5"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >المحفظة/المالية</span
+                >
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الرصيد الحالي</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >المعاملات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >السحب والإيداع</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المستخدمين -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 20 20"
+                >
+                  <title xmlns="">people</title>
+                  <g
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                  >
+                    <path
+                      d="M5 9a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+                    />
+                    <path
+                      d="M3.854 8.896a.5.5 0 0 1 0 .708l-.338.337A3.47 3.47 0 0 0 2.5 12.394v1.856a.5.5 0 1 1-1 0v-1.856a4.47 4.47 0 0 1 1.309-3.16l.337-.338a.5.5 0 0 1 .708 0m11.792-.3a.5.5 0 0 0 0 .708l.338.337A3.47 3.47 0 0 1 17 12.094v2.156a.5.5 0 0 0 1 0v-2.156a4.47 4.47 0 0 0-1.309-3.16l-.337-.338a.5.5 0 0 0-.708 0"
+                    />
+                    <path
+                      d="M14 9a2 2 0 1 1 0-4a2 2 0 0 1 0 4m0 1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m-4.5 3.25a2.5 2.5 0 0 0-2.5 2.5v1.3a.5.5 0 0 1-1 0v-1.3a3.5 3.5 0 0 1 7 0v1.3a.5.5 0 1 1-1 0v-1.3a2.5 2.5 0 0 0-2.5-2.5"
+                    />
+                    <path
+                      d="M9.5 11.75a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >إدارة المستخدمين</span
+                >
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل المستخدمين</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إضافة مستخدم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الصلاحيات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الاعدادات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">setting-alt-line</title>
+                  <g fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M3.082 13.945c-.529-.95-.793-1.426-.793-1.945s.264-.994.793-1.944L4.43 7.63l1.426-2.381c.559-.933.838-1.4 1.287-1.66c.45-.259.993-.267 2.08-.285L12 3.26l2.775.044c1.088.018 1.631.026 2.08.286s.73.726 1.288 1.659L19.57 7.63l1.35 2.426c.528.95.792 1.425.792 1.944s-.264.994-.793 1.944L19.57 16.37l-1.426 2.381c-.559.933-.838 1.4-1.287 1.66c-.45.259-.993.267-2.08.285L12 20.74l-2.775-.044c-1.088-.018-1.631-.026-2.08-.286s-.73-.726-1.288-1.659L4.43 16.37z"
+                    />
+                    <circle cx="12" cy="12" r="3" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الاعدادات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الإعدادات العامة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الأمان</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الإشعارات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الدعم الفني -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 21 21"
+                >
+                  <title xmlns="">warning-hex</title>
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    transform="translate(-1 -1)"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.517 3.5l4.983 5v6l-4.983 5H8.5l-5-5v-6l5-5zm-3.017 9v-5"
+                    />
+                    <circle cx="11.5" cy="15.5" r="1" fill="currentColor" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الدعم الفني</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تذاكر الدعم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إنشاء تذكرة</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Logout -->
+        <div
+          class="logout-wrap"
+          style="
+            padding: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+          "
+        >
+          <a
+            href="/login"
+            class="logout-link"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 10px 12px;
+              border-radius: 10px;
+              color: rgba(255, 255, 255, 0.75);
+              font-size: 14px;
+              text-decoration: none;
+            "
+          >
+            <svg
+              style="width: 18px; height: 18px; flex-shrink: 0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span class="logout-text sidebar-text">تسجيل خروج</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN WRAPPER  -->
+      <div
+        id="mainWrapper"
+        class="flex flex-col flex-1 min-w-0 transition-all duration-300"
+        style="margin-right: 220px"
+      >
+        <!-- HEADER -->
+        <header
+          class="sticky top-0 z-30 bg-white border-b border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
+        >
+          <div class="flex items-center px-4 sm:px-6 h-[64px] gap-3">
+            <!-- Desktop sidebar toggle -->
+            <button
+              id="sidebarToggle"
+              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors flex-shrink-0"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="9" y1="3" x2="9" y2="21" />
+              </svg>
+            </button>
+
+            <!-- Mobile menu toggle -->
+            <button
+              id="menuToggle"
+              class="lg:hidden flex items-center justify-center w-9 h-9 rounded-[10px] text-[#0079c2] hover:bg-[#f0f7ff] transition-colors flex-shrink-0"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+
+            <!-- Search -->
+            <div class="flex-1 min-w-0 max-w-[440px]">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="ابحث عن منتج أو عن عميل"
+                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white focus:shadow-[0_0_0_3px_rgba(0,121,194,0.1)] transition-all duration-200"
+                />
+                <span
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0078B9]"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <!-- Right actions -->
+            <div class="flex items-center gap-1.5 mr-auto flex-shrink-0">
+              <!-- ── Notifications dropdown ── -->
+              <div class="relative" id="notifWrap">
+                <button
+                  onclick="toggleDrop('notifDrop','notifWrap')"
+                  class="relative flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 01-3.46 0" />
+                  </svg>
+                  <span
+                    class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#f22828] rounded-full"
+                  ></span>
+                </button>
+                <div
+                  id="notifDrop"
+                  class="hdr-dropdown"
+                  style="left: 0; width: 300px"
+                >
+                  <div
+                    class="flex items-center justify-between px-4 py-3 border-b border-[#f0f4f8]"
+                  >
+                    <span class="text-[13px] font-semibold text-[#1a2a3a]"
+                      >الإشعارات</span
+                    >
+                    <span
+                      class="text-[11px] text-[#0079c2] font-medium cursor-pointer hover:underline"
+                      >تعيين الكل كمقروء</span
+                    >
+                  </div>
+                  <ul
+                    class="max-h-[260px] overflow-y-auto divide-y divide-[#f4f7fb]"
+                  >
+                    <li
+                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
+                    >
+                      <div
+                        class="w-8 h-8 rounded-full bg-[#0079c2]/15 flex items-center justify-center flex-shrink-0 mt-0.5"
+                      >
+                        <svg
+                          class="w-4 h-4 text-[#0079c2]"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
+                          />
+                          <rect x="9" y="3" width="6" height="4" rx="1" />
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                          طلب جديد #1325105415
+                        </p>
+                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
+                          منذ 5 دقائق
+                        </p>
+                      </div>
+                      <div
+                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
+                      ></div>
+                    </li>
+                    <li
+                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
+                    >
+                      <div
+                        class="w-8 h-8 rounded-full bg-[#f22828]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
+                      >
+                        <svg
+                          class="w-4 h-4 text-[#f22828]"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                          تنبيه نقص المخزن
+                        </p>
+                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
+                          منذ 30 دقيقة
+                        </p>
+                      </div>
+                      <div
+                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
+                      ></div>
+                    </li>
+                    <li
+                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
+                    >
+                      <div
+                        class="w-8 h-8 rounded-full bg-[#43a047]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
+                      >
+                        <svg
+                          class="w-4 h-4 text-[#43a047]"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                          تم شحن الطلب بنجاح
+                        </p>
+                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
+                          منذ ساعتين
+                        </p>
+                      </div>
+                    </li>
+                    <li
+                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
+                    >
+                      <div
+                        class="w-8 h-8 rounded-full bg-[#f9a825]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
+                      >
+                        <svg
+                          class="w-4 h-4 text-[#f9a825]"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                          />
+                        </svg>
+                      </div>
+                      <div class="flex-1">
+                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                          رسالة جديدة من أحمد
+                        </p>
+                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
+                          منذ 3 ساعات
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                  <div
+                    class="px-4 py-2.5 border-t border-[#f0f4f8] text-center"
+                  >
+                    <a
+                      href="#"
+                      class="text-[12px] text-[#0079c2] font-medium hover:underline"
+                      >عرض كل الإشعارات</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── User dropdown ── -->
+              <div class="relative" id="userWrap">
+                <button
+                  onclick="toggleDrop('userDrop','userWrap')"
+                  class="flex items-center gap-2 px-2 py-1.5 rounded-[12px] hover:bg-[#f0f7ff] transition-colors"
+                >
+                  <div
+                    class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-5 h-5 text-[#0079c2]"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="hidden sm:block text-right leading-tight">
+                    <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                      مصطفى حمدى
+                    </p>
+                    <p class="text-[10px] text-[#0079c2] font-medium">
+                      مدير تنفيذى
+                    </p>
+                  </div>
+                  <svg
+                    class="hidden sm:block w-3.5 h-3.5 text-[#9eb0c8]"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+                <div
+                  id="userDrop"
+                  class="hdr-dropdown"
+                  style="left: 0; min-width: 200px"
+                >
+                  <div class="px-4 py-3 border-b border-[#f0f4f8]">
+                    <p class="text-[13px] font-semibold text-[#1a2a3a]">
+                      مصطفى حمدى
+                    </p>
+                    <p class="text-[11px] text-[#6b7a8d] mt-0.5">
+                      mahmoud@metaspace.com
+                    </p>
+                  </div>
+                  <ul class="py-1.5">
+                    <li>
+                      <a
+                        href="#"
+                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
+                      >
+                        <svg
+                          class="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        الملف الشخصي
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
+                      >
+                        <svg
+                          class="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle cx="12" cy="12" r="3" />
+                          <path
+                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                          />
+                        </svg>
+                        الإعدادات
+                      </a>
+                    </li>
+                    <li class="border-t border-[#f0f4f8] mt-1 pt-1">
+                      <a
+                        href="/login"
+                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#f22828] hover:bg-[#fff5f5] transition-colors"
+                      >
+                        <svg
+                          class="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                          <polyline points="16 17 21 12 16 7" />
+                          <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                        تسجيل خروج
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-8" dir="rtl">
+          <!-- Top Bar -->
+          <div class="topbar">
+            <div class="breadcrumb">
+              <a href="#" class="breadcrumb__link">الرئيسية</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">إدارة المستخدمين</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">الأدوار</a>
+              <span class="breadcrumb__sep">›</span>
+              <span class="breadcrumb__current">اضافة دور جديد</span>
+            </div>
+            <span class="topbar-date" id="currentDate"></span>
+          </div>
+
+          <!-- Page Title -->
+          <h1 class="page-title">اضافة رول جديد</h1>
+
+          <!-- ── ROLE INFO CARD ── -->
+          <div
+            class="info-card bg-white rounded-2xl border border-[rgba(0,121,194,.1)] shadow-[0_2px_16px_rgba(0,104,174,.07)] p-6 mb-5"
+          >
+            <div class="flex items-center gap-3 mb-5">
+              <div
+                class="w-[34px] h-[34px] rounded-[10px] flex items-center justify-center bg-gradient-to-br from-[#038ad9] to-[#0068ae] shadow-[0_4px_12px_rgba(0,121,194,0.28)]"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <h2 class="text-[15px] font-extrabold text-[#1a2a3a]">
+                معلومات الرول
+              </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <!-- Role name -->
+              <div>
+                <label class="block text-[13px] font-bold text-[#555] mb-2">
+                  اسم الرول <span class="text-[#f22828]">*</span>
+                </label>
+                <input
+                  id="roleNameInput"
+                  type="text"
+                  placeholder="مثال: مشرف المتجر، مدير المبيعات..."
+                  class="role-input w-full bg-[#f8fafd] border border-[rgba(0,121,194,.18)] rounded-[10px] px-4 py-[10px] text-[14px] font-bold text-[#1a2a3a]"
+                />
+                <p class="text-[11px] text-[#bbb] mt-1.5">
+                  سيظهر هذا الاسم لجميع المستخدمين داخل النظام
+                </p>
+                <p
+                  class="text-[11px] text-[#f22828] mt-1 hidden"
+                  id="nameError"
+                >
+                  ⚠ يرجى إدخال اسم الرول أولاً
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── PERMISSIONS CARD ── -->
+          <div
+            class="perms-wrap bg-white rounded-2xl border border-[rgba(0,121,194,.1)] shadow-[0_2px_16px_rgba(0,104,174,.07)] p-6"
+          >
+            <!-- Header -->
+            <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-[34px] h-[34px] rounded-[10px] flex items-center justify-center bg-gradient-to-br from-[#038ad9] to-[#0068ae] shadow-[0_4px_12px_rgba(0,121,194,0.28)]"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="text-[15px] font-extrabold text-[#1a2a3a]">
+                    الصلاحيات
+                  </h2>
+                  <p class="text-[11px] text-[#aaa]">
+                    اختر الصلاحيات التي سيملكها هذا الرول
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <!-- Search -->
+                <div class="relative">
+                  <input
+                    id="permSearch"
+                    type="text"
+                    placeholder="ابحث عن صلاحية..."
+                    class="perm-search bg-[#f4f7fb] border border-[rgba(0,121,194,.18)] rounded-[10px] py-2 pr-9 pl-4 text-[13px] text-[#333] w-[195px]"
+                    oninput="filterPerms(this.value)"
+                  />
+                  <span
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0079c2] pointer-events-none"
+                  >
+                    <svg
+                      width="13"
+                      height="13"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.3"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                  </span>
+                </div>
+                <!-- Deselect All -->
+                <button
+                  class="g-btn g-deselect inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[10px] border border-[rgba(242,40,40,.25)] bg-[rgba(242,40,40,.05)] text-[#f22828] text-[12px] font-bold"
+                  onclick="globalToggle(false)"
+                >
+                  <svg
+                    class="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                  إلغاء الكل
+                </button>
+                <!-- Select All -->
+                <button
+                  class="g-btn g-select inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[10px] border border-[rgba(5,150,105,.25)] bg-[rgba(5,150,105,.05)] text-[#059669] text-[12px] font-bold"
+                  onclick="globalToggle(true)"
+                >
+                  <svg
+                    class="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  تحديد الكل
+                </button>
+              </div>
+            </div>
+
+            <!-- Modules container -->
+            <div id="modulesContainer" class="flex flex-col gap-5">
+              <!-- ── 1. USERS ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="users"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-blue w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                        <path d="M16 3.13a4 4 0 010 7.75" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        USERS
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        المستخدمين ·
+                        <span class="mod-sel" data-mod="users">0</span>/6 صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="users"
+                    onclick="toggleModule('users',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="USERS_CREATE"
+                    onclick="togglePerm(this,'users')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >USERS_CREATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-USERS_CREATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-USERS_CREATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="USERS_READ"
+                    onclick="togglePerm(this,'users')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >USERS_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-USERS_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-USERS_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="USERS_UPDATE"
+                    onclick="togglePerm(this,'users')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >USERS_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-USERS_UPDATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-USERS_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="USERS_DELETE"
+                    onclick="togglePerm(this,'users')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >USERS_DELETE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-USERS_DELETE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-USERS_DELETE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="USERS_EXPORT"
+                    onclick="togglePerm(this,'users')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >USERS_EXPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-USERS_EXPORT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-USERS_EXPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="USERS_IMPORT"
+                    onclick="togglePerm(this,'users')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >USERS_IMPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-USERS_IMPORT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-USERS_IMPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 2. ROLES ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="roles"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-purple w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        ROLES
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        الأدوار ·
+                        <span class="mod-sel" data-mod="roles">0</span>/5 صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="roles"
+                    onclick="toggleModule('roles',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ROLES_CREATE"
+                    onclick="togglePerm(this,'roles')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ROLES_CREATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ROLES_CREATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ROLES_CREATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ROLES_READ"
+                    onclick="togglePerm(this,'roles')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ROLES_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ROLES_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ROLES_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ROLES_UPDATE"
+                    onclick="togglePerm(this,'roles')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ROLES_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ROLES_UPDATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ROLES_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ROLES_DELETE"
+                    onclick="togglePerm(this,'roles')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ROLES_DELETE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ROLES_DELETE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ROLES_DELETE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ROLES_ASSIGN"
+                    onclick="togglePerm(this,'roles')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ROLES_ASSIGN</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ROLES_ASSIGN"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ROLES_ASSIGN"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 3. PRODUCTS ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="products"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-gold w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"
+                        />
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                        <line x1="12" y1="22.08" x2="12" y2="12" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        PRODUCTS
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        المنتجات ·
+                        <span class="mod-sel" data-mod="products">0</span>/7
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="products"
+                    onclick="toggleModule('products',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="PRODUCTS_CREATE"
+                    onclick="togglePerm(this,'products')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >PRODUCTS_CREATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-PRODUCTS_CREATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-PRODUCTS_CREATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="PRODUCTS_READ"
+                    onclick="togglePerm(this,'products')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >PRODUCTS_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-PRODUCTS_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-PRODUCTS_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="PRODUCTS_UPDATE"
+                    onclick="togglePerm(this,'products')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >PRODUCTS_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-PRODUCTS_UPDATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-PRODUCTS_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="PRODUCTS_DELETE"
+                    onclick="togglePerm(this,'products')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >PRODUCTS_DELETE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-PRODUCTS_DELETE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-PRODUCTS_DELETE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="PRODUCTS_EXPORT"
+                    onclick="togglePerm(this,'products')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >PRODUCTS_EXPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-PRODUCTS_EXPORT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-PRODUCTS_EXPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="PRODUCTS_IMPORT"
+                    onclick="togglePerm(this,'products')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >PRODUCTS_IMPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-PRODUCTS_IMPORT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-PRODUCTS_IMPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="PRODUCTS_BULK"
+                    onclick="togglePerm(this,'products')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >PRODUCTS_BULK</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-PRODUCTS_BULK"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-PRODUCTS_BULK"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 4. ORDERS ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="orders"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-green w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
+                        />
+                        <rect x="9" y="3" width="6" height="4" rx="1" />
+                        <line x1="9" y1="12" x2="15" y2="12" />
+                        <line x1="9" y1="16" x2="13" y2="16" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        ORDERS
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        الطلبات ·
+                        <span class="mod-sel" data-mod="orders">0</span>/6
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="orders"
+                    onclick="toggleModule('orders',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ORDERS_CREATE"
+                    onclick="togglePerm(this,'orders')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ORDERS_CREATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ORDERS_CREATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ORDERS_CREATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ORDERS_READ"
+                    onclick="togglePerm(this,'orders')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ORDERS_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ORDERS_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ORDERS_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ORDERS_UPDATE"
+                    onclick="togglePerm(this,'orders')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ORDERS_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ORDERS_UPDATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ORDERS_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ORDERS_DELETE"
+                    onclick="togglePerm(this,'orders')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ORDERS_DELETE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ORDERS_DELETE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ORDERS_DELETE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ORDERS_EXPORT"
+                    onclick="togglePerm(this,'orders')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ORDERS_EXPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ORDERS_EXPORT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ORDERS_EXPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="ORDERS_CANCEL"
+                    onclick="togglePerm(this,'orders')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >ORDERS_CANCEL</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-ORDERS_CANCEL"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-ORDERS_CANCEL"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 5. CATEGORIES ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="cats"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-teal w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        CATEGORIES
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        الأقسام ·
+                        <span class="mod-sel" data-mod="cats">0</span>/4 صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="cats"
+                    onclick="toggleModule('cats',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="CATEGORIES_CREATE"
+                    onclick="togglePerm(this,'cats')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >CATEGORIES_CREATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-CATEGORIES_CREATE"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-CATEGORIES_CREATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="CATEGORIES_READ"
+                    onclick="togglePerm(this,'cats')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >CATEGORIES_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-CATEGORIES_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-CATEGORIES_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="CATEGORIES_UPDATE"
+                    onclick="togglePerm(this,'cats')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >CATEGORIES_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-CATEGORIES_UPDATE"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-CATEGORIES_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="CATEGORIES_DELETE"
+                    onclick="togglePerm(this,'cats')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >CATEGORIES_DELETE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-CATEGORIES_DELETE"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-CATEGORIES_DELETE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 6. INVENTORY ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="inv"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-amber w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+                        />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        INVENTORY
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        المخزن · <span class="mod-sel" data-mod="inv">0</span>/4
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="inv"
+                    onclick="toggleModule('inv',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="INVENTORY_READ"
+                    onclick="togglePerm(this,'inv')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >INVENTORY_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-INVENTORY_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-INVENTORY_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="INVENTORY_UPDATE"
+                    onclick="togglePerm(this,'inv')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >INVENTORY_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-INVENTORY_UPDATE"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-INVENTORY_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="INVENTORY_ALERTS"
+                    onclick="togglePerm(this,'inv')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >INVENTORY_ALERTS</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-INVENTORY_ALERTS"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-INVENTORY_ALERTS"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="INVENTORY_EXPORT"
+                    onclick="togglePerm(this,'inv')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >INVENTORY_EXPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-INVENTORY_EXPORT"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-INVENTORY_EXPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 7. FINANCE ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="finance"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-pink w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.4"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          d="M12 10.5v2a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V5a3 3 0 0 1 3-3H10v2.5"
+                        />
+                        <path
+                          d="M13 7.5H9.5A.5.5 0 0 0 9 8v2a.5.5 0 0 0 .5.5H13a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        FINANCE
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        المالية ·
+                        <span class="mod-sel" data-mod="finance">0</span>/5
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="finance"
+                    onclick="toggleModule('finance',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="FINANCE_READ"
+                    onclick="togglePerm(this,'finance')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >FINANCE_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-FINANCE_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-FINANCE_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="FINANCE_TRANSACTIONS"
+                    onclick="togglePerm(this,'finance')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >FINANCE_TRANSACTIONS</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-FINANCE_TRANSACTIONS"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-FINANCE_TRANSACTIONS"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="FINANCE_WITHDRAW"
+                    onclick="togglePerm(this,'finance')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >FINANCE_WITHDRAW</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-FINANCE_WITHDRAW"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-FINANCE_WITHDRAW"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="FINANCE_DEPOSIT"
+                    onclick="togglePerm(this,'finance')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >FINANCE_DEPOSIT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-FINANCE_DEPOSIT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-FINANCE_DEPOSIT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="FINANCE_EXPORT"
+                    onclick="togglePerm(this,'finance')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >FINANCE_EXPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-FINANCE_EXPORT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-FINANCE_EXPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 8. REPORTS ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="reports"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-indigo w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <line x1="18" y1="20" x2="18" y2="10" />
+                        <line x1="12" y1="20" x2="12" y2="4" />
+                        <line x1="6" y1="20" x2="6" y2="14" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        REPORTS
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        التقارير ·
+                        <span class="mod-sel" data-mod="reports">0</span>/5
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="reports"
+                    onclick="toggleModule('reports',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="REPORTS_SALES"
+                    onclick="togglePerm(this,'reports')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >REPORTS_SALES</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-REPORTS_SALES"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-REPORTS_SALES"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="REPORTS_INVENTORY"
+                    onclick="togglePerm(this,'reports')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >REPORTS_INVENTORY</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-REPORTS_INVENTORY"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-REPORTS_INVENTORY"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="REPORTS_FINANCE"
+                    onclick="togglePerm(this,'reports')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >REPORTS_FINANCE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-REPORTS_FINANCE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-REPORTS_FINANCE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="REPORTS_USERS"
+                    onclick="togglePerm(this,'reports')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >REPORTS_USERS</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-REPORTS_USERS"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-REPORTS_USERS"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="REPORTS_EXPORT"
+                    onclick="togglePerm(this,'reports')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >REPORTS_EXPORT</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-REPORTS_EXPORT"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-REPORTS_EXPORT"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 9. MESSAGES ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="msgs"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-cyan w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        MESSAGES
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        الرسائل ·
+                        <span class="mod-sel" data-mod="msgs">0</span>/4 صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="msgs"
+                    onclick="toggleModule('msgs',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="MESSAGES_READ"
+                    onclick="togglePerm(this,'msgs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >MESSAGES_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-MESSAGES_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-MESSAGES_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="MESSAGES_SEND"
+                    onclick="togglePerm(this,'msgs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >MESSAGES_SEND</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-MESSAGES_SEND"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-MESSAGES_SEND"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="MESSAGES_DELETE"
+                    onclick="togglePerm(this,'msgs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >MESSAGES_DELETE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-MESSAGES_DELETE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-MESSAGES_DELETE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="MESSAGES_BULK"
+                    onclick="togglePerm(this,'msgs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >MESSAGES_BULK</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-MESSAGES_BULK"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-MESSAGES_BULK"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 10. SUPPORT ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="support"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-rose w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+                        <circle cx="12" cy="17" r=".5" fill="#fff" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        SUPPORT
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        الدعم الفني ·
+                        <span class="mod-sel" data-mod="support">0</span>/5
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="support"
+                    onclick="toggleModule('support',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SUPPORT_CREATE"
+                    onclick="togglePerm(this,'support')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SUPPORT_CREATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SUPPORT_CREATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-SUPPORT_CREATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SUPPORT_READ"
+                    onclick="togglePerm(this,'support')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SUPPORT_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SUPPORT_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-SUPPORT_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SUPPORT_UPDATE"
+                    onclick="togglePerm(this,'support')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SUPPORT_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SUPPORT_UPDATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-SUPPORT_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SUPPORT_CLOSE"
+                    onclick="togglePerm(this,'support')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SUPPORT_CLOSE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SUPPORT_CLOSE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-SUPPORT_CLOSE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SUPPORT_ASSIGN"
+                    onclick="togglePerm(this,'support')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SUPPORT_ASSIGN</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SUPPORT_ASSIGN"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-SUPPORT_ASSIGN"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 11. SETTINGS ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="settings"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-slate w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                          d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        SETTINGS
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        الإعدادات ·
+                        <span class="mod-sel" data-mod="settings">0</span>/5
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="settings"
+                    onclick="toggleModule('settings',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SETTINGS_READ"
+                    onclick="togglePerm(this,'settings')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SETTINGS_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SETTINGS_READ"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-SETTINGS_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SETTINGS_UPDATE"
+                    onclick="togglePerm(this,'settings')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SETTINGS_UPDATE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SETTINGS_UPDATE"
+                        type="checkbox"
+                      /><label class="checkbox-label" for="perm-SETTINGS_UPDATE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SETTINGS_SECURITY"
+                    onclick="togglePerm(this,'settings')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SETTINGS_SECURITY</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SETTINGS_SECURITY"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-SETTINGS_SECURITY"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SETTINGS_NOTIFICATIONS"
+                    onclick="togglePerm(this,'settings')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SETTINGS_NOTIFICATIONS</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SETTINGS_NOTIFICATIONS"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-SETTINGS_NOTIFICATIONS"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="SETTINGS_INTEGRATIONS"
+                    onclick="togglePerm(this,'settings')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >SETTINGS_INTEGRATIONS</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-SETTINGS_INTEGRATIONS"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-SETTINGS_INTEGRATIONS"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 12. NOTIFICATIONS ── -->
+              <div
+                class="module-block rounded-[13px] border border-[rgba(0,121,194,0.1)] bg-[#fafbfd] p-5"
+                data-mod="notifs"
+              >
+                <div
+                  class="flex items-center justify-between flex-wrap gap-3 mb-4"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="mod-icon mc-lime w-[46px] h-[46px] rounded-[13px] flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        class="w-[22px] h-[22px]"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 01-3.46 0" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div
+                        class="text-[15px] font-extrabold text-[#1a2a3a] tracking-wide"
+                      >
+                        NOTIFICATIONS
+                      </div>
+                      <div class="text-[11px] text-[#888] font-medium">
+                        الإشعارات ·
+                        <span class="mod-sel" data-mod="notifs">0</span>/4
+                        صلاحية
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="mod-btn mod-toggle inline-flex items-center gap-[5px] px-3 py-[6px] rounded-[8px] border border-[rgba(5,150,105,0.25)] bg-[rgba(5,150,105,0.06)] text-[#059669] text-[11px] font-bold font-[Cairo]"
+                    data-mod="notifs"
+                    onclick="toggleModule('notifs',this)"
+                  >
+                    <svg
+                      class="w-[11px] h-[11px]"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    تحديد الكل
+                  </button>
+                </div>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[9px]"
+                >
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="NOTIFICATIONS_READ"
+                    onclick="togglePerm(this,'notifs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >NOTIFICATIONS_READ</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-NOTIFICATIONS_READ"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-NOTIFICATIONS_READ"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="NOTIFICATIONS_SEND"
+                    onclick="togglePerm(this,'notifs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >NOTIFICATIONS_SEND</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-NOTIFICATIONS_SEND"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-NOTIFICATIONS_SEND"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="NOTIFICATIONS_DELETE"
+                    onclick="togglePerm(this,'notifs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >NOTIFICATIONS_DELETE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-NOTIFICATIONS_DELETE"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-NOTIFICATIONS_DELETE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                  <div
+                    class="perm-pill flex items-center justify-between gap-2 px-[14px] py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.14)] bg-white"
+                    data-perm="NOTIFICATIONS_MANAGE"
+                    onclick="togglePerm(this,'notifs')"
+                  >
+                    <span
+                      class="text-[12px] font-semibold text-[#2d3a4a] tracking-wide"
+                      >NOTIFICATIONS_MANAGE</span
+                    >
+                    <div class="checkbox-wrapper-dark">
+                      <input
+                        class="checkbox-input"
+                        id="perm-NOTIFICATIONS_MANAGE"
+                        type="checkbox"
+                      /><label
+                        class="checkbox-label"
+                        for="perm-NOTIFICATIONS_MANAGE"
+                        ><span
+                          ><svg width="12px" height="10px" viewBox="0 0 12 10">
+                            <polyline
+                              points="1.5 6 4.5 9 10.5 1"
+                            ></polyline></svg></span
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /modulesContainer -->
+          </div>
+          <!-- /perms-wrap -->
+
+          <!-- ── STICKY SAVE BAR ── -->
+          <div
+            class="sticky bottom-4 mt-5 bg-white rounded-[14px] border border-[rgba(0,121,194,0.12)] shadow-[0_-4px_24px_rgba(0,104,174,0.1)] px-6 py-4 flex items-center justify-between gap-4 flex-wrap z-20"
+          >
+            <div class="text-[13px] text-[#888]">
+              <span class="font-bold text-[#1a2a3a]" id="barSelected">57</span>
+              <span> / </span>
+              <span id="barTotal">57</span>
+              <span class="mr-1">صلاحية محددة</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 px-5 py-[9px] rounded-[10px] border border-[rgba(0,121,194,0.18)] bg-white text-[#555] text-[13px] font-bold no-underline transition-all hover:border-[#0079c2] hover:text-[#0079c2] hover:-translate-y-px font-[Cairo]"
+                >إلغاء</a
+              >
+              <button
+                onclick="saveChanges()"
+                class="save-btn relative overflow-hidden inline-flex items-center gap-2 px-6 py-[9px] rounded-[10px] bg-gradient-to-br from-[#038ad9] to-[#0068ae] text-white text-[13px] font-bold border-none cursor-pointer shadow-[0_4px_14px_rgba(0,121,194,0.3)] font-[Cairo]"
+              >
+                <svg
+                  class="w-[14px] h-[14px]"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.6"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                اضف الرول
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Mobile overlay -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black/40 z-30 hidden"
+      onclick="closeMobile()"
+    ></div>
+
+    <script>
+      const sidebar = document.getElementById("sidebar");
+      const mainWrapper = document.getElementById("mainWrapper");
+      const overlay = document.getElementById("overlay");
+      const closeBtn = document.getElementById("sidebarCloseBtn");
+      const COLLAPSED_W = "60px";
+      const EXPANDED_W = "220px";
+      let collapsed = false;
+      const isMobile = () => window.innerWidth < 1024;
+
+      /* ── Sub-nav accordion ── */
+      function toggleSub(parent) {
+        if (collapsed && !isMobile()) return;
+        if (isMobile() && !sidebar.classList.contains("mobile-open")) return;
+        const sub = parent.nextElementSibling;
+        const isOpen = sub && sub.classList.contains("open");
+        document
+          .querySelectorAll(".sub-nav.open")
+          .forEach((el) => el.classList.remove("open"));
+        document
+          .querySelectorAll(".nav-parent.open")
+          .forEach((el) => el.classList.remove("open"));
+        if (!isOpen && sub) {
+          sub.classList.add("open");
+          parent.classList.add("open");
+        }
+      }
+
+      /* ── Desktop collapse toggle ── */
+      document.getElementById("sidebarToggle").addEventListener("click", () => {
+        collapsed = !collapsed;
+        if (collapsed) {
+          sidebar.classList.add("collapsed");
+          sidebar.style.width = COLLAPSED_W;
+          mainWrapper.style.marginRight = COLLAPSED_W;
+          document
+            .querySelectorAll(".sub-nav")
+            .forEach((el) => el.classList.remove("open"));
+          document
+            .querySelectorAll(".nav-parent")
+            .forEach((el) => el.classList.remove("open"));
+        } else {
+          sidebar.classList.remove("collapsed");
+          sidebar.style.width = EXPANDED_W;
+          mainWrapper.style.marginRight = EXPANDED_W;
+        }
+      });
+
+      /* ── Mobile open ── */
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        sidebar.classList.add("mobile-open");
+        overlay.classList.remove("hidden");
+        requestAnimationFrame(() => overlay.classList.add("active"));
+      });
+
+      /* ── Mobile close ── */
+      function closeMobile() {
+        sidebar.classList.remove("mobile-open");
+        overlay.classList.remove("active");
+        setTimeout(() => overlay.classList.add("hidden"), 250);
+        document
+          .querySelectorAll(".sub-nav")
+          .forEach((el) => el.classList.remove("open"));
+        document
+          .querySelectorAll(".nav-parent")
+          .forEach((el) => el.classList.remove("open"));
+      }
+
+      /* ── Resize handler ── */
+      function handleResize() {
+        if (isMobile()) {
+          sidebar.style.width = "";
+          sidebar.style.transform = "";
+          sidebar.classList.remove("mobile-open", "collapsed");
+          mainWrapper.style.marginRight = COLLAPSED_W;
+          overlay.classList.add("hidden");
+          overlay.classList.remove("active");
+        } else {
+          sidebar.classList.remove("mobile-open");
+          overlay.classList.add("hidden");
+          overlay.classList.remove("active");
+          if (collapsed) {
+            sidebar.classList.add("collapsed");
+            sidebar.style.width = COLLAPSED_W;
+            mainWrapper.style.marginRight = COLLAPSED_W;
+          } else {
+            sidebar.classList.remove("collapsed");
+            sidebar.style.width = EXPANDED_W;
+            mainWrapper.style.marginRight = EXPANDED_W;
+          }
+        }
+      }
+      window.addEventListener("resize", handleResize);
+      handleResize();
+
+      /* ── Header dropdowns ── */
+      function toggleDrop(dropId, wrapId) {
+        const drop = document.getElementById(dropId);
+        const isOpen = drop.classList.contains("open");
+        document
+          .querySelectorAll(".hdr-dropdown.open")
+          .forEach((d) => d.classList.remove("open"));
+        if (!isOpen) drop.classList.add("open");
+      }
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#notifWrap") && !e.target.closest("#userWrap")) {
+          document
+            .querySelectorAll(".hdr-dropdown.open")
+            .forEach((d) => d.classList.remove("open"));
+        }
+      });
+    </script>
+    <script>
+      /* ── Refresh counters & button states ── */
+      function refreshAll() {
+        let totalSelected = 0;
+        let totalAll = 0;
+
+        document.querySelectorAll(".module-block").forEach((block) => {
+          const mod = block.dataset.mod;
+          if (!mod) return;
+
+          const pills = block.querySelectorAll(".perm-pill");
+          const activePills = block.querySelectorAll(".perm-pill.active");
+          const sel = activePills.length;
+          const tot = pills.length;
+
+          totalSelected += sel;
+          totalAll += tot;
+
+          // Update mod-sel counter
+          const modSelEl = block.querySelector(`.mod-sel[data-mod="${mod}"]`);
+          if (modSelEl) modSelEl.textContent = sel;
+
+          // Update module toggle button
+          const btn = block.querySelector(`.mod-toggle[data-mod="${mod}"]`);
+          if (btn) {
+            const allSelected = sel === tot;
+            if (allSelected) {
+              btn.style.borderColor = "rgba(242,40,40,0.25)";
+              btn.style.background = "rgba(242,40,40,0.06)";
+              btn.style.color = "#f22828";
+              btn.innerHTML = `
+            <svg class="w-[11px] h-[11px]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg> إلغاء تحديد الكل`;
+            } else {
+              btn.style.borderColor = "rgba(5,150,105,0.25)";
+              btn.style.background = "rgba(5,150,105,0.06)";
+              btn.style.color = "#059669";
+              btn.innerHTML = `
+            <svg class="w-[11px] h-[11px]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg> تحديد الكل`;
+            }
+          }
+        });
+
+        // Update stats bar
+        const sTotalPerm = document.getElementById("sTotalPerm");
+        const sSelected = document.getElementById("sSelected");
+        const barSelected = document.getElementById("barSelected");
+        const barTotal = document.getElementById("barTotal");
+
+        if (sTotalPerm) sTotalPerm.textContent = totalAll;
+        if (sSelected) sSelected.textContent = totalSelected;
+        if (barSelected) barSelected.textContent = totalSelected;
+        if (barTotal) barTotal.textContent = totalAll;
+      }
+
+      function togglePerm(pill, mod) {
+        const isActive = pill.classList.toggle("active");
+
+        const checkbox = pill.querySelector(".checkbox-input");
+        if (checkbox) checkbox.checked = isActive;
+
+        refreshAll();
+      }
+
+      function toggleModule(mod, btn) {
+        const block = document.querySelector(
+          `.module-block[data-mod="${mod}"]`,
+        );
+        if (!block) return;
+
+        const pills = block.querySelectorAll(".perm-pill");
+        const sel = block.querySelectorAll(".perm-pill.active").length;
+        const tot = pills.length;
+        const shouldSelect = sel !== tot; // if not all selected → select all; else deselect all
+
+        pills.forEach((p) => {
+          const checkbox = p.querySelector(".checkbox-input");
+          if (shouldSelect) {
+            p.classList.add("active");
+            if (checkbox) checkbox.checked = true;
+          } else {
+            p.classList.remove("active");
+            if (checkbox) checkbox.checked = false;
+          }
+        });
+
+        refreshAll();
+      }
+
+      /* ── Global toggle ── */
+      function globalToggle(select) {
+        document.querySelectorAll(".perm-pill").forEach((p) => {
+          const checkbox = p.querySelector(".checkbox-input");
+          if (select) {
+            p.classList.add("active");
+            if (checkbox) checkbox.checked = true;
+          } else {
+            p.classList.remove("active");
+            if (checkbox) checkbox.checked = false;
+          }
+        });
+        refreshAll();
+      }
+
+      /* ── Search / filter ── */
+      function filterPerms(q) {
+        q = q.trim().toLowerCase();
+        document.querySelectorAll(".module-block").forEach((block) => {
+          const mod = block.dataset.mod;
+          if (!mod) return;
+          let anyVisible = false;
+          block.querySelectorAll(".perm-pill").forEach((pill) => {
+            const perm = (pill.dataset.perm || "").toLowerCase();
+            const show = q === "" || perm.includes(q);
+            pill.style.display = show ? "" : "none";
+            if (show) anyVisible = true;
+          });
+          block.style.display = q === "" || anyVisible ? "" : "none";
+        });
+      }
+
+      /* ── Save ── */
+      function saveChanges() {
+        const inp = document.getElementById("roleNameInput");
+        const name = inp ? inp.value.trim() : "";
+        if (!name) {
+          inp.style.borderColor = "#f22828";
+          inp.focus();
+          return;
+        }
+        inp.style.borderColor = "";
+
+        const btn = document.querySelector(".save-btn");
+        const prev = btn.innerHTML;
+        btn.innerHTML = `<svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> تم الحفظ!`;
+        btn.style.background = "linear-gradient(135deg,#34d399,#059669)";
+        setTimeout(() => {
+          btn.innerHTML = prev;
+          btn.style.background = "";
+        }, 2200);
+      }
+
+      /* ── Init on load ── */
+      document.addEventListener("DOMContentLoaded", refreshAll);
+    </script>
+    <script>
+      /* Date */
+      (function () {
+        const el = document.getElementById("currentDate");
+        if (!el) return;
+        const now = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        el.textContent =
+          now.getFullYear() +
+          "/" +
+          pad(now.getMonth() + 1) +
+          "/" +
+          pad(now.getDate()) +
+          "   " +
+          now.toLocaleTimeString("ar", { hour: "2-digit", minute: "2-digit" });
+      })();
+    </script>
+  </body>
+</html>

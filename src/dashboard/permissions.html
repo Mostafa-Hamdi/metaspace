@@ -3,18 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ميتا سبيس - الرئيسية</title>
+    <title>ميتا سبيس - الأدوار والصلاحيات</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../dist/output.css" />
+    <link rel="stylesheet" href="../../dist/output.css" />
+    <style>
+      /* ================================================================
+         PAGE-SPECIFIC STYLES ONLY
+         (sidebar / header / layout styles live in your existing CSS)
+      ================================================================ */
+
+      /* ── Role badge variants ── */
+      .badge--admin {
+        background: rgba(0, 121, 194, 0.1);
+        color: #0079c2;
+        border: 1px solid rgba(0, 121, 194, 0.2);
+      }
+      .badge--manager {
+        background: rgba(249, 168, 37, 0.1);
+        color: #c17900;
+        border: 1px solid rgba(249, 168, 37, 0.25);
+      }
+      .badge--editor {
+        background: rgba(124, 58, 237, 0.1);
+        color: #5e35b1;
+        border: 1px solid rgba(124, 58, 237, 0.2);
+      }
+      .badge--viewer {
+        background: rgba(5, 150, 105, 0.1);
+        color: #047857;
+        border: 1px solid rgba(5, 150, 105, 0.2);
+      }
+      .badge--support {
+        background: rgba(219, 39, 119, 0.1);
+        color: #be185d;
+        border: 1px solid rgba(219, 39, 119, 0.2);
+      }
+
+      /* ── Permission tags ── */
+      .username {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        background: rgba(0, 121, 194, 0.08);
+        color: var(--primary);
+        border: 1px solid rgba(0, 121, 194, 0.15);
+        white-space: nowrap;
+      }
+
+      /* ── Stat cards ── */
+      .stat-card {
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid rgba(0, 121, 194, 0.08);
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 2px 12px rgba(0, 104, 174, 0.06);
+        animation: cardIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+        transition:
+          transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.25s;
+      }
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 28px rgba(0, 121, 194, 0.12);
+      }
+      .stat-card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .stat-card:nth-child(2) {
+        animation-delay: 0.12s;
+      }
+      .stat-card:nth-child(3) {
+        animation-delay: 0.19s;
+      }
+      .stat-card:nth-child(4) {
+        animation-delay: 0.26s;
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .stat-card:hover .stat-icon {
+        transform: scale(1.12) rotate(-6deg);
+      }
+    </style>
   </head>
   <body class="bg-[#f4f7fb]">
     <div class="flex h-screen overflow-hidden">
-      <!-- ══════════════════════════════════
-           SIDEBAR
-      ══════════════════════════════════ -->
+      <!-- ══ SIDEBAR placeholder — replace with your real sidebar ══ -->
       <aside
         id="sidebar"
         style="
@@ -1341,21 +1432,20 @@
         </div>
       </aside>
 
-      <!-- MAIN WRAPPER  -->
+      <!-- ══ MAIN WRAPPER ══ -->
       <div
         id="mainWrapper"
         class="flex flex-col flex-1 min-w-0 transition-all duration-300"
         style="margin-right: 220px"
       >
-        <!-- HEADER -->
+        <!-- ══ HEADER placeholder — replace with your real header ══ -->
         <header
           class="sticky top-0 z-30 bg-white border-b border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
         >
-          <div class="flex items-center px-4 sm:px-6 h-[64px] gap-3">
-            <!-- Desktop sidebar toggle -->
+          <div class="flex items-center px-6 h-[64px] gap-3">
             <button
               id="sidebarToggle"
-              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors flex-shrink-0"
+              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
             >
               <svg
                 class="w-5 h-5"
@@ -1368,37 +1458,17 @@
                 <line x1="9" y1="3" x2="9" y2="21" />
               </svg>
             </button>
-
-            <!-- Mobile menu toggle -->
-            <button
-              id="menuToggle"
-              class="lg:hidden flex items-center justify-center w-9 h-9 rounded-[10px] text-[#0079c2] hover:bg-[#f0f7ff] transition-colors flex-shrink-0"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            </button>
-
-            <!-- Search -->
             <div class="flex-1 min-w-0 max-w-[440px]">
               <div class="relative">
                 <input
                   type="text"
-                  placeholder="ابحث عن منتج أو عن عميل"
-                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white focus:shadow-[0_0_0_3px_rgba(0,121,194,0.1)] transition-all duration-200"
+                  placeholder="ابحث عن دور أو صلاحية"
+                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white transition-all"
                 />
                 <span
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0078B9]"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0079c2]"
                 >
-                  <svg
+                  <!-- <svg
                     class="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
@@ -1406,425 +1476,619 @@
                     viewBox="0 0 24 24"
                   >
                     <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                > -->
                 </span>
               </div>
             </div>
-
-            <!-- Right actions -->
-            <div class="flex items-center gap-1.5 mr-auto flex-shrink-0">
-              <!-- ── Notifications dropdown ── -->
-              <div class="relative" id="notifWrap">
-                <button
-                  onclick="toggleDrop('notifDrop','notifWrap')"
-                  class="relative flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
+            <div class="mr-auto flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-[#0079c2]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                    <path d="M13.73 21a2 2 0 01-3.46 0" />
-                  </svg>
-                  <span
-                    class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#f22828] rounded-full"
-                  ></span>
-                </button>
-                <div
-                  id="notifDrop"
-                  class="hdr-dropdown"
-                  style="left: 0; width: 300px"
-                >
-                  <div
-                    class="flex items-center justify-between px-4 py-3 border-b border-[#f0f4f8]"
-                  >
-                    <span class="text-[13px] font-semibold text-[#1a2a3a]"
-                      >الإشعارات</span
-                    >
-                    <span
-                      class="text-[11px] text-[#0079c2] font-medium cursor-pointer hover:underline"
-                      >تعيين الكل كمقروء</span
-                    >
-                  </div>
-                  <ul
-                    class="max-h-[260px] overflow-y-auto divide-y divide-[#f4f7fb]"
-                  >
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#0079c2]/15 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#0079c2]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                          />
-                          <rect x="9" y="3" width="6" height="4" rx="1" />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          طلب جديد #1325105415
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 5 دقائق
-                        </p>
-                      </div>
-                      <div
-                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
-                      ></div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#f22828]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#f22828]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
-                          />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          تنبيه نقص المخزن
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 30 دقيقة
-                        </p>
-                      </div>
-                      <div
-                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
-                      ></div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#43a047]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#43a047]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
-                          <polyline points="22 4 12 14.01 9 11.01" />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          تم شحن الطلب بنجاح
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ ساعتين
-                        </p>
-                      </div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#f9a825]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#f9a825]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
-                          />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          رسالة جديدة من أحمد
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 3 ساعات
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                  <div
-                    class="px-4 py-2.5 border-t border-[#f0f4f8] text-center"
-                  >
-                    <a
-                      href="#"
-                      class="text-[12px] text-[#0079c2] font-medium hover:underline"
-                      >عرض كل الإشعارات</a
-                    >
-                  </div>
-                </div>
+                  <path
+                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                  />
+                </svg>
               </div>
-
-              <!-- ── User dropdown ── -->
-              <div class="relative" id="userWrap">
-                <button
-                  onclick="toggleDrop('userDrop','userWrap')"
-                  class="flex items-center gap-2 px-2 py-1.5 rounded-[12px] hover:bg-[#f0f7ff] transition-colors"
-                >
-                  <div
-                    class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center flex-shrink-0"
-                  >
-                    <svg
-                      class="w-5 h-5 text-[#0079c2]"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="hidden sm:block text-right leading-tight">
-                    <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                      مصطفى حمدى
-                    </p>
-                    <p class="text-[10px] text-[#0079c2] font-medium">
-                      مدير تنفيذى
-                    </p>
-                  </div>
-                  <svg
-                    class="hidden sm:block w-3.5 h-3.5 text-[#9eb0c8]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-                <div
-                  id="userDrop"
-                  class="hdr-dropdown"
-                  style="left: 0; min-width: 200px"
-                >
-                  <div class="px-4 py-3 border-b border-[#f0f4f8]">
-                    <p class="text-[13px] font-semibold text-[#1a2a3a]">
-                      مصطفى حمدى
-                    </p>
-                    <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                      mahmoud@metaspace.com
-                    </p>
-                  </div>
-                  <ul class="py-1.5">
-                    <li>
-                      <a
-                        href="#"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                        الملف الشخصي
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle cx="12" cy="12" r="3" />
-                          <path
-                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
-                          />
-                        </svg>
-                        الإعدادات
-                      </a>
-                    </li>
-                    <li class="border-t border-[#f0f4f8] mt-1 pt-1">
-                      <a
-                        href="/login"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#f22828] hover:bg-[#fff5f5] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-                          <polyline points="16 17 21 12 16 7" />
-                          <line x1="21" y1="12" x2="9" y2="12" />
-                        </svg>
-                        تسجيل خروج
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="hidden sm:block text-right leading-tight">
+                <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                  مصطفى حمدى
+                </p>
+                <p class="text-[10px] text-[#0079c2] font-medium">
+                  مدير تنفيذى
+                </p>
               </div>
             </div>
           </div>
         </header>
 
-        <!-- MAIN CONTENT -->
+        <!-- ══════════════════════════════════════
+             ✅ MAIN CONTENT
+        ══════════════════════════════════════ -->
         <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+          <!-- Breadcrumb + Date -->
+          <div class="topbar">
+            <nav class="breadcrumb">
+              <a href="#" class="breadcrumb__link">الرئيسية</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">إدارة المستخدمين</a>
+              <span class="breadcrumb__sep">›</span>
+              <span class="breadcrumb__current">الأدوار والصلاحيات</span>
+            </nav>
+            <span class="topbar-date" id="currentDate"></span>
+          </div>
+
+          <!-- Page Title -->
+          <h1 class="page-title">إدارة الأدوار والصلاحيات</h1>
+
+          <!-- ── Stat Cards ── -->
           <div
-            class="flex flex-col items-center justify-center min-h-[calc(100vh-200px)]"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
           >
-            <div class="relative mb-8">
-              <div
-                class="w-28 h-28 rounded-full bg-[linear-gradient(135deg,#0079c2,#038ad9)] flex items-center justify-center shadow-[0_12px_40px_rgba(0,121,194,0.3)]"
-              >
-                <img
-                  src="../../assets/logo.png"
-                  alt="شعار"
-                  class="w-16 h-16 object-contain"
-                />
+            <div class="stat-card">
+              <div class="stat-icon" style="background: rgba(0, 121, 194, 0.1)">
+                <svg
+                  fill="none"
+                  stroke="#0079c2"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                  <path d="M16 3.13a4 4 0 010 7.75" />
+                </svg>
               </div>
-              <div
-                class="absolute inset-0 rounded-full border-2 border-dashed border-[#0079c2]/30 scale-[1.25] animate-spin"
-                style="animation-duration: 12s"
-              ></div>
+              <div>
+                <p class="text-2xl font-extrabold text-[#1a2a3a] leading-none">
+                  6
+                </p>
+                <p class="text-xs text-[#6b7a8d] mt-1">إجمالي الأدوار</p>
+              </div>
             </div>
-            <h1
-              class="text-[28px] sm:text-[36px] md:text-[44px] font-bold text-[#1a2a3a] text-center leading-tight mb-4"
-            >
-              مرحباً بك في <span class="text-[#0079c2]">Meta Space</span>
-            </h1>
-            <p
-              class="text-[#6b7a8d] text-sm sm:text-base text-center max-w-md leading-relaxed mb-8"
-            >
-              منصتك الشاملة لإدارة المنتجات والطلبات والمخزن بكل سهولة وكفاءة.
-            </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
+
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: rgba(249, 168, 37, 0.1)"
               >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+                <svg
+                  fill="none"
+                  stroke="#c17900"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
                 >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                    />
-                    <rect x="9" y="3" width="6" height="4" rx="1" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >الطلبات</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0110 0v4" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-2xl font-extrabold text-[#1a2a3a] leading-none">
+                  24
+                </p>
+                <p class="text-xs text-[#6b7a8d] mt-1">إجمالي الصلاحيات</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: rgba(103, 58, 183, 0.1)"
               >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+                <svg
+                  fill="none"
+                  stroke="#5e35b1"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
                 >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"
-                    />
-                    <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المنتجات</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                    />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >التقارير</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
-                    />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المخزن</span
-                >
-              </a>
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-2xl font-extrabold text-[#1a2a3a] leading-none">
+                  18
+                </p>
+                <p class="text-xs text-[#6b7a8d] mt-1">مستخدمون بأدوار</p>
+              </div>
             </div>
           </div>
+
+          <!-- ── Toolbar ── -->
+          <div
+            class="toolbar flex flex-column md:flex-row flex-wrap gap-3 justify-between items-center mb-5"
+          >
+            <div
+              class="toolbar__search flex flex-column sm:flex-row items-center flex-1 w-full gap-3 flex-wrap"
+            >
+              <div class="form-input-wrap w-full" style="max-width: 260px">
+                <input
+                  class="form-input"
+                  type="text"
+                  placeholder="ابحث عن دور..."
+                  id="searchInput"
+                  oninput="filterTable()"
+                />
+                <span class="form-input-icon">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </span>
+              </div>
+              <div class="form-select-wrap w-full" style="max-width: 250px">
+                <select
+                  class="form-select w-full"
+                  id="statusFilter"
+                  onchange="filterTable()"
+                >
+                  <option value="">كل الحالات</option>
+                  <option value="active">نشط</option>
+                  <option value="inactive">غير نشط</option>
+                </select>
+                <span class="form-select-icon">
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="toolbar__actions">
+              <button class="btn btn--primary">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.6"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                إضافة دور جديد
+              </button>
+            </div>
+          </div>
+
+          <!-- ── Table Card ── -->
+          <div class="table-card">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="checkbox-wrapper">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </th>
+                    <th>#</th>
+                    <th>اسم الدور</th>
+                    <th>اسماء المستخدمين</th>
+                    <th>عدد المستخدمين</th>
+                    <th>الإجراءات</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <!-- Row 1: مدير النظام -->
+                  <tr data-status="active" data-name="مدير النظام">
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe1"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe1">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-semibold text-[#6b7a8d]">1</td>
+                    <td><span class="badge badge--admin">مدير النظام</span></td>
+
+                    <td>
+                      <div class="flex flex-wrap gap-1 justify-center">
+                        <span class="username">محمد</span>
+                        <span class="username">ليلى</span>
+                        <span class="username">دودا</span>
+                        <span class="username">محسن</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex items-center justify-center gap-1">
+                        <svg
+                          fill="none"
+                          stroke="#6b7a8d"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="14"
+                          height="14"
+                        >
+                          <path
+                            d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"
+                          ></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="font-bold text-[#1a2a3a]">3</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="actions">
+                        <button
+                          class="action-btn action-btn--delete"
+                          onclick="openDelete('مدير النظام')"
+                          title="حذف"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view" title="عرض">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2: مدير المبيعات -->
+                  <tr data-status="active" data-name="مدير المبيعات">
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe2"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe2">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-semibold text-[#6b7a8d]">2</td>
+                    <td>
+                      <span class="badge badge--manager">مدير المبيعات</span>
+                    </td>
+                    <td>
+                      <div class="flex flex-wrap gap-1 justify-center">
+                        <span class="username">محمد</span>
+                        <span class="username">ليلى</span>
+                        <span class="username">دودا</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex items-center justify-center gap-1">
+                        <svg
+                          fill="none"
+                          stroke="#6b7a8d"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="14"
+                          height="14"
+                        >
+                          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        <span class="font-bold text-[#1a2a3a]">5</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="actions">
+                        <button
+                          class="action-btn action-btn--delete"
+                          onclick="openDelete('مدير المبيعات')"
+                          title="حذف"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view" title="عرض">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- Row 2: مدير المبيعات -->
+                  <tr data-status="active" data-name="مدير المبيعات">
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe3"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe3">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-semibold text-[#6b7a8d]">2</td>
+                    <td>
+                      <span class="badge badge--manager">مدير المبيعات</span>
+                    </td>
+                    <td>
+                      <div class="flex flex-wrap gap-1 justify-center">
+                        <span class="username">محمد</span>
+                        <span class="username">ليلى</span>
+                        <span class="username">دودا</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex items-center justify-center gap-1">
+                        <svg
+                          fill="none"
+                          stroke="#6b7a8d"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="14"
+                          height="14"
+                        >
+                          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        <span class="font-bold text-[#1a2a3a]">5</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="actions">
+                        <button
+                          class="action-btn action-btn--delete"
+                          onclick="openDelete('مدير المبيعات')"
+                          title="حذف"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view" title="عرض">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+              <button class="page-btn" disabled>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                >
+                  <polyline points="13 17 18 12 13 7" />
+                  <polyline points="6 17 11 12 6 7" />
+                </svg>
+              </button>
+              <button class="page-btn" disabled>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+              <button class="page-btn page-btn--active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button class="page-btn">
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                >
+                  <polyline points="11 17 6 12 11 7" />
+                  <polyline points="18 17 13 12 18 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <!-- /table-card -->
         </main>
+        <!-- /main content -->
       </div>
+      <!-- /mainWrapper -->
     </div>
 
     <!-- Mobile overlay -->
@@ -1834,20 +2098,113 @@
       onclick="closeMobile()"
     ></div>
 
+    <!-- ════════════════════════════════
+         DELETE MODAL
+    ════════════════════════════════ -->
+    <div class="modal-overlay" id="deleteModal">
+      <div class="modal-box">
+        <!-- Header -->
+        <div
+          class="flex items-center justify-between px-6 py-4"
+          style="background: linear-gradient(135deg, #ee0979, #ff6b6b)"
+        >
+          <h2 class="text-white font-bold text-base">تأكيد الحذف</h2>
+          <button
+            onclick="closeDelete()"
+            class="w-8 h-8 flex items-center justify-center rounded-lg text-white"
+            style="
+              background: rgba(255, 255, 255, 0.2);
+              border: none;
+              cursor: pointer;
+            "
+          >
+            <svg
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Body -->
+        <div class="px-6 py-8 text-center">
+          <div
+            class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            style="background: rgba(238, 9, 121, 0.1)"
+          >
+            <svg
+              fill="none"
+              stroke="#ee0979"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="32"
+              height="32"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+              <path d="M9 6V4h6v2" />
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-[#1a2a3a] mb-2">
+            هل أنت متأكد من حذف هذا الدور؟
+          </h3>
+          <p class="text-sm text-[#6b7a8d] mb-2">
+            سيتم حذف الدور:
+            <strong id="deleteRoleName" class="text-[#ee0979]"></strong>
+          </p>
+          <p class="text-xs text-[#a1a1a1]">
+            هذا الإجراء لا يمكن التراجع عنه. سيفقد جميع المستخدمين المرتبطين
+            بهذا الدور صلاحياتهم.
+          </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-center gap-3 px-6 pb-6">
+          <button class="btn btn--danger" onclick="confirmDelete()">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.3"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+            </svg>
+            نعم، حذف الدور
+          </button>
+          <button class="btn btn--outline" onclick="closeDelete()">
+            إلغاء
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast container -->
+    <div
+      class="fixed bottom-6 left-6 flex flex-col gap-2 z-[600]"
+      id="toastContainer"
+    ></div>
+
     <script>
+      /* ── Sidebar (minimal stub — your real JS already handles this) ── */
       const sidebar = document.getElementById("sidebar");
       const mainWrapper = document.getElementById("mainWrapper");
       const overlay = document.getElementById("overlay");
-      const closeBtn = document.getElementById("sidebarCloseBtn");
-      const COLLAPSED_W = "60px";
-      const EXPANDED_W = "220px";
       let collapsed = false;
       const isMobile = () => window.innerWidth < 1024;
 
-      /* ── Sub-nav accordion ── */
       function toggleSub(parent) {
         if (collapsed && !isMobile()) return;
-        if (isMobile() && !sidebar.classList.contains("mobile-open")) return;
         const sub = parent.nextElementSibling;
         const isOpen = sub && sub.classList.contains("open");
         document
@@ -1862,89 +2219,135 @@
         }
       }
 
-      /* ── Desktop collapse toggle ── */
-      document.getElementById("sidebarToggle").addEventListener("click", () => {
-        collapsed = !collapsed;
-        if (collapsed) {
-          sidebar.classList.add("collapsed");
-          sidebar.style.width = COLLAPSED_W;
-          mainWrapper.style.marginRight = COLLAPSED_W;
-          document
-            .querySelectorAll(".sub-nav")
-            .forEach((el) => el.classList.remove("open"));
-          document
-            .querySelectorAll(".nav-parent")
-            .forEach((el) => el.classList.remove("open"));
-        } else {
-          sidebar.classList.remove("collapsed");
-          sidebar.style.width = EXPANDED_W;
-          mainWrapper.style.marginRight = EXPANDED_W;
-        }
-      });
+      const toggleBtn = document.getElementById("sidebarToggle");
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          collapsed = !collapsed;
+          sidebar.style.width = collapsed ? "60px" : "220px";
+          mainWrapper.style.marginRight = collapsed ? "60px" : "220px";
+        });
+      }
 
-      /* ── Mobile open ── */
-      document.getElementById("menuToggle").addEventListener("click", () => {
-        sidebar.classList.add("mobile-open");
-        overlay.classList.remove("hidden");
-        requestAnimationFrame(() => overlay.classList.add("active"));
-      });
-
-      /* ── Mobile close ── */
       function closeMobile() {
         sidebar.classList.remove("mobile-open");
+        overlay.classList.add("hidden");
         overlay.classList.remove("active");
-        setTimeout(() => overlay.classList.add("hidden"), 250);
-        document
-          .querySelectorAll(".sub-nav")
-          .forEach((el) => el.classList.remove("open"));
-        document
-          .querySelectorAll(".nav-parent")
-          .forEach((el) => el.classList.remove("open"));
       }
 
-      /* ── Resize handler ── */
-      function handleResize() {
-        if (isMobile()) {
-          sidebar.style.width = "";
-          sidebar.style.transform = "";
-          sidebar.classList.remove("mobile-open", "collapsed");
-          mainWrapper.style.marginRight = COLLAPSED_W;
-          overlay.classList.add("hidden");
-          overlay.classList.remove("active");
-        } else {
-          sidebar.classList.remove("mobile-open");
-          overlay.classList.add("hidden");
-          overlay.classList.remove("active");
-          if (collapsed) {
-            sidebar.classList.add("collapsed");
-            sidebar.style.width = COLLAPSED_W;
-            mainWrapper.style.marginRight = COLLAPSED_W;
-          } else {
-            sidebar.classList.remove("collapsed");
-            sidebar.style.width = EXPANDED_W;
-            mainWrapper.style.marginRight = EXPANDED_W;
-          }
-        }
-      }
-      window.addEventListener("resize", handleResize);
-      handleResize();
-
-      /* ── Header dropdowns ── */
-      function toggleDrop(dropId, wrapId) {
-        const drop = document.getElementById(dropId);
-        const isOpen = drop.classList.contains("open");
+      /* ── Select All ── */
+      function toggleAll(el) {
         document
-          .querySelectorAll(".hdr-dropdown.open")
-          .forEach((d) => d.classList.remove("open"));
-        if (!isOpen) drop.classList.add("open");
+          .querySelectorAll("#tableBody .checkbox-input")
+          .forEach((c) => (c.checked = el.checked));
       }
-      document.addEventListener("click", (e) => {
-        if (!e.target.closest("#notifWrap") && !e.target.closest("#userWrap")) {
-          document
-            .querySelectorAll(".hdr-dropdown.open")
-            .forEach((d) => d.classList.remove("open"));
+
+      /* ── Filter ── */
+      function filterTable() {
+        const q = document
+          .getElementById("searchInput")
+          .value.trim()
+          .toLowerCase();
+        const s = document.getElementById("statusFilter").value;
+        document.querySelectorAll("#tableBody tr").forEach((tr) => {
+          const nameMatch =
+            !q || (tr.dataset.name || "").toLowerCase().includes(q);
+          const statusMatch = !s || tr.dataset.status === s;
+          tr.style.display = nameMatch && statusMatch ? "" : "none";
+        });
+      }
+    </script>
+    <!-- delete modal -->
+    <script>
+      /* ── Delete Modal ── */
+      let pendingRow = null;
+
+      function openDelete(roleName) {
+        document.getElementById("deleteRoleName").textContent = roleName;
+        document.getElementById("deleteModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+        pendingRow =
+          [...document.querySelectorAll("#tableBody tr")].find(
+            (tr) => tr.dataset.name === roleName,
+          ) || null;
+      }
+
+      function closeDelete() {
+        document.getElementById("deleteModal").classList.remove("open");
+        document.body.style.overflow = "";
+        pendingRow = null;
+      }
+
+      function confirmDelete() {
+        const name = document.getElementById("deleteRoleName").textContent;
+        if (pendingRow) {
+          pendingRow.style.transition = "opacity 0.3s, transform 0.3s";
+          pendingRow.style.opacity = "0";
+          pendingRow.style.transform = "translateX(20px)";
+          setTimeout(() => pendingRow && pendingRow.remove(), 300);
         }
+        closeDelete();
+        showToast('تم حذف الدور "' + name + '" بنجاح', "success");
+      }
+
+      document.getElementById("deleteModal").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("deleteModal")) closeDelete();
       });
+
+      /* ── Toast ── */
+      function showToast(msg, type) {
+        const colors = {
+          success: "#1a8c45",
+          error: "#ee0979",
+          info: "#0079c2",
+        };
+        const icons = { success: "✓", error: "✕", info: "ℹ" };
+        const c = document.getElementById("toastContainer");
+        const t = document.createElement("div");
+        t.style.cssText = [
+          "display:flex",
+          "align-items:center",
+          "gap:10px",
+          "padding:12px 18px",
+          "border-radius:10px",
+          "font-size:13px",
+          "font-weight:600",
+          "font-family:Cairo,sans-serif",
+          "box-shadow:0 6px 20px rgba(0,0,0,0.14)",
+          "min-width:240px",
+          "color:#fff",
+          "animation:toastIn 0.3s ease",
+          "background:" + (colors[type] || colors.info),
+        ].join(";");
+        t.innerHTML =
+          '<span style="font-size:16px;">' +
+          (icons[type] || "ℹ") +
+          "</span><span>" +
+          msg +
+          "</span>";
+        c.appendChild(t);
+        setTimeout(() => {
+          t.style.transition = "opacity 0.35s";
+          t.style.opacity = "0";
+          setTimeout(() => t.remove(), 350);
+        }, 3500);
+      }
+    </script>
+    <script>
+      /* ── Date ── */
+      (function () {
+        const el = document.getElementById("currentDate");
+        if (!el) return;
+        const now = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        el.textContent =
+          now.getFullYear() +
+          "/" +
+          pad(now.getMonth() + 1) +
+          "/" +
+          pad(now.getDate()) +
+          "   " +
+          now.toLocaleTimeString("ar", { hour: "2-digit", minute: "2-digit" });
+      })();
     </script>
   </body>
 </html>

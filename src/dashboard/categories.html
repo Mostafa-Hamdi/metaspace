@@ -8,7 +8,12 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../dist/output.css" />
+    <!-- Choices.js -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="../../dist/output.css" />
   </head>
   <body class="bg-[#f4f7fb]">
     <div class="flex h-screen overflow-hidden">
@@ -1697,132 +1702,1216 @@
 
         <!-- MAIN CONTENT -->
         <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+          <!-- Top Bar -->
+          <div class="topbar">
+            <nav class="breadcrumb">
+              <a href="#" class="breadcrumb__link">الرئيسية</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">إدارة المنتجات</a>
+              <span class="breadcrumb__sep">›</span>
+              <span class="breadcrumb__current">الاقسام</span>
+            </nav>
+            <span class="topbar-date">2025/12/20 &nbsp; 02:13 pm</span>
+          </div>
+
+          <!-- Page Title -->
+          <h1 class="page-title">الاقسام</h1>
+
+          <!-- Toolbar -->
           <div
-            class="flex flex-col items-center justify-center min-h-[calc(100vh-200px)]"
+            class="toolbar flex flex-column md:flex-row flex-wrap gap-3 justify-between md:items-center mb-5"
           >
-            <div class="relative mb-8">
-              <div
-                class="w-28 h-28 rounded-full bg-[linear-gradient(135deg,#0079c2,#038ad9)] flex items-center justify-center shadow-[0_12px_40px_rgba(0,121,194,0.3)]"
-              >
-                <img
-                  src="../../assets/logo.png"
-                  alt="شعار"
-                  class="w-16 h-16 object-contain"
-                />
-              </div>
-              <div
-                class="absolute inset-0 rounded-full border-2 border-dashed border-[#0079c2]/30 scale-[1.25] animate-spin"
-                style="animation-duration: 12s"
-              ></div>
+            <div
+              class="toolbar__search grid grid-cols-1 md:grid-cols-2 gap-3 grow"
+            >
+              <form action="" class="flex items-center gap-3">
+                <div class="form-input-wrap">
+                  <input
+                    class="form-input"
+                    type="text"
+                    placeholder="ابحث عن قسم"
+                  />
+                  <span class="form-input-icon">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                  </span>
+                </div>
+
+                <button class="btn btn--blue">بحث</button>
+              </form>
+
+              <form action="" class="flex items-center gap-3">
+                <div class="form-select-wrap">
+                  <select id="filterSelect" multiple>
+                    <option value="">فلتر حسب</option>
+                    <option value="main">رئيسي</option>
+                    <option value="sub">فرعي</option>
+                    <option value="active">نشط</option>
+                    <option value="inactive">غير نشط</option>
+                  </select>
+                  <span class="form-select-icon">
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </span>
+                </div>
+
+                <button class="btn btn--blue">بحث</button>
+              </form>
             </div>
-            <h1
-              class="text-[28px] sm:text-[36px] md:text-[44px] font-bold text-[#1a2a3a] text-center leading-tight mb-4"
-            >
-              مرحباً بك في <span class="text-[#0079c2]">Meta Space</span>
-            </h1>
-            <p
-              class="text-[#6b7a8d] text-sm sm:text-base text-center max-w-md leading-relaxed mb-8"
-            >
-              منصتك الشاملة لإدارة المنتجات والطلبات والمخزن بكل سهولة وكفاءة.
-            </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+            <div class="toolbar__actions">
+              <button class="btn btn--primary">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.6"
+                  stroke-linecap="round"
                 >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                    />
-                    <rect x="9" y="3" width="6" height="4" rx="1" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >الطلبات</span
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                إضافة قسم جديد
+              </button>
+
+              <button class="btn btn--gold">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"
-                    />
-                    <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المنتجات</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                    />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >التقارير</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
-                    />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المخزن</span
-                >
-              </a>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+                رفع بالحملة (Excel)
+              </button>
             </div>
           </div>
+
+          <!-- Table Card -->
+          <div class="table-card">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="checkbox-wrapper">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </th>
+                    <th>صورة القسم</th>
+                    <th>اسم القسم</th>
+                    <th>نوع القسم</th>
+                    <th>عدد المنتجات</th>
+                    <th>المنتج الاكثر طلبا</th>
+                    <th>الحالة</th>
+                    <th>الاجراءات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Row 1 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe1"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe1">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop"
+                        alt="الاحذية"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">الاحذية</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">350 منتج</span></td>
+                    <td>كوتشي اديدس</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe2"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe2">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=60&h=60&fit=crop"
+                        alt="الملابس"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">الملابس</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">1080 منتج</span></td>
+                    <td>تيشرت رجالي اسود</td>
+                    <td><span class="badge badge--inactive">غير نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe3"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe3">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=60&h=60&fit=crop"
+                        alt="ملابس رجالي"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">
+                      ملابس رجالي
+                    </td>
+                    <td>فرعي من الملابس</td>
+                    <td><span class="badge badge--count">180 منتج</span></td>
+                    <td>تيشرت رجالي اسود</td>
+                    <td><span class="badge badge--inactive">غير نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 4 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe4"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe4">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop"
+                        alt="الاحذية"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">الاحذية</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">350 منتج</span></td>
+                    <td>كوتشي اديدس</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 5 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe5"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe5">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=60&h=60&fit=crop"
+                        alt="الاكسسوارات"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">
+                      الاكسسوارات
+                    </td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">210 منتج</span></td>
+                    <td>ساعة كاسيو</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 6 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe6"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe6">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=60&h=60&fit=crop"
+                        alt="الحقائب"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">الحقائب</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">430 منتج</span></td>
+                    <td>شنطة مايكل كورس</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 7 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe7"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe7">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=60&h=60&fit=crop"
+                        alt="ملابس نسائية"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">
+                      ملابس نسائية
+                    </td>
+                    <td>فرعي من الملابس</td>
+                    <td><span class="badge badge--count">520 منتج</span></td>
+                    <td>فستان سهرة</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 8 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe8"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe8">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=60&h=60&fit=crop"
+                        alt="العطور"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">العطور</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">95 منتج</span></td>
+                    <td>عطر شانيل</td>
+                    <td><span class="badge badge--inactive">غير نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 9 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe9"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe9">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=60&h=60&fit=crop"
+                        alt="الساعات"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">الساعات</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">160 منتج</span></td>
+                    <td>ساعة رولكس</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 10 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe10"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe10">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop"
+                        alt="الاحذية"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">الاحذية</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">350 منتج</span></td>
+                    <td>كوتشي اديدس</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 11 -->
+                  <tr>
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input"
+                          id="rememberMe11"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="rememberMe11">
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img
+                        class="table-img"
+                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=60&h=60&fit=crop"
+                        alt="الملابس"
+                      />
+                    </td>
+                    <td style="font-weight: 600; color: #1a2a3a">الملابس</td>
+                    <td>رئيسي</td>
+                    <td><span class="badge badge--count">780 منتج</span></td>
+                    <td>بنطلون جينز</td>
+                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--delete">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--edit">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button class="action-btn action-btn--view">
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+              <button class="page-btn" disabled>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                >
+                  <polyline points="13 17 18 12 13 7" />
+                  <polyline points="6 17 11 12 6 7" />
+                </svg>
+              </button>
+              <button class="page-btn" disabled>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+
+              <button class="page-btn page-btn--active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <span class="page-dots">…</span>
+              <button class="page-btn">10</button>
+
+              <button class="page-btn">
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button class="page-btn">
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                >
+                  <polyline points="11 17 6 12 11 7" />
+                  <polyline points="18 17 13 12 18 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <!-- /table-card -->
         </main>
       </div>
     </div>
@@ -1833,6 +2922,8 @@
       class="fixed inset-0 bg-black/40 z-30 hidden"
       onclick="closeMobile()"
     ></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
     <script>
       const sidebar = document.getElementById("sidebar");
@@ -1943,6 +3034,48 @@
           document
             .querySelectorAll(".hdr-dropdown.open")
             .forEach((d) => d.classList.remove("open"));
+        }
+      });
+      /* ── Init Choices.js ── */
+      document.addEventListener("DOMContentLoaded", function () {
+        const filterSelect = document.getElementById("filterSelect");
+        if (filterSelect && window.Choices) {
+          new Choices(filterSelect, {
+            removeItemButton: true,
+            placeholder: true,
+            placeholderValue: "فلتر حسب",
+            searchEnabled: false,
+            shouldSort: false,
+            noResultsText: "لا توجد نتائج",
+            noChoicesText: "لا توجد خيارات",
+            itemSelectText: "",
+            classNames: {
+              containerOuter: "choices",
+              containerInner: "choices__inner",
+              input: "choices__input",
+              inputCloned: "choices__input--cloned",
+              list: "choices__list",
+              listItems: "choices__list--multiple",
+              listSingle: "choices__list--single",
+              listDropdown: "choices__list--dropdown",
+              item: "choices__item",
+              itemSelectable: "choices__item--selectable",
+              itemDisabled: "choices__item--disabled",
+              itemChoice: "choices__item--choice",
+              placeholder: "choices__placeholder",
+              group: "choices__group",
+              groupHeading: "choices__heading",
+              button: "choices__button",
+              activeState: "is-active",
+              focusState: "is-focused",
+              openState: "is-open",
+              disabledState: "is-disabled",
+              highlightedState: "is-highlighted",
+              selectedState: "is-selected",
+              flippedState: "is-flipped",
+              loadingState: "is-loading",
+            },
+          });
         }
       });
     </script>

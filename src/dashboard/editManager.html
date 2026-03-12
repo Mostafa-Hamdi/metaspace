@@ -3,18 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ميتا سبيس - الرئيسية</title>
+    <title>ميتا سبيس - الأدوار والصلاحيات</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../dist/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="../../dist/output.css" />
+    <style>
+      /* ── Password eye: override .form-input-icon pointer-events:none ── */
+      .pass-toggle {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--dark-gray);
+        display: flex;
+        align-items: center;
+        padding: 0;
+        pointer-events: all;
+        transition: color 0.2s;
+      }
+      .pass-toggle:hover {
+        color: var(--primary);
+      }
+
+      /* ── Section divider label ── */
+      .divider-label {
+        background: rgba(0, 121, 194, 0.06);
+        border: 1px solid rgba(0, 121, 194, 0.15);
+      }
+
+      /* ── Lock action button (not in output.css) ── */
+      .action-btn--lock {
+        background: linear-gradient(135deg, #7c3aed, #6d28d9);
+        box-shadow: 0 3px 10px rgba(124, 58, 237, 0.22);
+      }
+      .action-btn--lock:hover {
+        box-shadow: 0 5px 16px rgba(124, 58, 237, 0.38);
+      }
+    </style>
   </head>
   <body class="bg-[#f4f7fb]">
     <div class="flex h-screen overflow-hidden">
-      <!-- ══════════════════════════════════
-           SIDEBAR
-      ══════════════════════════════════ -->
+      <!-- ══ SIDEBAR placeholder — replace with your real sidebar ══ -->
       <aside
         id="sidebar"
         style="
@@ -1341,21 +1379,20 @@
         </div>
       </aside>
 
-      <!-- MAIN WRAPPER  -->
+      <!-- ══ MAIN WRAPPER ══ -->
       <div
         id="mainWrapper"
         class="flex flex-col flex-1 min-w-0 transition-all duration-300"
         style="margin-right: 220px"
       >
-        <!-- HEADER -->
+        <!-- ══ HEADER placeholder — replace with your real header ══ -->
         <header
           class="sticky top-0 z-30 bg-white border-b border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
         >
-          <div class="flex items-center px-4 sm:px-6 h-[64px] gap-3">
-            <!-- Desktop sidebar toggle -->
+          <div class="flex items-center px-6 h-[64px] gap-3">
             <button
               id="sidebarToggle"
-              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors flex-shrink-0"
+              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
             >
               <svg
                 class="w-5 h-5"
@@ -1368,37 +1405,17 @@
                 <line x1="9" y1="3" x2="9" y2="21" />
               </svg>
             </button>
-
-            <!-- Mobile menu toggle -->
-            <button
-              id="menuToggle"
-              class="lg:hidden flex items-center justify-center w-9 h-9 rounded-[10px] text-[#0079c2] hover:bg-[#f0f7ff] transition-colors flex-shrink-0"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            </button>
-
-            <!-- Search -->
             <div class="flex-1 min-w-0 max-w-[440px]">
               <div class="relative">
                 <input
                   type="text"
-                  placeholder="ابحث عن منتج أو عن عميل"
-                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white focus:shadow-[0_0_0_3px_rgba(0,121,194,0.1)] transition-all duration-200"
+                  placeholder="ابحث عن دور أو صلاحية"
+                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white transition-all"
                 />
                 <span
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0078B9]"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0079c2]"
                 >
-                  <svg
+                  <!-- <svg
                     class="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
@@ -1406,425 +1423,347 @@
                     viewBox="0 0 24 24"
                   >
                     <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                > -->
                 </span>
               </div>
             </div>
-
-            <!-- Right actions -->
-            <div class="flex items-center gap-1.5 mr-auto flex-shrink-0">
-              <!-- ── Notifications dropdown ── -->
-              <div class="relative" id="notifWrap">
-                <button
-                  onclick="toggleDrop('notifDrop','notifWrap')"
-                  class="relative flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
+            <div class="mr-auto flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-[#0079c2]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                    <path d="M13.73 21a2 2 0 01-3.46 0" />
-                  </svg>
-                  <span
-                    class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#f22828] rounded-full"
-                  ></span>
-                </button>
-                <div
-                  id="notifDrop"
-                  class="hdr-dropdown"
-                  style="left: 0; width: 300px"
-                >
-                  <div
-                    class="flex items-center justify-between px-4 py-3 border-b border-[#f0f4f8]"
-                  >
-                    <span class="text-[13px] font-semibold text-[#1a2a3a]"
-                      >الإشعارات</span
-                    >
-                    <span
-                      class="text-[11px] text-[#0079c2] font-medium cursor-pointer hover:underline"
-                      >تعيين الكل كمقروء</span
-                    >
-                  </div>
-                  <ul
-                    class="max-h-[260px] overflow-y-auto divide-y divide-[#f4f7fb]"
-                  >
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#0079c2]/15 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#0079c2]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                          />
-                          <rect x="9" y="3" width="6" height="4" rx="1" />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          طلب جديد #1325105415
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 5 دقائق
-                        </p>
-                      </div>
-                      <div
-                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
-                      ></div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#f22828]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#f22828]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
-                          />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          تنبيه نقص المخزن
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 30 دقيقة
-                        </p>
-                      </div>
-                      <div
-                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
-                      ></div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#43a047]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#43a047]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
-                          <polyline points="22 4 12 14.01 9 11.01" />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          تم شحن الطلب بنجاح
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ ساعتين
-                        </p>
-                      </div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#f9a825]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#f9a825]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
-                          />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          رسالة جديدة من أحمد
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 3 ساعات
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                  <div
-                    class="px-4 py-2.5 border-t border-[#f0f4f8] text-center"
-                  >
-                    <a
-                      href="#"
-                      class="text-[12px] text-[#0079c2] font-medium hover:underline"
-                      >عرض كل الإشعارات</a
-                    >
-                  </div>
-                </div>
+                  <path
+                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                  />
+                </svg>
               </div>
-
-              <!-- ── User dropdown ── -->
-              <div class="relative" id="userWrap">
-                <button
-                  onclick="toggleDrop('userDrop','userWrap')"
-                  class="flex items-center gap-2 px-2 py-1.5 rounded-[12px] hover:bg-[#f0f7ff] transition-colors"
-                >
-                  <div
-                    class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center flex-shrink-0"
-                  >
-                    <svg
-                      class="w-5 h-5 text-[#0079c2]"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="hidden sm:block text-right leading-tight">
-                    <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                      مصطفى حمدى
-                    </p>
-                    <p class="text-[10px] text-[#0079c2] font-medium">
-                      مدير تنفيذى
-                    </p>
-                  </div>
-                  <svg
-                    class="hidden sm:block w-3.5 h-3.5 text-[#9eb0c8]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-                <div
-                  id="userDrop"
-                  class="hdr-dropdown"
-                  style="left: 0; min-width: 200px"
-                >
-                  <div class="px-4 py-3 border-b border-[#f0f4f8]">
-                    <p class="text-[13px] font-semibold text-[#1a2a3a]">
-                      مصطفى حمدى
-                    </p>
-                    <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                      mahmoud@metaspace.com
-                    </p>
-                  </div>
-                  <ul class="py-1.5">
-                    <li>
-                      <a
-                        href="#"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                        الملف الشخصي
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle cx="12" cy="12" r="3" />
-                          <path
-                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
-                          />
-                        </svg>
-                        الإعدادات
-                      </a>
-                    </li>
-                    <li class="border-t border-[#f0f4f8] mt-1 pt-1">
-                      <a
-                        href="/login"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#f22828] hover:bg-[#fff5f5] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-                          <polyline points="16 17 21 12 16 7" />
-                          <line x1="21" y1="12" x2="9" y2="12" />
-                        </svg>
-                        تسجيل خروج
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+              <div class="hidden sm:block text-right leading-tight">
+                <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                  مصطفى حمدى
+                </p>
+                <p class="text-[10px] text-[#0079c2] font-medium">
+                  مدير تنفيذى
+                </p>
               </div>
             </div>
           </div>
         </header>
 
-        <!-- MAIN CONTENT -->
         <main class="flex-1 overflow-y-auto p-6 lg:p-8">
-          <div
-            class="flex flex-col items-center justify-center min-h-[calc(100vh-200px)]"
-          >
-            <div class="relative mb-8">
-              <div
-                class="w-28 h-28 rounded-full bg-[linear-gradient(135deg,#0079c2,#038ad9)] flex items-center justify-center shadow-[0_12px_40px_rgba(0,121,194,0.3)]"
+          <!-- Breadcrumb ── .topbar .breadcrumb .breadcrumb__link .breadcrumb__sep .breadcrumb__current .topbar-date -->
+          <div class="topbar">
+            <nav class="breadcrumb">
+              <a href="#" class="breadcrumb__link">الرئيسية</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">إدارة المستخدمين</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="managers.html" class="breadcrumb__link"
+                >إدارة المديرين</a
               >
-                <img
-                  src="../../assets/logo.png"
-                  alt="شعار"
-                  class="w-16 h-16 object-contain"
-                />
+              <span class="breadcrumb__sep">›</span>
+              <span class="breadcrumb__current">تعديل المدير</span>
+            </nav>
+            <span class="topbar-date" id="currentDate"></span>
+          </div>
+
+          <!-- Page title ── .page-title -->
+          <h1 class="page-title">تعديل بيانات المدير</h1>
+
+          <!-- Card ── .table-card (white, rounded-16, shadow, border, overflow:hidden) -->
+          <div class="table-card">
+            <!-- ── Avatar bar ── -->
+            <div
+              class="flex items-center gap-5 px-7 py-5 border-b border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.025)]"
+            >
+              <!-- circle: gradient bg needs inline or small util -->
+              <div
+                id="avatarInitial"
+                class="w-[72px] h-[72px] rounded-full border-[3px] border-[#0079c2] flex items-center justify-center flex-shrink-0 text-[26px] font-bold text-[#0079c2]"
+                style="background: linear-gradient(135deg, #e8f3fb, #c8e3f6)"
+              >
+                H
               </div>
-              <div
-                class="absolute inset-0 rounded-full border-2 border-dashed border-[#0079c2]/30 scale-[1.25] animate-spin"
-                style="animation-duration: 12s"
-              ></div>
+              <div>
+                <p id="avatarName" class="text-[15px] font-bold text-[#1a2a3a]">
+                  Helmy
+                </p>
+                <p id="avatarEmail" class="text-[12px] text-[#6b7a8d] mt-1">
+                  helmi@meta.com
+                </p>
+              </div>
+              <div class="mr-auto">
+                <span class="badge badge--active">نشط</span>
+              </div>
             </div>
-            <h1
-              class="text-[28px] sm:text-[36px] md:text-[44px] font-bold text-[#1a2a3a] text-center leading-tight mb-4"
+
+            <!-- ── Card body ── -->
+            <div class="p-7">
+              <!-- ─── Basic fields ──────────────────────────
+           grid: Tailwind  |  inputs: .form-input-wrap .form-input .form-input-icon  -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-[22px]">
+                <!-- اسم المستخدم -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldName"
+                  >
+                    اسم المستخدم <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="text"
+                      id="fieldName"
+                      placeholder="ادخل اسم المستخدم"
+                      value="Helmy"
+                      oninput="syncAvatar()"
+                    />
+                    <span class="form-input-icon">
+                      <svg
+                        width="14"
+                        height="14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- الإيميل -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldEmail"
+                  >
+                    الإيميل <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="email"
+                      id="fieldEmail"
+                      placeholder="example@domain.com"
+                      value="helmi@meta.com"
+                      style="direction: ltr"
+                      oninput="syncAvatar()"
+                    />
+                    <span class="form-input-icon">
+                      <svg
+                        width="14"
+                        height="14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        />
+                        <polyline points="22,6 12,13 2,6" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- التليفون -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldPhone"
+                  >
+                    التليفون <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="text"
+                      id="fieldPhone"
+                      placeholder="01xxxxxxxxx"
+                      value="01101236578"
+                      style="direction: ltr"
+                    />
+                    <span class="form-input-icon">
+                      <svg
+                        width="14"
+                        height="14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.47 2 2 0 0 1 3.55 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.79a16 16 0 0 0 6.29 6.29l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- كلمة المرور -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldPass"
+                  >
+                    كلمة المرور
+                    <span class="text-[11px] font-normal text-[#8899aa]"
+                      >(اتركها فارغة للإبقاء على الحالية)</span
+                    >
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="password"
+                      id="fieldPass"
+                      placeholder="••••••••"
+                      style="padding-left: 40px"
+                    />
+                    <!-- .pass-toggle: clickable version of .form-input-icon (pointer-events override) -->
+                    <button
+                      class="pass-toggle"
+                      type="button"
+                      onclick="togglePass()"
+                      title="إظهار/إخفاء"
+                    >
+                      <svg
+                        id="eyeIcon"
+                        width="15"
+                        height="15"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                        />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- /basic fields -->
+
+              <!-- ─── Section divider: الصلاحيات ─── -->
+              <div class="flex items-center gap-3 my-7">
+                <div class="flex-1 h-px bg-[rgba(0,121,194,0.1)]"></div>
+                <div
+                  class="divider-label text-[12px] font-bold text-[#0079c2] px-[14px] py-[4px] rounded-full whitespace-nowrap"
+                >
+                  <svg
+                    class="inline-block mb-[3px] ml-[5px]"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="13"
+                    height="13"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                  </svg>
+                  الصلاحيات
+                </div>
+                <div class="flex-1 h-px bg-[rgba(0,121,194,0.1)]"></div>
+              </div>
+
+              <!-- Choices.js fields ── .form-select-wrap + Choices styles from output.css -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-[22px]">
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldRoles"
+                  >
+                    الصلاحيات <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-select-wrap" style="max-width: 100%">
+                    <select id="fieldRoles" multiple>
+                      <option value="manager" selected>Manager</option>
+                      <option value="admin">Admin</option>
+                      <option value="newm">Newm</option>
+                      <option value="test">Test</option>
+                      <option value="viewer">Viewer</option>
+                      <option value="support">Support</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldOrders"
+                  >
+                    عرض الطلبات <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-select-wrap" style="max-width: 100%">
+                    <select id="fieldOrders" multiple>
+                      <option value="all" selected>جميع الطلبات</option>
+                      <option value="new">الطلبات الجديدة</option>
+                      <option value="processing">قيد التجهيز</option>
+                      <option value="ready">جاهزة للشحن</option>
+                      <option value="delivered">تم التسليم</option>
+                      <option value="cancelled">ملغاة</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /card body -->
+
+            <!-- ── Footer ── .btn .btn--outline .btn--primary -->
+            <div
+              class="flex items-center justify-center gap-6 flex-wrap mb-5 px-7 py-5 border-t border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.012)]"
             >
-              مرحباً بك في <span class="text-[#0079c2]">Meta Space</span>
-            </h1>
-            <p
-              class="text-[#6b7a8d] text-sm sm:text-base text-center max-w-md leading-relaxed mb-8"
-            >
-              منصتك الشاملة لإدارة المنتجات والطلبات والمخزن بكل سهولة وكفاءة.
-            </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+              <a href="managers.html" class="btn btn--outline">
+                <svg
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                    />
-                    <rect x="9" y="3" width="6" height="4" rx="1" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >الطلبات</span
-                >
+                  <polyline points="9 14 4 9 9 4" />
+                  <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
+                </svg>
+                رجوع
               </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
+              <button class="btn btn--primary" onclick="saveManager()">
+                <svg
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"
-                    />
-                    <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المنتجات</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                    />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >التقارير</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center gap-2 p-4 bg-white rounded-[16px] border border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#0079c2] hover:shadow-[0_4px_20px_rgba(0,121,194,0.12)] hover:-translate-y-1 transition-all duration-200"
-              >
-                <div
-                  class="w-10 h-10 rounded-[10px] bg-[#e8f3fb] flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#0079c2]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
-                    />
-                  </svg>
-                </div>
-                <span class="text-[12px] font-semibold text-[#1a2a3a]"
-                  >المخزن</span
-                >
-              </a>
+                  <path
+                    d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                  />
+                  <polyline points="17 21 17 13 7 13 7 21" />
+                  <polyline points="7 3 7 8 15 8" />
+                </svg>
+                حفظ التعديلات
+              </button>
             </div>
           </div>
+          <!-- /.table-card -->
         </main>
+
+        <!-- /main content -->
       </div>
+      <!-- /mainWrapper -->
     </div>
 
     <!-- Mobile overlay -->
@@ -1834,117 +1773,111 @@
       onclick="closeMobile()"
     ></div>
 
+    <!-- Toast container -->
+    <div
+      class="fixed bottom-6 left-6 flex flex-col gap-2 z-[600]"
+      id="toastContainer"
+    ></div>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="../master.js"></script>
     <script>
-      const sidebar = document.getElementById("sidebar");
-      const mainWrapper = document.getElementById("mainWrapper");
-      const overlay = document.getElementById("overlay");
-      const closeBtn = document.getElementById("sidebarCloseBtn");
-      const COLLAPSED_W = "60px";
-      const EXPANDED_W = "220px";
-      let collapsed = false;
-      const isMobile = () => window.innerWidth < 1024;
+      /* ── Choices.js init ── */
+      document.addEventListener("DOMContentLoaded", function () {
+        new Choices("#fieldRoles", {
+          removeItemButton: true,
+          searchEnabled: false,
+          placeholder: true,
+          placeholderValue: "اختر الصلاحيات",
+          noResultsText: "لا توجد نتائج",
+          noChoicesText: "لا توجد خيارات",
+          itemSelectText: "",
+        });
 
-      /* ── Sub-nav accordion ── */
-      function toggleSub(parent) {
-        if (collapsed && !isMobile()) return;
-        if (isMobile() && !sidebar.classList.contains("mobile-open")) return;
-        const sub = parent.nextElementSibling;
-        const isOpen = sub && sub.classList.contains("open");
-        document
-          .querySelectorAll(".sub-nav.open")
-          .forEach((el) => el.classList.remove("open"));
-        document
-          .querySelectorAll(".nav-parent.open")
-          .forEach((el) => el.classList.remove("open"));
-        if (!isOpen && sub) {
-          sub.classList.add("open");
-          parent.classList.add("open");
-        }
-      }
-
-      /* ── Desktop collapse toggle ── */
-      document.getElementById("sidebarToggle").addEventListener("click", () => {
-        collapsed = !collapsed;
-        if (collapsed) {
-          sidebar.classList.add("collapsed");
-          sidebar.style.width = COLLAPSED_W;
-          mainWrapper.style.marginRight = COLLAPSED_W;
-          document
-            .querySelectorAll(".sub-nav")
-            .forEach((el) => el.classList.remove("open"));
-          document
-            .querySelectorAll(".nav-parent")
-            .forEach((el) => el.classList.remove("open"));
-        } else {
-          sidebar.classList.remove("collapsed");
-          sidebar.style.width = EXPANDED_W;
-          mainWrapper.style.marginRight = EXPANDED_W;
-        }
+        new Choices("#fieldOrders", {
+          removeItemButton: true,
+          searchEnabled: false,
+          placeholder: true,
+          placeholderValue: "اختر أنواع الطلبات",
+          noResultsText: "لا توجد نتائج",
+          noChoicesText: "لا توجد خيارات",
+          itemSelectText: "",
+        });
       });
 
-      /* ── Mobile open ── */
-      document.getElementById("menuToggle").addEventListener("click", () => {
-        sidebar.classList.add("mobile-open");
-        overlay.classList.remove("hidden");
-        requestAnimationFrame(() => overlay.classList.add("active"));
-      });
-
-      /* ── Mobile close ── */
-      function closeMobile() {
-        sidebar.classList.remove("mobile-open");
-        overlay.classList.remove("active");
-        setTimeout(() => overlay.classList.add("hidden"), 250);
-        document
-          .querySelectorAll(".sub-nav")
-          .forEach((el) => el.classList.remove("open"));
-        document
-          .querySelectorAll(".nav-parent")
-          .forEach((el) => el.classList.remove("open"));
+      /* ── Sync avatar preview ── */
+      function syncAvatar() {
+        const name = document.getElementById("fieldName").value.trim();
+        const email = document.getElementById("fieldEmail").value.trim();
+        const ini = document.getElementById("avatarInitial");
+        const nEl = document.getElementById("avatarName");
+        const eEl = document.getElementById("avatarEmail");
+        if (ini) ini.textContent = name ? name[0].toUpperCase() : "?";
+        if (nEl) nEl.textContent = name || "—";
+        if (eEl) eEl.textContent = email || "—";
       }
 
-      /* ── Resize handler ── */
-      function handleResize() {
-        if (isMobile()) {
-          sidebar.style.width = "";
-          sidebar.style.transform = "";
-          sidebar.classList.remove("mobile-open", "collapsed");
-          mainWrapper.style.marginRight = COLLAPSED_W;
-          overlay.classList.add("hidden");
-          overlay.classList.remove("active");
-        } else {
-          sidebar.classList.remove("mobile-open");
-          overlay.classList.add("hidden");
-          overlay.classList.remove("active");
-          if (collapsed) {
-            sidebar.classList.add("collapsed");
-            sidebar.style.width = COLLAPSED_W;
-            mainWrapper.style.marginRight = COLLAPSED_W;
-          } else {
-            sidebar.classList.remove("collapsed");
-            sidebar.style.width = EXPANDED_W;
-            mainWrapper.style.marginRight = EXPANDED_W;
-          }
+      /* ── Password toggle ── */
+      function togglePass() {
+        const inp = document.getElementById("fieldPass");
+        const icon = document.getElementById("eyeIcon");
+        const show = inp.type === "password";
+        inp.type = show ? "text" : "password";
+        icon.innerHTML = show
+          ? `-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+         7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+         <line x1="1" y1="1" x2="23" y2="23"/>`
+          : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+         <circle cx="12" cy="12" r="3"/>`;
+      }
+
+      /* ── Save ── */
+      function saveManager() {
+        const name = document.getElementById("fieldName").value.trim();
+        const email = document.getElementById("fieldEmail").value.trim();
+        const phone = document.getElementById("fieldPhone").value.trim();
+
+        if (!name) {
+          showToast("يرجى إدخال اسم المستخدم", "error");
+          return;
         }
-      }
-      window.addEventListener("resize", handleResize);
-      handleResize();
-
-      /* ── Header dropdowns ── */
-      function toggleDrop(dropId, wrapId) {
-        const drop = document.getElementById(dropId);
-        const isOpen = drop.classList.contains("open");
-        document
-          .querySelectorAll(".hdr-dropdown.open")
-          .forEach((d) => d.classList.remove("open"));
-        if (!isOpen) drop.classList.add("open");
-      }
-      document.addEventListener("click", (e) => {
-        if (!e.target.closest("#notifWrap") && !e.target.closest("#userWrap")) {
-          document
-            .querySelectorAll(".hdr-dropdown.open")
-            .forEach((d) => d.classList.remove("open"));
+        if (!email) {
+          showToast("يرجى إدخال البريد الإلكتروني", "error");
+          return;
         }
-      });
+        if (!phone) {
+          showToast("يرجى إدخال رقم التليفون", "error");
+          return;
+        }
+
+        showToast("تم حفظ التعديلات بنجاح ✓", "success");
+      }
+
+      /* ── Toast ── */
+      function showToast(msg, type) {
+        const colors = {
+          success: "#1a8c45",
+          error: "#ee0979",
+          info: "#0079c2",
+        };
+        const icons = { success: "✓", error: "✕", info: "ℹ" };
+        const c = document.getElementById("toastContainer");
+        const t = document.createElement("div");
+        t.style.cssText =
+          "display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;font-family:Cairo,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,0.14);min-width:240px;color:#fff;animation:toastIn 0.3s ease;background:" +
+          (colors[type] || colors.info);
+        t.innerHTML =
+          '<span style="font-size:16px;">' +
+          (icons[type] || "ℹ") +
+          "</span><span>" +
+          msg +
+          "</span>";
+        c.appendChild(t);
+        setTimeout(() => {
+          t.style.transition = "opacity 0.35s";
+          t.style.opacity = "0";
+          setTimeout(() => t.remove(), 350);
+        }, 3500);
+      }
     </script>
   </body>
 </html>
