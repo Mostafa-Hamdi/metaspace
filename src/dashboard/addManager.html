@@ -1458,7 +1458,7 @@
      MAIN CONTENT
 ════════════════════════════════════════════════════════ -->
         <main class="flex-1 overflow-y-auto p-6 lg:p-8">
-          <!-- Breadcrumb ── .topbar .breadcrumb .breadcrumb__link .breadcrumb__sep .breadcrumb__current .topbar-date -->
+          <!-- Breadcrumb -->
           <div class="topbar">
             <nav class="breadcrumb">
               <a href="#" class="breadcrumb__link">الرئيسية</a>
@@ -1474,15 +1474,142 @@
             <span class="topbar-date" id="currentDate"></span>
           </div>
 
-          <!-- Page title ── .page-title -->
+          <!-- Page title -->
           <h1 class="page-title">إضافة مدير جديد</h1>
 
-          <!-- Card ── .table-card -->
+          <!-- Card -->
           <div class="table-card">
-            <!-- ── Card body ── -->
             <div class="p-7">
+              <!-- ─── Image Upload: Drag & Drop ─── -->
+              <div class="flex flex-col gap-[7px] mb-7">
+                <label class="text-[13px] font-semibold text-[#334]">
+                  صورة المدير
+                </label>
+
+                <!-- Drop Zone -->
+                <div
+                  id="dropZone"
+                  onclick="document.getElementById('fieldImage').click()"
+                  ondragover="handleDragOver(event)"
+                  ondragleave="handleDragLeave(event)"
+                  ondrop="handleDrop(event)"
+                  class="relative flex flex-col items-center justify-center gap-3 w-full rounded-2xl border-2 border-dashed border-[#c5d8ea] bg-[#f5faff] cursor-pointer transition-all duration-200 hover:border-[#0079c2] hover:bg-[#eef6fd]"
+                  style="min-height: 160px; padding: 28px 20px"
+                >
+                  <!-- Default state -->
+                  <div
+                    id="dropDefault"
+                    class="flex flex-col items-center gap-2 text-center"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-[#e0f0fb] flex items-center justify-center"
+                    >
+                      <svg
+                        width="22"
+                        height="22"
+                        fill="none"
+                        stroke="#0079c2"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-[13px] font-semibold text-[#1a2a3a]">
+                        اسحب وأفلت الصورة هنا
+                      </p>
+                      <p class="text-[11px] text-[#9eb0c8] mt-0.5">
+                        أو
+                        <span
+                          class="text-[#0079c2] font-semibold underline underline-offset-2"
+                          >اضغط لاختيار ملف</span
+                        >
+                      </p>
+                    </div>
+                    <p
+                      class="text-[10px] text-[#b0c4d8] bg-white border border-[#e8f0f8] rounded-full px-3 py-1"
+                    >
+                      PNG · JPG · WEBP — الحجم الأقصى 2MB
+                    </p>
+                  </div>
+
+                  <!-- Preview state (hidden by default) -->
+                  <div
+                    id="dropPreview"
+                    class="hidden flex-col items-center gap-3 w-full"
+                  >
+                    <div class="relative">
+                      <img
+                        id="previewImg"
+                        src=""
+                        alt="معاينة"
+                        class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg"
+                      />
+                      <button
+                        type="button"
+                        onclick="removeImage(event)"
+                        class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#ee0979] border-2 border-white flex items-center justify-center shadow"
+                        title="إزالة الصورة"
+                      >
+                        <svg
+                          width="8"
+                          height="8"
+                          fill="none"
+                          stroke="white"
+                          stroke-width="3"
+                          viewBox="0 0 24 24"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18" />
+                          <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="text-center">
+                      <p
+                        id="previewName"
+                        class="text-[12px] font-semibold text-[#1a2a3a]"
+                      ></p>
+                      <p
+                        id="previewSize"
+                        class="text-[11px] text-[#9eb0c8]"
+                      ></p>
+                    </div>
+                    <button
+                      type="button"
+                      onclick="document.getElementById('fieldImage').click(); event.stopPropagation();"
+                      class="text-[11px] font-semibold text-[#0079c2] hover:underline"
+                    >
+                      تغيير الصورة
+                    </button>
+                  </div>
+
+                  <!-- Drag-over overlay -->
+                  <div
+                    id="dragOverlay"
+                    class="hidden absolute inset-0 rounded-2xl bg-[#0079c2]/10 border-2 border-[#0079c2] items-center justify-center pointer-events-none"
+                  >
+                    <p class="text-[13px] font-bold text-[#0079c2]">
+                      أفلت الصورة هنا ✦
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Hidden file input -->
+                <input
+                  type="file"
+                  id="fieldImage"
+                  accept="image/png, image/jpeg, image/webp"
+                  class="hidden"
+                  onchange="handleFileSelect(event)"
+                />
+              </div>
+              <!-- /image upload -->
+
               <!-- ─── Basic fields ─── -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-[22px]">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                 <!-- اسم المستخدم -->
                 <div class="flex flex-col gap-[7px]">
                   <label
@@ -1583,7 +1710,7 @@
                   </div>
                 </div>
 
-                <!-- كلمة المرور — مطلوبة في الإضافة -->
+                <!-- كلمة المرور -->
                 <div class="flex flex-col gap-[7px]">
                   <label
                     class="text-[13px] font-semibold text-[#334]"
@@ -1664,7 +1791,6 @@
                       </svg>
                     </button>
                   </div>
-                  <!-- password match hint -->
                   <p
                     id="passHint"
                     class="text-[11px] font-medium mt-[-2px] hidden"
@@ -1740,7 +1866,7 @@
             </div>
             <!-- /card body -->
 
-            <!-- ── Footer ── .btn .btn--outline .btn--primary -->
+            <!-- ── Footer ── -->
             <div
               class="flex items-center justify-center gap-6 flex-wrap px-7 py-5 mb-5 border-t border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.012)]"
             >
@@ -1777,6 +1903,77 @@
             </div>
           </div>
           <!-- /.table-card -->
+
+          <script>
+            function handleDragOver(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              const overlay = document.getElementById("dragOverlay");
+              overlay.classList.remove("hidden");
+              overlay.classList.add("flex");
+              document.getElementById("dropZone").style.borderColor = "#0079c2";
+              document.getElementById("dropZone").style.background = "#eef6fd";
+            }
+
+            function handleDragLeave(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              const overlay = document.getElementById("dragOverlay");
+              overlay.classList.add("hidden");
+              overlay.classList.remove("flex");
+              document.getElementById("dropZone").style.borderColor = "";
+              document.getElementById("dropZone").style.background = "";
+            }
+
+            function handleDrop(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              handleDragLeave(e);
+              const file = e.dataTransfer.files[0];
+              if (file) applyFile(file);
+            }
+
+            function handleFileSelect(e) {
+              const file = e.target.files[0];
+              if (file) applyFile(file);
+            }
+
+            function applyFile(file) {
+              const allowed = ["image/png", "image/jpeg", "image/webp"];
+              if (!allowed.includes(file.type)) {
+                alert("يرجى اختيار صورة بصيغة PNG أو JPG أو WEBP");
+                return;
+              }
+              if (file.size > 2 * 1024 * 1024) {
+                alert("حجم الصورة يجب أن يكون أقل من 2MB");
+                return;
+              }
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                document.getElementById("previewImg").src = e.target.result;
+                document.getElementById("previewName").textContent = file.name;
+                document.getElementById("previewSize").textContent =
+                  (file.size / 1024).toFixed(1) + " KB";
+                document.getElementById("dropDefault").classList.add("hidden");
+                const preview = document.getElementById("dropPreview");
+                preview.classList.remove("hidden");
+                preview.classList.add("flex");
+              };
+              reader.readAsDataURL(file);
+            }
+
+            function removeImage(e) {
+              e.stopPropagation();
+              document.getElementById("previewImg").src = "";
+              document.getElementById("previewName").textContent = "";
+              document.getElementById("previewSize").textContent = "";
+              document.getElementById("fieldImage").value = "";
+              document.getElementById("dropDefault").classList.remove("hidden");
+              const preview = document.getElementById("dropPreview");
+              preview.classList.add("hidden");
+              preview.classList.remove("flex");
+            }
+          </script>
         </main>
 
         <!-- /main content -->
