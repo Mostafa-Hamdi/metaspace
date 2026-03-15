@@ -1481,7 +1481,7 @@
           <div class="table-card">
             <div class="p-7">
               <!-- ─── Image Upload: Drag & Drop ─── -->
-              <div class="flex flex-col gap-[7px] mb-7">
+              <div class="flex flex-col gap-[7px] mb-6">
                 <label class="text-[13px] font-semibold text-[#334]">
                   صورة المدير
                 </label>
@@ -2111,6 +2111,91 @@
           t.style.opacity = "0";
           setTimeout(() => t.remove(), 350);
         }, 3500);
+      }
+    </script>
+    <script>
+      function handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const overlay = document.getElementById("dragOverlay");
+        overlay.classList.remove("hidden");
+        overlay.classList.add("flex");
+        document.getElementById("dropZone").style.borderColor = "#0079c2";
+        document.getElementById("dropZone").style.background = "#eef6fd";
+      }
+
+      function handleDragLeave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const overlay = document.getElementById("dragOverlay");
+        overlay.classList.add("hidden");
+        overlay.classList.remove("flex");
+        document.getElementById("dropZone").style.borderColor = "";
+        document.getElementById("dropZone").style.background = "";
+      }
+
+      function handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleDragLeave(e);
+        const file = e.dataTransfer.files[0];
+        if (file) applyFile(file);
+      }
+
+      function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) applyFile(file);
+      }
+
+      function applyFile(file) {
+        const allowed = ["image/png", "image/jpeg", "image/webp"];
+        if (!allowed.includes(file.type)) {
+          alert("يرجى اختيار صورة بصيغة PNG أو JPG أو WEBP");
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          alert("حجم الصورة يجب أن يكون أقل من 2MB");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("previewImg").src = e.target.result;
+          document.getElementById("previewName").textContent = file.name;
+          document.getElementById("previewSize").textContent =
+            (file.size / 1024).toFixed(1) + " KB";
+          document.getElementById("dropDefault").classList.add("hidden");
+          const preview = document.getElementById("dropPreview");
+          preview.classList.remove("hidden");
+          preview.classList.add("flex");
+          // Also update the avatar bar preview
+          const avatarEl = document.getElementById("avatarInitial");
+          avatarEl.innerHTML = "";
+          avatarEl.style.padding = "0";
+          avatarEl.style.overflow = "hidden";
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.style.cssText =
+            "width:100%;height:100%;object-fit:cover;border-radius:50%";
+          avatarEl.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function removeImage(e) {
+        e.stopPropagation();
+        document.getElementById("previewImg").src = "";
+        document.getElementById("previewName").textContent = "";
+        document.getElementById("previewSize").textContent = "";
+        document.getElementById("fieldImage").value = "";
+        document.getElementById("dropDefault").classList.remove("hidden");
+        const preview = document.getElementById("dropPreview");
+        preview.classList.add("hidden");
+        preview.classList.remove("flex");
+        // Restore avatar bar to initials
+        const avatarEl = document.getElementById("avatarInitial");
+        avatarEl.innerHTML = "H";
+        avatarEl.style.padding = "";
+        avatarEl.style.overflow = "";
       }
     </script>
   </body>
