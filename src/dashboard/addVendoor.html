@@ -1,0 +1,2049 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ميتا سبيس - الأدوار والصلاحيات</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="../../dist/output.css" />
+    <style>
+      /* ── Password eye: override .form-input-icon pointer-events:none ── */
+      .pass-toggle {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--dark-gray);
+        display: flex;
+        align-items: center;
+        padding: 0;
+        pointer-events: all;
+        transition: color 0.2s;
+      }
+      .pass-toggle:hover {
+        color: var(--primary);
+      }
+
+      /* ── Section divider label ── */
+      .divider-label {
+        background: rgba(0, 121, 194, 0.06);
+        border: 1px solid rgba(0, 121, 194, 0.15);
+      }
+
+      /* ── Lock action button (not in output.css) ── */
+      .action-btn--lock {
+        background: linear-gradient(135deg, #7c3aed, #6d28d9);
+        box-shadow: 0 3px 10px rgba(124, 58, 237, 0.22);
+      }
+      .action-btn--lock:hover {
+        box-shadow: 0 5px 16px rgba(124, 58, 237, 0.38);
+      }
+    </style>
+  </head>
+  <body class="bg-[#f4f7fb]">
+    <div class="flex h-screen overflow-hidden">
+      <!-- ══ SIDEBAR placeholder — replace with your real sidebar ══ -->
+      <aside
+        id="sidebar"
+        style="
+          position: fixed;
+          right: 0;
+          top: 0;
+          height: 100%;
+          width: 220px;
+          background: #0079c2;
+          display: flex;
+          flex-direction: column;
+          z-index: 40;
+          transition: width 0.3s ease;
+          box-shadow: -4px 0 24px rgba(0, 121, 194, 0.18);
+          overflow: hidden;
+        "
+      >
+        <!-- Logo -->
+        <div
+          class="logo-wrap flex items-center justify-center min-h-[72px] flex-shrink-0"
+          style="position: relative"
+        >
+          <img
+            src="../../assets/logo.png"
+            alt="شعار"
+            class="logo-full h-12 object-contain"
+          />
+          <div
+            class="logo-ms hidden w-10 h-10 rounded-[10px] bg-white/20 items-center justify-center flex-shrink-0"
+          >
+            <span class="text-white font-bold text-sm">MS</span>
+          </div>
+
+          <!-- Close button (mobile only) -->
+          <button
+            id="sidebarCloseBtn"
+            onclick="closeMobile()"
+            style="
+              display: none;
+              position: absolute;
+              left: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 32px;
+              height: 32px;
+              background: rgba(255, 255, 255, 0.15);
+              border: none;
+              border-radius: 8px;
+              color: #fff;
+              cursor: pointer;
+              align-items: center;
+              justify-content: center;
+              transition: background 0.2s;
+              flex-shrink: 0;
+            "
+            onmouseenter="this.style.background='rgba(255,255,255,0.28)'"
+            onmouseleave="this.style.background='rgba(255,255,255,0.15)'"
+          >
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Nav -->
+        <nav style="flex: 1; overflow-y: auto; padding: 12px 8px">
+          <ul
+            style="
+              list-style: none;
+              margin: 0;
+              padding: 0;
+              display: flex;
+              flex-direction: column;
+              gap: 2px;
+            "
+          >
+            <!-- الصفحة الرئيسية -->
+            <li>
+              <a
+                href="/src/index.html"
+                class="nav-parent open mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: #0068ae;
+                  font-weight: 600;
+                  font-size: 14px;
+                  background: #98cdea;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  style="width: 18px; height: 18px; flex-shrink: 0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1H4a1 1 0 01-1-1V9.75z"
+                  />
+                  <path d="M9 22V12h6v10" />
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >الصفحة الرئيسية</span
+                >
+              </a>
+            </li>
+            <!-- الصلاحيات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    <circle
+                      cx="12"
+                      cy="16"
+                      r="1.5"
+                      fill="currentColor"
+                      stroke="none"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الصلاحيات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="./permissions.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    كل الصلاحيات
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./addRole.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    إضافة صلاحية
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المديرين -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2" />
+                    <path d="M19 8v6m3-3h-6" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">إدارة المديرين</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="./managers.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    كل المديرين
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./addManager.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    إضافة مدير
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- الرسائل -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">chat-messages</title>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M5 12a5 5 0 0 1 7 7m-7-7a5 5 0 0 0-2 4a5 5 0 0 0 .224 1.483c.272.88.076 1.86-.099 2.784a.468.468 0 0 0 .592.539c.848-.232 1.691-.43 2.557-.112A5 5 0 0 0 8 21a4.99 4.99 0 0 0 4-2m-7-7c0-4.685 2.875-9 8-9a8 8 0 0 1 7.532 10.7c-.476 1.326.037 3.102.337 4.568a.451.451 0 0 1-.584.526c-1.312-.41-2.852-.986-4.085-.466c-1.334.562-2.736.672-4.2.672"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الرسائل</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >البريد الوارد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الرسائل المرسلة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إنشاء رسالة</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المنتجات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">box-linear</title>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                    d="m15.578 3.382l2 1.05c2.151 1.129 3.227 1.693 3.825 2.708C22 8.154 22 9.417 22 11.942v.117c0 2.524 0 3.787-.597 4.801c-.598 1.015-1.674 1.58-3.825 2.709l-2 1.049C13.822 21.539 12.944 22 12 22s-1.822-.46-3.578-1.382l-2-1.05c-2.151-1.129-3.227-1.693-3.825-2.708C2 15.846 2 14.583 2 12.06v-.117c0-2.525 0-3.788.597-4.802c.598-1.015 1.674-1.58 3.825-2.708l2-1.05C10.178 2.461 11.056 2 12 2s1.822.46 3.578 1.382ZM21 7.5l-4 2M12 12L3 7.5m9 4.5v9.5m0-9.5l4.5-2.25l.5-.25m0 0V13m0-3.5l-9.5-5"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">إدارة المنتجات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل المنتجات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إضافة منتج</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الفئات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الطلبات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 16 16"
+                >
+                  <title xmlns="">task-list-square-16-regular</title>
+                  <path
+                    fill="currentColor"
+                    d="M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5zM4.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zm4 7.5A.5.5 0 0 1 9 10h2.25a.5.5 0 0 1 0 1H9a.5.5 0 0 1-.5-.5M9 6a.5.5 0 0 0 0 1h2.25a.5.5 0 0 0 0-1zM7.354 9.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.748-.748a.5.5 0 1 1 .708-.708l.394.395l1.146-1.147a.5.5 0 0 1 .708 0m0-3.292a.5.5 0 1 0-.708-.708L5.5 6.293l-.394-.395a.5.5 0 0 0-.708.708l.748.748a.5.5 0 0 0 .708 0z"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الطلبات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل الطلبات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الطلبات الجديدة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >قيد التجهيز</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >جاهزة للشحن</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- المخزن -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 48 48"
+                >
+                  <title xmlns="">warehouse-1</title>
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                  >
+                    <path
+                      d="M26.815 4.16c7.235 3.211 12.719 7.43 15.554 9.867c1.433 1.232 2.232 3.005 2.33 4.892C44.836 21.51 45 25.565 45 30c0 4.237-.15 8.293-.282 11.038a3.835 3.835 0 0 1-3.687 3.66C37.669 44.835 31.926 45 24 45c-7.927 0-13.67-.166-17.032-.301c-2-.08-3.59-1.661-3.687-3.661A238 238 0 0 1 3 30c0-4.435.165-8.49.3-11.081c.1-1.887.898-3.66 2.331-4.892c2.835-2.438 8.32-6.656 15.554-9.867a6.94 6.94 0 0 1 5.63 0Z"
+                    />
+                    <path
+                      d="M38.547 44.788C38.751 42.618 39 38.784 39 33c0-4.802-.172-7.923-.346-9.858c-.159-1.751-1.314-3.119-3.048-3.412c-2.12-.36-5.73-.73-11.606-.73s-9.485.37-11.606.73c-1.734.293-2.89 1.66-3.048 3.412C9.171 25.077 9 28.198 9 33c0 5.784.249 9.618.453 11.788"
+                    />
+                    <path
+                      d="M14.063 33.806c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 14 36c0-.943.027-1.659.063-2.194Z"
+                    />
+                    <path
+                      d="M24.063 33.806c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 24 36c0-.943.027-1.659.063-2.194Zm-5-8c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 19 28c0-.943.027-1.659.063-2.194Z"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">المخزن</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >نظرة عامة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >نقص المخزن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إدارة المخزن</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- التقارير -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  style="width: 18px; height: 18px; flex-shrink: 0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">التقارير</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المبيعات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المخزن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المالية</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- المحفظة/المالية -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 14 14"
+                >
+                  <title xmlns="">wallet</title>
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M12 10.5v2a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V5a3 3 0 0 1 3-3H10v2.5"
+                    />
+                    <path
+                      d="M13 7.5H9.5A.5.5 0 0 0 9 8v2a.5.5 0 0 0 .5.5H13a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5m-1 0v-2a1 1 0 0 0-1-1H3.5"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >المحفظة/المالية</span
+                >
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الرصيد الحالي</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >المعاملات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >السحب والإيداع</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المستخدمين -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 20 20"
+                >
+                  <title xmlns="">people</title>
+                  <g
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                  >
+                    <path
+                      d="M5 9a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+                    />
+                    <path
+                      d="M3.854 8.896a.5.5 0 0 1 0 .708l-.338.337A3.47 3.47 0 0 0 2.5 12.394v1.856a.5.5 0 1 1-1 0v-1.856a4.47 4.47 0 0 1 1.309-3.16l.337-.338a.5.5 0 0 1 .708 0m11.792-.3a.5.5 0 0 0 0 .708l.338.337A3.47 3.47 0 0 1 17 12.094v2.156a.5.5 0 0 0 1 0v-2.156a4.47 4.47 0 0 0-1.309-3.16l-.337-.338a.5.5 0 0 0-.708 0"
+                    />
+                    <path
+                      d="M14 9a2 2 0 1 1 0-4a2 2 0 0 1 0 4m0 1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m-4.5 3.25a2.5 2.5 0 0 0-2.5 2.5v1.3a.5.5 0 0 1-1 0v-1.3a3.5 3.5 0 0 1 7 0v1.3a.5.5 0 1 1-1 0v-1.3a2.5 2.5 0 0 0-2.5-2.5"
+                    />
+                    <path
+                      d="M9.5 11.75a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >إدارة المستخدمين</span
+                >
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل المستخدمين</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إضافة مستخدم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الصلاحيات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الاعدادات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">setting-alt-line</title>
+                  <g fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M3.082 13.945c-.529-.95-.793-1.426-.793-1.945s.264-.994.793-1.944L4.43 7.63l1.426-2.381c.559-.933.838-1.4 1.287-1.66c.45-.259.993-.267 2.08-.285L12 3.26l2.775.044c1.088.018 1.631.026 2.08.286s.73.726 1.288 1.659L19.57 7.63l1.35 2.426c.528.95.792 1.425.792 1.944s-.264.994-.793 1.944L19.57 16.37l-1.426 2.381c-.559.933-.838 1.4-1.287 1.66c-.45.259-.993.267-2.08.285L12 20.74l-2.775-.044c-1.088-.018-1.631-.026-2.08-.286s-.73-.726-1.288-1.659L4.43 16.37z"
+                    />
+                    <circle cx="12" cy="12" r="3" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الاعدادات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الإعدادات العامة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الأمان</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الإشعارات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الدعم الفني -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 21 21"
+                >
+                  <title xmlns="">warning-hex</title>
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    transform="translate(-1 -1)"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.517 3.5l4.983 5v6l-4.983 5H8.5l-5-5v-6l5-5zm-3.017 9v-5"
+                    />
+                    <circle cx="11.5" cy="15.5" r="1" fill="currentColor" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الدعم الفني</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تذاكر الدعم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إنشاء تذكرة</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Logout -->
+        <div
+          class="logout-wrap"
+          style="
+            padding: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+          "
+        >
+          <a
+            href="/login"
+            class="logout-link"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 10px 12px;
+              border-radius: 10px;
+              color: rgba(255, 255, 255, 0.75);
+              font-size: 14px;
+              text-decoration: none;
+            "
+          >
+            <svg
+              style="width: 18px; height: 18px; flex-shrink: 0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span class="logout-text sidebar-text">تسجيل خروج</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- ══ MAIN WRAPPER ══ -->
+      <div
+        id="mainWrapper"
+        class="flex flex-col flex-1 min-w-0 transition-all duration-300"
+        style="margin-right: 220px"
+      >
+        <!-- ══ HEADER placeholder — replace with your real header ══ -->
+        <header
+          class="sticky top-0 z-30 bg-white border-b border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
+        >
+          <div class="flex items-center px-6 h-[64px] gap-3">
+            <button
+              id="sidebarToggle"
+              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="9" y1="3" x2="9" y2="21" />
+              </svg>
+            </button>
+            <div class="flex-1 min-w-0 max-w-[440px]">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="ابحث عن دور أو صلاحية"
+                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white transition-all"
+                />
+                <span
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0079c2]"
+                >
+                  <!-- <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                > -->
+                </span>
+              </div>
+            </div>
+            <div class="mr-auto flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-[#0079c2]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                  />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-right leading-tight">
+                <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                  مصطفى حمدى
+                </p>
+                <p class="text-[10px] text-[#0079c2] font-medium">
+                  مدير تنفيذى
+                </p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ══════════════════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════════════════════ -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+          <!-- Breadcrumb -->
+          <div class="topbar">
+            <nav class="breadcrumb">
+              <a href="#" class="breadcrumb__link">الرئيسية</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">إدارة المستخدمين</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="vendors.html" class="breadcrumb__link">إدارة التجار</a>
+              <span class="breadcrumb__sep">›</span>
+              <span class="breadcrumb__current">إضافة تاجر جديد</span>
+            </nav>
+            <span class="topbar-date" id="currentDate"></span>
+          </div>
+
+          <!-- Page title -->
+          <h1 class="page-title">إضافة تاجر جديد</h1>
+
+          <!-- Card -->
+          <div class="table-card">
+            <div class="p-7">
+              <!-- ─── Basic fields ─── -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- اسم المورد -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldName"
+                  >
+                    اسم المورد <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="text"
+                      id="fieldName"
+                      placeholder="ادخل اسم المورد"
+                    />
+                    <span class="form-input-icon">
+                      <svg
+                        width="14"
+                        height="14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- الايميل -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldEmail"
+                  >
+                    الايميل <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="email"
+                      id="fieldEmail"
+                      placeholder="example@domain.com"
+                      style="direction: ltr"
+                    />
+                    <span class="form-input-icon">
+                      <svg
+                        width="14"
+                        height="14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        />
+                        <polyline points="22,6 12,13 2,6" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- كلمة المرور -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldPass"
+                  >
+                    كلمة المرور <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="password"
+                      id="fieldPass"
+                      placeholder="••••••••"
+                      style="padding-left: 40px"
+                    />
+                    <button
+                      class="pass-toggle"
+                      type="button"
+                      onclick="togglePass('fieldPass','eyePass')"
+                      title="إظهار/إخفاء"
+                    >
+                      <svg
+                        id="eyePass"
+                        width="15"
+                        height="15"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                        />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- تأكيد كلمة المرور -->
+                <div class="flex flex-col gap-[7px]">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldPassConfirm"
+                  >
+                    تأكيد كلمة المرور <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div class="form-input-wrap">
+                    <input
+                      class="form-input"
+                      type="password"
+                      id="fieldPassConfirm"
+                      placeholder="أعد كتابة كلمة المرور"
+                      style="padding-left: 40px"
+                    />
+                    <button
+                      class="pass-toggle"
+                      type="button"
+                      onclick="togglePass('fieldPassConfirm','eyeConfirm')"
+                      title="إظهار/إخفاء"
+                    >
+                      <svg
+                        id="eyeConfirm"
+                        width="15"
+                        height="15"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                        />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </button>
+                  </div>
+                  <p
+                    id="passHint"
+                    class="text-[11px] font-medium mt-[-2px] hidden"
+                  ></p>
+                </div>
+
+                <!-- التليفون -->
+                <div class="flex flex-col gap-[7px] sm:col-span-2">
+                  <label
+                    class="text-[13px] font-semibold text-[#334]"
+                    for="fieldPhone"
+                  >
+                    التليفون <span class="text-[#ee0979]">*</span>
+                  </label>
+                  <div
+                    class="form-input-wrap"
+                    style="max-width: calc(50% - 11px)"
+                  >
+                    <input
+                      class="form-input"
+                      type="text"
+                      id="fieldPhone"
+                      placeholder="01xxxxxxxxx"
+                      style="direction: ltr"
+                    />
+                    <span class="form-input-icon">
+                      <svg
+                        width="14"
+                        height="14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.47 2 2 0 0 1 3.55 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.79a16 16 0 0 0 6.29 6.29l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- /basic fields -->
+
+              <!-- ─── Section divider: صورة المورد ─── -->
+              <div class="flex items-center gap-3 my-7">
+                <div class="flex-1 h-px bg-[rgba(0,121,194,0.1)]"></div>
+                <div
+                  class="divider-label text-[12px] font-bold text-[#0079c2] px-[14px] py-[4px] rounded-full whitespace-nowrap"
+                >
+                  <svg
+                    class="inline-block mb-[3px] ml-[5px]"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="13"
+                    height="13"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                  </svg>
+                  صورة المورد
+                </div>
+                <div class="flex-1 h-px bg-[rgba(0,121,194,0.1)]"></div>
+              </div>
+
+              <!-- ─── Image Upload: Drag & Drop ─── -->
+              <div class="flex flex-col gap-[7px]">
+                <label class="text-[13px] font-semibold text-[#334]">
+                  صورة المورد <span class="text-[#ee0979]">*</span>
+                </label>
+
+                <!-- Drop Zone -->
+                <div
+                  id="dropZone"
+                  onclick="document.getElementById('fieldImage').click()"
+                  ondragover="handleDragOver(event)"
+                  ondragleave="handleDragLeave(event)"
+                  ondrop="handleDrop(event)"
+                  class="relative flex flex-col items-center justify-center gap-3 w-full rounded-2xl border-2 border-dashed border-[#c5d8ea] bg-[#f5faff] cursor-pointer transition-all duration-200 hover:border-[#0079c2] hover:bg-[#eef6fd]"
+                  style="min-height: 160px; padding: 28px 20px"
+                >
+                  <!-- Default state -->
+                  <div
+                    id="dropDefault"
+                    class="flex flex-col items-center gap-2 text-center"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-full bg-[#e0f0fb] flex items-center justify-center"
+                    >
+                      <svg
+                        width="22"
+                        height="22"
+                        fill="none"
+                        stroke="#0079c2"
+                        stroke-width="1.8"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-[13px] font-semibold text-[#1a2a3a]">
+                        اسحب وأفلت الصورة هنا
+                      </p>
+                      <p class="text-[11px] text-[#9eb0c8] mt-0.5">
+                        أو
+                        <span
+                          class="text-[#0079c2] font-semibold underline underline-offset-2"
+                          >اضغط لاختيار ملف</span
+                        >
+                      </p>
+                    </div>
+                    <p
+                      class="text-[10px] text-[#b0c4d8] bg-white border border-[#e8f0f8] rounded-full px-3 py-1"
+                    >
+                      PNG · JPG · WEBP — الحجم الأقصى 2MB
+                    </p>
+                  </div>
+
+                  <!-- Preview state -->
+                  <div
+                    id="dropPreview"
+                    class="hidden flex-col items-center gap-3 w-full"
+                  >
+                    <div class="relative">
+                      <img
+                        id="previewImg"
+                        src=""
+                        alt="معاينة"
+                        class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg"
+                      />
+                      <button
+                        type="button"
+                        onclick="removeImage(event)"
+                        class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#ee0979] border-2 border-white flex items-center justify-center shadow"
+                        title="إزالة الصورة"
+                      >
+                        <svg
+                          width="8"
+                          height="8"
+                          fill="none"
+                          stroke="white"
+                          stroke-width="3"
+                          viewBox="0 0 24 24"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18" />
+                          <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="text-center">
+                      <p
+                        id="previewName"
+                        class="text-[12px] font-semibold text-[#1a2a3a]"
+                      ></p>
+                      <p
+                        id="previewSize"
+                        class="text-[11px] text-[#9eb0c8]"
+                      ></p>
+                    </div>
+                    <button
+                      type="button"
+                      onclick="document.getElementById('fieldImage').click(); event.stopPropagation();"
+                      class="text-[11px] font-semibold text-[#0079c2] hover:underline"
+                    >
+                      تغيير الصورة
+                    </button>
+                  </div>
+
+                  <!-- Drag-over overlay -->
+                  <div
+                    id="dragOverlay"
+                    class="hidden absolute inset-0 rounded-2xl bg-[#0079c2]/10 border-2 border-[#0079c2] items-center justify-center pointer-events-none"
+                  >
+                    <p class="text-[13px] font-bold text-[#0079c2]">
+                      أفلت الصورة هنا ✦
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Hidden file input -->
+                <input
+                  type="file"
+                  id="fieldImage"
+                  accept="image/png, image/jpeg, image/webp"
+                  class="hidden"
+                  onchange="handleFileSelect(event)"
+                />
+              </div>
+              <!-- /image upload -->
+            </div>
+            <!-- /card body -->
+
+            <!-- ── Footer ── -->
+            <div
+              class="flex items-center justify-center gap-6 flex-wrap px-7 py-5 mb-5 border-t border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.012)]"
+            >
+              <a href="vendors.html" class="btn btn--outline">
+                <svg
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="9 14 4 9 9 4" />
+                  <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
+                </svg>
+                رجوع
+              </a>
+              <button class="btn btn--primary" onclick="addVendor()">
+                <svg
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.3"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="8.5" cy="7" r="4" />
+                  <line x1="20" y1="8" x2="20" y2="14" />
+                  <line x1="23" y1="11" x2="17" y2="11" />
+                </svg>
+                اضافة التاجر
+              </button>
+            </div>
+          </div>
+          <!-- /.table-card -->
+        </main>
+
+        <!-- /main content -->
+      </div>
+      <!-- /mainWrapper -->
+    </div>
+
+    <!-- Mobile overlay -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black/40 z-30 hidden"
+      onclick="closeMobile()"
+    ></div>
+
+    <!-- Toast container -->
+    <div
+      class="fixed bottom-6 left-6 flex flex-col gap-2 z-[600]"
+      id="toastContainer"
+    ></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="../master.js"></script>
+    <script>
+      /* ── Password toggle ── */
+      function togglePass(fieldId, eyeId) {
+        const inp = document.getElementById(fieldId);
+        const icon = document.getElementById(eyeId);
+        const show = inp.type === "password";
+        inp.type = show ? "text" : "password";
+        icon.innerHTML = show
+          ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+         <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+         <line x1="1" y1="1" x2="23" y2="23"/>`
+          : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+         <circle cx="12" cy="12" r="3"/>`;
+      }
+
+      /* ── Password match check ── */
+      function checkPassMatch() {
+        const pass = document.getElementById("fieldPass").value;
+        const confirm = document.getElementById("fieldPassConfirm").value;
+        const hint = document.getElementById("passHint");
+        if (!confirm) {
+          hint.classList.add("hidden");
+          return;
+        }
+        hint.classList.remove("hidden");
+        if (pass === confirm) {
+          hint.textContent = "✓ كلمتا المرور متطابقتان";
+          hint.style.color = "#1a8c45";
+        } else {
+          hint.textContent = "✕ كلمتا المرور غير متطابقتين";
+          hint.style.color = "#ee0979";
+        }
+      }
+      document
+        .getElementById("fieldPassConfirm")
+        .addEventListener("input", checkPassMatch);
+      document
+        .getElementById("fieldPass")
+        .addEventListener("input", checkPassMatch);
+
+      /* ── Submit ── */
+      function addVendor() {
+        const name = document.getElementById("fieldName").value.trim();
+        const email = document.getElementById("fieldEmail").value.trim();
+        const phone = document.getElementById("fieldPhone").value.trim();
+        const pass = document.getElementById("fieldPass").value;
+        const confirm = document.getElementById("fieldPassConfirm").value;
+
+        if (!name) {
+          showToast("يرجى إدخال اسم المورد", "error");
+          return;
+        }
+        if (!email) {
+          showToast("يرجى إدخال البريد الإلكتروني", "error");
+          return;
+        }
+        if (!pass) {
+          showToast("يرجى إدخال كلمة المرور", "error");
+          return;
+        }
+        if (pass !== confirm) {
+          showToast("كلمتا المرور غير متطابقتين", "error");
+          return;
+        }
+        if (!phone) {
+          showToast("يرجى إدخال رقم التليفون", "error");
+          return;
+        }
+
+        showToast("تم إضافة التاجر بنجاح ✓", "success");
+      }
+
+      /* ── Toast ── */
+      function showToast(msg, type) {
+        const colors = {
+          success: "#1a8c45",
+          error: "#ee0979",
+          info: "#0079c2",
+        };
+        const icons = { success: "✓", error: "✕", info: "ℹ" };
+        const c = document.getElementById("toastContainer");
+        const t = document.createElement("div");
+        t.style.cssText =
+          "display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;font-family:Cairo,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,0.14);min-width:240px;color:#fff;animation:toastIn 0.3s ease;background:" +
+          (colors[type] || colors.info);
+        t.innerHTML =
+          '<span style="font-size:16px">' +
+          (icons[type] || "ℹ") +
+          "</span><span>" +
+          msg +
+          "</span>";
+        c.appendChild(t);
+        setTimeout(() => {
+          t.style.transition = "opacity 0.35s";
+          t.style.opacity = "0";
+          setTimeout(() => t.remove(), 350);
+        }, 3500);
+      }
+    </script>
+    <script>
+      /* ── Image drag & drop ── */
+      function handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const overlay = document.getElementById("dragOverlay");
+        overlay.classList.remove("hidden");
+        overlay.classList.add("flex");
+        document.getElementById("dropZone").style.borderColor = "#0079c2";
+        document.getElementById("dropZone").style.background = "#eef6fd";
+      }
+      function handleDragLeave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const overlay = document.getElementById("dragOverlay");
+        overlay.classList.add("hidden");
+        overlay.classList.remove("flex");
+        document.getElementById("dropZone").style.borderColor = "";
+        document.getElementById("dropZone").style.background = "";
+      }
+      function handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleDragLeave(e);
+        const file = e.dataTransfer.files[0];
+        if (file) applyFile(file);
+      }
+      function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) applyFile(file);
+      }
+      function applyFile(file) {
+        const allowed = ["image/png", "image/jpeg", "image/webp"];
+        if (!allowed.includes(file.type)) {
+          alert("يرجى اختيار صورة بصيغة PNG أو JPG أو WEBP");
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          alert("حجم الصورة يجب أن يكون أقل من 2MB");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("previewImg").src = e.target.result;
+          document.getElementById("previewName").textContent = file.name;
+          document.getElementById("previewSize").textContent =
+            (file.size / 1024).toFixed(1) + " KB";
+          document.getElementById("dropDefault").classList.add("hidden");
+          const preview = document.getElementById("dropPreview");
+          preview.classList.remove("hidden");
+          preview.classList.add("flex");
+        };
+        reader.readAsDataURL(file);
+      }
+      function removeImage(e) {
+        e.stopPropagation();
+        document.getElementById("previewImg").src = "";
+        document.getElementById("previewName").textContent = "";
+        document.getElementById("previewSize").textContent = "";
+        document.getElementById("fieldImage").value = "";
+        document.getElementById("dropDefault").classList.remove("hidden");
+        const preview = document.getElementById("dropPreview");
+        preview.classList.add("hidden");
+        preview.classList.remove("flex");
+      }
+    </script>
+  </body>
+</html>

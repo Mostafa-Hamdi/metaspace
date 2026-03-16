@@ -10,52 +10,6 @@
     />
     <link rel="stylesheet" href="../../dist/output.css" />
     <style>
-      /* ================================================================
-         PAGE-SPECIFIC STYLES ONLY
-         (sidebar / header / layout styles live in your existing CSS)
-      ================================================================ */
-
-      /* ── Role badge variants ── */
-      .badge--admin {
-        background: rgba(0, 121, 194, 0.1);
-        color: #0079c2;
-        border: 1px solid rgba(0, 121, 194, 0.2);
-      }
-      .badge--manager {
-        background: rgba(249, 168, 37, 0.1);
-        color: #c17900;
-        border: 1px solid rgba(249, 168, 37, 0.25);
-      }
-      .badge--editor {
-        background: rgba(124, 58, 237, 0.1);
-        color: #5e35b1;
-        border: 1px solid rgba(124, 58, 237, 0.2);
-      }
-      .badge--viewer {
-        background: rgba(5, 150, 105, 0.1);
-        color: #047857;
-        border: 1px solid rgba(5, 150, 105, 0.2);
-      }
-      .badge--support {
-        background: rgba(219, 39, 119, 0.1);
-        color: #be185d;
-        border: 1px solid rgba(219, 39, 119, 0.2);
-      }
-
-      /* ── Permission tags ── */
-      .username {
-        display: inline-flex;
-        align-items: center;
-        padding: 3px 10px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 600;
-        background: rgba(0, 121, 194, 0.08);
-        color: var(--primary);
-        border: 1px solid rgba(0, 121, 194, 0.15);
-        white-space: nowrap;
-      }
-
       /* ── Stat cards ── */
       .stat-card {
         background: #fff;
@@ -1525,13 +1479,13 @@
               <span class="breadcrumb__sep">›</span>
               <a href="#" class="breadcrumb__link">إدارة المستخدمين</a>
               <span class="breadcrumb__sep">›</span>
-              <span class="breadcrumb__current">إدارة المديرين</span>
+              <span class="breadcrumb__current">إدارة التجار</span>
             </nav>
             <span class="topbar-date" id="currentDate"></span>
           </div>
 
           <!-- Page Title -->
-          <h1 class="page-title">إدارة المديرين</h1>
+          <h1 class="page-title">إدارة التجار</h1>
 
           <!-- Stats -->
           <div
@@ -1554,8 +1508,8 @@
                 </svg>
               </div>
               <div class="stat-info">
-                <p>6</p>
-                <p>إجمالي المديرين</p>
+                <p>9</p>
+                <p>إجمالي التجار</p>
               </div>
             </div>
             <div class="stat-card">
@@ -1573,8 +1527,8 @@
                 </svg>
               </div>
               <div class="stat-info">
-                <p>5</p>
-                <p>مديرين نشطين</p>
+                <p>7</p>
+                <p>تجار نشطين</p>
               </div>
             </div>
             <div class="stat-card">
@@ -1595,8 +1549,31 @@
                 </svg>
               </div>
               <div class="stat-info">
-                <p>1</p>
+                <p>2</p>
                 <p>حسابات مجمّدة</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: rgba(124, 58, 237, 0.1)"
+              >
+                <svg
+                  fill="none"
+                  stroke="#5e35b1"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 01-8 0" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <p>1,240</p>
+                <p>إجمالي الطلبات</p>
               </div>
             </div>
           </div>
@@ -1633,10 +1610,9 @@
                 <input
                   class="form-input"
                   type="text"
-                  placeholder="ابحث بالرقم او الايميل"
+                  placeholder="ابحث بالاسم أو الإيميل"
                   id="searchInput"
                   oninput="filterTable()"
-                  fdprocessedid="aobfqo"
                 />
                 <span class="form-input-icon">
                   <svg
@@ -1668,7 +1644,7 @@
                   <line x1="12" y1="5" x2="12" y2="19" />
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                إضافة مدير جديد
+                إضافة تاجر جديد
               </button>
             </div>
           </div>
@@ -1732,7 +1708,6 @@
                       </div>
                     </th>
 
-                    <!-- ✅ NEW: الصورة column -->
                     <th class="text-center">الصورة</th>
 
                     <th
@@ -1830,7 +1805,7 @@
                       class="cursor-pointer select-none"
                     >
                       <div class="flex items-center gap-1.5">
-                        الصلاحية
+                        الحالة
                         <span
                           class="sort-icon inline-flex items-center text-white transition-colors duration-200"
                           data-col="4"
@@ -1860,7 +1835,7 @@
                       class="cursor-pointer select-none"
                     >
                       <div class="flex items-center gap-1.5">
-                        الحالة
+                        تجميد المستخدم
                         <span
                           class="sort-icon inline-flex items-center text-white transition-colors duration-200"
                           data-col="5"
@@ -1890,70 +1865,10 @@
                       class="cursor-pointer select-none"
                     >
                       <div class="flex items-center gap-1.5">
-                        تجميد المستخدم
+                        التعديل على حالات الاوردرات
                         <span
                           class="sort-icon inline-flex items-center text-white transition-colors duration-200"
                           data-col="6"
-                        >
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="M8 20V8M8 8L5 11M8 8L11 11" opacity="1" />
-                            <path
-                              d="M16 4V16M16 16L13 13M16 16L19 13"
-                              opacity="1"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </th>
-
-                    <th
-                      onclick="sortTable(7)"
-                      class="cursor-pointer select-none"
-                    >
-                      <div class="flex items-center gap-1.5">
-                        عرض جميع الطلبات
-                        <span
-                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
-                          data-col="7"
-                        >
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="M8 20V8M8 8L5 11M8 8L11 11" opacity="1" />
-                            <path
-                              d="M16 4V16M16 16L13 13M16 16L19 13"
-                              opacity="1"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </th>
-
-                    <th
-                      onclick="sortTable(8)"
-                      class="cursor-pointer select-none"
-                    >
-                      <div class="flex items-center gap-1.5">
-                        مدير محاولات التأكيد
-                        <span
-                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
-                          data-col="8"
                         >
                           <svg
                             width="18"
@@ -1980,7 +1895,7 @@
                 </thead>
                 <tbody id="tableBody">
                   <!-- Row 1 -->
-                  <tr data-name="helmy">
+                  <tr data-name="ahmed">
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
@@ -2003,290 +1918,9 @@
                       </div>
                     </td>
                     <td style="font-weight: 600; color: #6b7a8d">1</td>
-                    <!-- ✅ Image cell -->
                     <td class="text-center">
                       <img
                         src="https://randomuser.me/api/portraits/men/32.jpg"
-                        class="w-9 h-9 rounded-full mx-auto object-cover"
-                        alt="Helmy"
-                      />
-                    </td>
-                    <td class="contact-cell">
-                      <div class="contact-name">Helmy</div>
-                    </td>
-                    <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
-                      helmi@meta.com
-                    </td>
-                    <td
-                      style="
-                        direction: ltr;
-                        font-size: 12px;
-                        color: #0079c2;
-                        font-weight: 600;
-                      "
-                    >
-                      01101236578
-                    </td>
-                    <td><span class="badge badge--manager">Manager</span></td>
-                    <td><span class="badge badge--active">مفعل</span></td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" checked /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" checked /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="actions">
-                        <button
-                          class="action-btn action-btn--delete"
-                          onclick="openDelete('Helmy')"
-                          title="حذف"
-                        >
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                          >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
-                          </svg>
-                        </button>
-                        <button
-                          class="action-btn action-btn--edit"
-                          onclick="openEditModal('Helmy')"
-                          title="تعديل"
-                        >
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            />
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            />
-                          </svg>
-                        </button>
-                        <button
-                          class="action-btn action-btn--lock"
-                          title="قفل الحساب"
-                        >
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                          >
-                            <rect x="3" y="11" width="18" height="11" rx="2" />
-                            <path d="M7 11V7a5 5 0 0110 0v4" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <!-- Row 2 -->
-                  <tr data-name="new em">
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input row-check"
-                          id="c2"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="c2">
-                          <span
-                            ><svg
-                              width="12px"
-                              height="10px"
-                              viewBox="0 0 12 10"
-                            >
-                              <polyline
-                                points="1.5 6 4.5 9 10.5 1"
-                              ></polyline></svg
-                          ></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td style="font-weight: 600; color: #6b7a8d">2</td>
-                    <!-- ✅ Image cell -->
-                    <td class="text-center">
-                      <img
-                        src="https://randomuser.me/api/portraits/women/44.jpg"
-                        class="w-9 h-9 rounded-full mx-auto object-cover"
-                        alt="New em"
-                      />
-                    </td>
-                    <td class="contact-cell">
-                      <div class="contact-name">New em</div>
-                    </td>
-                    <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
-                      new_em@gmail.cim
-                    </td>
-                    <td
-                      style="
-                        direction: ltr;
-                        font-size: 12px;
-                        color: #0079c2;
-                        font-weight: 600;
-                      "
-                    >
-                      01022432232
-                    </td>
-                    <td><span class="badge badge--newm">Newm</span></td>
-                    <td><span class="badge badge--active">مفعل</span></td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" checked /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="actions">
-                        <button
-                          class="action-btn action-btn--delete"
-                          onclick="openDelete('New em')"
-                          title="حذف"
-                        >
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                          >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
-                          </svg>
-                        </button>
-                        <button
-                          class="action-btn action-btn--edit"
-                          onclick="openEditModal('New em')"
-                          title="تعديل"
-                        >
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            />
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            />
-                          </svg>
-                        </button>
-                        <button
-                          class="action-btn action-btn--lock"
-                          title="قفل الحساب"
-                        >
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                          >
-                            <rect x="3" y="11" width="18" height="11" rx="2" />
-                            <path d="M7 11V7a5 5 0 0110 0v4" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <!-- Row 3 -->
-                  <tr data-name="ahmed">
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input row-check"
-                          id="c3"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="c3">
-                          <span
-                            ><svg
-                              width="12px"
-                              height="10px"
-                              viewBox="0 0 12 10"
-                            >
-                              <polyline
-                                points="1.5 6 4.5 9 10.5 1"
-                              ></polyline></svg
-                          ></span>
-                        </label>
-                      </div>
-                    </td>
-                    <td style="font-weight: 600; color: #6b7a8d">3</td>
-                    <!-- ✅ Image cell -->
-                    <td class="text-center">
-                      <img
-                        src="https://randomuser.me/api/portraits/men/15.jpg"
                         class="w-9 h-9 rounded-full mx-auto object-cover"
                         alt="Ahmed"
                       />
@@ -2295,7 +1929,7 @@
                       <div class="contact-name">Ahmed</div>
                     </td>
                     <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
-                      ahmed@meta.com
+                      helmy@meta.com
                     </td>
                     <td
                       style="
@@ -2305,23 +1939,13 @@
                         font-weight: 600;
                       "
                     >
-                      01007333337
+                      01012021541
                     </td>
-                    <td><span class="badge badge--test">Test</span></td>
                     <td><span class="badge badge--active">مفعل</span></td>
                     <td>
                       <div class="toggle-wrap">
                         <label class="toggle"
                           ><input type="checkbox" checked /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" /><span
                             class="toggle-slider"
                           ></span
                         ></label>
@@ -2399,8 +2023,266 @@
                     </td>
                   </tr>
 
+                  <!-- Row 2 -->
+                  <tr data-name="soad">
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input row-check"
+                          id="c2"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="c2">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td style="font-weight: 600; color: #6b7a8d">2</td>
+                    <td class="text-center">
+                      <img
+                        src="https://randomuser.me/api/portraits/women/44.jpg"
+                        class="w-9 h-9 rounded-full mx-auto object-cover"
+                        alt="Soad"
+                      />
+                    </td>
+                    <td class="contact-cell">
+                      <div class="contact-name">Soad</div>
+                    </td>
+                    <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
+                      soad@app.com
+                    </td>
+                    <td
+                      style="
+                        direction: ltr;
+                        font-size: 12px;
+                        color: #0079c2;
+                        font-weight: 600;
+                      "
+                    >
+                      01111111222
+                    </td>
+                    <td><span class="badge badge--active">مفعل</span></td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox" checked /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox" checked /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="actions">
+                        <button
+                          class="action-btn action-btn--delete"
+                          onclick="openDelete('Soad')"
+                          title="حذف"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          onclick="openEditModal('Soad')"
+                          title="تعديل"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          class="action-btn action-btn--lock"
+                          title="قفل الحساب"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0110 0v4" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3 -->
+                  <tr data-name="nen">
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input row-check"
+                          id="c3"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="c3">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td style="font-weight: 600; color: #6b7a8d">3</td>
+                    <td class="text-center">
+                      <img
+                        src="https://randomuser.me/api/portraits/men/15.jpg"
+                        class="w-9 h-9 rounded-full mx-auto object-cover"
+                        alt="Nen"
+                      />
+                    </td>
+                    <td class="contact-cell">
+                      <div class="contact-name">Nen</div>
+                    </td>
+                    <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
+                      nen@nen.nen
+                    </td>
+                    <td
+                      style="
+                        direction: ltr;
+                        font-size: 12px;
+                        color: #0079c2;
+                        font-weight: 600;
+                      "
+                    >
+                      01111111111
+                    </td>
+                    <td><span class="badge badge--active">مفعل</span></td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox" checked /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox" /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="actions">
+                        <button
+                          class="action-btn action-btn--delete"
+                          onclick="openDelete('Nen')"
+                          title="حذف"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6l-1 14H6L5 6" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                            <path d="M9 6V4h6v2" />
+                          </svg>
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          onclick="openEditModal('Nen')"
+                          title="تعديل"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <path
+                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                            />
+                            <path
+                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          class="action-btn action-btn--lock"
+                          title="قفل الحساب"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                          >
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0110 0v4" />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
                   <!-- Row 4 -->
-                  <tr data-name="super admin crm">
+                  <tr data-name="تاجر">
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
@@ -2423,19 +2305,18 @@
                       </div>
                     </td>
                     <td style="font-weight: 600; color: #6b7a8d">4</td>
-                    <!-- ✅ Image cell -->
                     <td class="text-center">
                       <img
                         src="https://randomuser.me/api/portraits/men/76.jpg"
                         class="w-9 h-9 rounded-full mx-auto object-cover"
-                        alt="Super-Admin-crm"
+                        alt="تاجر"
                       />
                     </td>
                     <td class="contact-cell">
-                      <div class="contact-name">Super-Admin-crm</div>
+                      <div class="contact-name">تاجر</div>
                     </td>
                     <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
-                      super-admin@crm.com
+                      t@gmail.com
                     </td>
                     <td
                       style="
@@ -2445,9 +2326,8 @@
                         font-weight: 600;
                       "
                     >
-                      01019342647
+                      01093388670
                     </td>
-                    <td><span class="badge badge--manager">Manager</span></td>
                     <td><span class="badge badge--active">مفعل</span></td>
                     <td>
                       <div class="toggle-wrap">
@@ -2468,19 +2348,10 @@
                       </div>
                     </td>
                     <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
                       <div class="actions">
                         <button
                           class="action-btn action-btn--delete"
-                          onclick="openDelete('Super-Admin-crm')"
+                          onclick="openDelete('تاجر')"
                           title="حذف"
                         >
                           <svg
@@ -2500,7 +2371,7 @@
                         </button>
                         <button
                           class="action-btn action-btn--edit"
-                          onclick="openEditModal('Super-Admin-crm')"
+                          onclick="openEditModal('تاجر')"
                           title="تعديل"
                         >
                           <svg
@@ -2540,7 +2411,7 @@
                   </tr>
 
                   <!-- Row 5 -->
-                  <tr data-name="manager">
+                  <tr data-name="tagger">
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
@@ -2563,19 +2434,18 @@
                       </div>
                     </td>
                     <td style="font-weight: 600; color: #6b7a8d">5</td>
-                    <!-- ✅ Image cell -->
                     <td class="text-center">
                       <img
                         src="https://randomuser.me/api/portraits/men/55.jpg"
                         class="w-9 h-9 rounded-full mx-auto object-cover"
-                        alt="Manager"
+                        alt="Tagger"
                       />
                     </td>
                     <td class="contact-cell">
-                      <div class="contact-name">Manager</div>
+                      <div class="contact-name">Tagger</div>
                     </td>
                     <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
-                      manager@eramint.com
+                      tagger@gmail.com
                     </td>
                     <td
                       style="
@@ -2585,9 +2455,8 @@
                         font-weight: 600;
                       "
                     >
-                      01029900990
+                      01388998899
                     </td>
-                    <td><span class="badge badge--manager">Manager</span></td>
                     <td><span class="badge badge--active">مفعل</span></td>
                     <td>
                       <div class="toggle-wrap">
@@ -2608,19 +2477,10 @@
                       </div>
                     </td>
                     <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
-                    <td>
                       <div class="actions">
                         <button
                           class="action-btn action-btn--delete"
-                          onclick="openDelete('Manager')"
+                          onclick="openDelete('Tagger')"
                           title="حذف"
                         >
                           <svg
@@ -2640,7 +2500,7 @@
                         </button>
                         <button
                           class="action-btn action-btn--edit"
-                          onclick="openEditModal('Manager')"
+                          onclick="openEditModal('Tagger')"
                           title="تعديل"
                         >
                           <svg
@@ -2680,7 +2540,7 @@
                   </tr>
 
                   <!-- Row 6 -->
-                  <tr data-name="sara ali">
+                  <tr data-name="sara vendor">
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
@@ -2703,19 +2563,18 @@
                       </div>
                     </td>
                     <td style="font-weight: 600; color: #6b7a8d">6</td>
-                    <!-- ✅ Image cell -->
                     <td class="text-center">
                       <img
                         src="https://randomuser.me/api/portraits/women/68.jpg"
                         class="w-9 h-9 rounded-full mx-auto object-cover"
-                        alt="Sara Ali"
+                        alt="Sara Vendor"
                       />
                     </td>
                     <td class="contact-cell">
-                      <div class="contact-name">Sara Ali</div>
+                      <div class="contact-name">Sara Vendor</div>
                     </td>
                     <td style="direction: ltr; font-size: 12px; color: #6b7a8d">
-                      sara.ali@meta.com
+                      sara@store.com
                     </td>
                     <td
                       style="
@@ -2727,17 +2586,7 @@
                     >
                       01055667788
                     </td>
-                    <td><span class="badge badge--admin">Admin</span></td>
                     <td><span class="badge badge--inactive">موقوف</span></td>
-                    <td>
-                      <div class="toggle-wrap">
-                        <label class="toggle"
-                          ><input type="checkbox" /><span
-                            class="toggle-slider"
-                          ></span
-                        ></label>
-                      </div>
-                    </td>
                     <td>
                       <div class="toggle-wrap">
                         <label class="toggle"
@@ -2760,7 +2609,7 @@
                       <div class="actions">
                         <button
                           class="action-btn action-btn--delete"
-                          onclick="openDelete('Sara Ali')"
+                          onclick="openDelete('Sara Vendor')"
                           title="حذف"
                         >
                           <svg
@@ -2780,7 +2629,7 @@
                         </button>
                         <button
                           class="action-btn action-btn--edit"
-                          onclick="openEditModal('Sara Ali')"
+                          onclick="openEditModal('Sara Vendor')"
                           title="تعديل"
                         >
                           <svg
@@ -2891,39 +2740,18 @@
       onclick="closeMobile()"
     ></div>
 
-    <!-- 
-     DELETE MODAL  — paste before </body>
- -->
+    <!-- ── Delete Modal ── -->
     <div
       class="modal-overlay"
       id="deleteModal"
       onclick="if(event.target===this)closeDelete()"
     >
       <div class="modal-box">
-        <div
-          class="flex items-center justify-between px-6 py-4"
-          style="background: linear-gradient(135deg, #ee0979, #ff6b6b)"
-        >
-          <h2 class="text-white font-bold text-base">تأكيد الحذف</h2>
-          <button
-            onclick="closeDelete()"
-            style="
-              width: 32px;
-              height: 32px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              border-radius: 8px;
-              border: none;
-              background: rgba(255, 255, 255, 0.2);
-              color: #fff;
-              cursor: pointer;
-            "
-          >
-            ✕
-          </button>
+        <div class="modal-header modal-header--danger">
+          <h2>تأكيد الحذف</h2>
+          <button class="modal-close-btn" onclick="closeDelete()">✕</button>
         </div>
-        <div class="px-6 py-8 text-center">
+        <div class="modal-body" style="text-align: center; padding: 32px 24px">
           <div
             style="
               width: 64px;
@@ -2941,8 +2769,8 @@
               stroke="#ee0979"
               stroke-width="2"
               viewBox="0 0 24 24"
-              width="30"
-              height="30"
+              width="28"
+              height="28"
             >
               <polyline points="3 6 5 6 21 6" />
               <path d="M19 6l-1 14H6L5 6" />
@@ -2959,11 +2787,11 @@
               margin-bottom: 10px;
             "
           >
-            هل أنت متأكد من حذف هذا المدير؟
+            هل أنت متأكد من حذف هذا التاجر؟
           </h3>
           <p style="font-size: 13px; color: #6b7a8d; margin-bottom: 6px">
-            سيتم حذف المدير:
-            <strong id="deleteManagerName" style="color: #ee0979"></strong>
+            سيتم حذف التاجر:
+            <strong id="deleteVendorName" style="color: #ee0979"></strong>
           </p>
           <p style="font-size: 12px; color: #a1a1a1; line-height: 1.8">
             هذا الإجراء لا يمكن التراجع عنه.<br />سيتم إلغاء جميع صلاحياته
@@ -2979,68 +2807,105 @@
             padding: 0 24px 24px;
           "
         >
-          <button class="btn btn--danger" onclick="confirmDelete()">
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.3"
-            >
-              <polyline points="3 6 5 6 21 6" />
-              <path d="M19 6l-1 14H6L5 6" />
-            </svg>
-            نعم، حذف المدير
+          <button
+            style="
+              padding: 9px 22px;
+              border-radius: 9px;
+              border: none;
+              background: linear-gradient(135deg, #ee0979, #ff6b6b);
+              color: #fff;
+              font-family: var(--font);
+              font-size: 13px;
+              font-weight: 700;
+              cursor: pointer;
+            "
+            onclick="confirmDelete()"
+          >
+            نعم، حذف التاجر
           </button>
-          <button class="btn btn--outline" onclick="closeDelete()">
-            إلغاء
-          </button>
+          <button class="btn-cancel" onclick="closeDelete()">إلغاء</button>
         </div>
       </div>
     </div>
-
     <!-- Toast container -->
     <div
-      class="fixed bottom-6 left-6 flex flex-col gap-2 z-[600]"
+      style="
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 600;
+      "
       id="toastContainer"
     ></div>
     <script src="../master.js"></script>
     <script>
-      /* ── Select All ── */
+      // Toggle all checkboxes
       function toggleAll(el) {
         document
-          .querySelectorAll("#tableBody .checkbox-input")
+          .querySelectorAll(".row-check")
           .forEach((c) => (c.checked = el.checked));
       }
 
-      /* ── Filter ── */
+      // ON/OFF toggle
+      function toggleSwitch(el) {
+        if (el.classList.contains("is-on")) {
+          el.classList.remove("is-on");
+          el.classList.add("is-off");
+        } else {
+          el.classList.remove("is-off");
+          el.classList.add("is-on");
+        }
+      }
+
+      // Filter table
       function filterTable() {
-        const q = document
-          .getElementById("searchInput")
-          .value.trim()
+        const q = (document.getElementById("searchInput").value || "")
+          .trim()
           .toLowerCase();
-        const s = document.getElementById("statusFilter").value;
-        document.querySelectorAll("#tableBody tr").forEach((tr) => {
-          const nameMatch =
-            !q || (tr.dataset.name || "").toLowerCase().includes(q);
-          const statusMatch = !s || tr.dataset.status === s;
-          tr.style.display = nameMatch && statusMatch ? "" : "none";
-        });
+        const cn = (document.getElementById("colName").value || "")
+          .trim()
+          .toLowerCase();
+        const ce = (document.getElementById("colEmail").value || "")
+          .trim()
+          .toLowerCase();
+        const cp = (document.getElementById("colPhone").value || "")
+          .trim()
+          .toLowerCase();
+
+        document
+          .querySelectorAll("#tableBody tr:not(.col-search-row)")
+          .forEach((tr) => {
+            const name = (tr.dataset.name || "").toLowerCase();
+            const email = (tr.dataset.email || "").toLowerCase();
+            const phone = (tr.dataset.phone || "").toLowerCase();
+            const globalMatch =
+              !q || name.includes(q) || email.includes(q) || phone.includes(q);
+            const nameMatch = !cn || name.includes(cn);
+            const emailMatch = !ce || email.includes(ce);
+            const phoneMatch = !cp || phone.includes(cp);
+            tr.style.display =
+              globalMatch && nameMatch && emailMatch && phoneMatch
+                ? ""
+                : "none";
+          });
       }
     </script>
     <!-- delete modal -->
     <script>
-      /* ── Delete Modal ── */
+      // Delete Modal
       let pendingRow = null;
       function openDelete(name) {
-        document.getElementById("deleteManagerName").textContent = name;
+        document.getElementById("deleteVendorName").textContent = name;
         document.getElementById("deleteModal").classList.add("open");
         document.body.style.overflow = "hidden";
         pendingRow =
-          [...document.querySelectorAll("#tableBody tr")].find(
-            (tr) => tr.dataset.name === name.toLowerCase(),
-          ) || null;
+          [
+            ...document.querySelectorAll("#tableBody tr:not(.col-search-row)"),
+          ].find((tr) => (tr.dataset.name || "") === name.toLowerCase()) ||
+          null;
       }
       function closeDelete() {
         document.getElementById("deleteModal").classList.remove("open");
@@ -3048,7 +2913,7 @@
         pendingRow = null;
       }
       function confirmDelete() {
-        const name = document.getElementById("deleteManagerName").textContent;
+        const name = document.getElementById("deleteVendorName").textContent;
         if (pendingRow) {
           pendingRow.style.transition = "opacity 0.3s,transform 0.3s";
           pendingRow.style.opacity = "0";
@@ -3058,10 +2923,10 @@
           }, 300);
         }
         closeDelete();
-        showToast('تم حذف المدير "' + name + '" بنجاح', "success");
+        showToast('تم حذف التاجر "' + name + '" بنجاح', "success");
       }
 
-      /* ── Toast ── */
+      // Toast
       function showToast(msg, type) {
         const colors = {
           success: "#1a8c45",
@@ -3071,15 +2936,10 @@
         const icons = { success: "✓", error: "✕", info: "ℹ" };
         const c = document.getElementById("toastContainer");
         const t = document.createElement("div");
-        t.style.cssText =
-          "display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;font-family:Cairo,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,0.14);min-width:240px;color:#fff;animation:toastIn 0.3s ease;background:" +
-          (colors[type] || colors.info);
-        t.innerHTML =
-          '<span style="font-size:16px;">' +
-          (icons[type] || "ℹ") +
-          "</span><span>" +
-          msg +
-          "</span>";
+        t.style.cssText = `display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;
+      font-size:13px;font-weight:600;font-family:Cairo,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,0.14);
+      min-width:240px;color:#fff;animation:toastIn 0.3s ease;background:${colors[type] || colors.info}`;
+        t.innerHTML = `<span style="font-size:16px">${icons[type] || "ℹ"}</span><span>${msg}</span>`;
         c.appendChild(t);
         setTimeout(() => {
           t.style.transition = "opacity 0.35s";
