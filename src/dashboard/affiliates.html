@@ -2868,6 +2868,7 @@
       </div>
       <!-- /mainWrapper -->
     </div>
+    <!-- ═══════════ PAYMENT MODAL ═══════════ -->
     <div
       id="payModal"
       style="
@@ -2885,11 +2886,11 @@
     >
       <div
         style="
-          background: var(--color-background-primary, #fff);
-          border-radius: 16px;
+          background: #fff;
+          border-radius: 20px;
           border: 0.5px solid rgba(0, 0, 0, 0.1);
           width: 100%;
-          max-width: 460px;
+          max-width: 500px;
           overflow: hidden;
         "
       >
@@ -2897,17 +2898,17 @@
         <div
           style="
             background: #0079c2;
-            padding: 18px 20px;
+            padding: 20px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
           "
         >
-          <div style="display: flex; align-items: center; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 12px">
             <div
               style="
-                width: 36px;
-                height: 36px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 background: rgba(255, 255, 255, 0.18);
                 display: flex;
@@ -2929,7 +2930,6 @@
             </div>
             <div>
               <p
-                id="pay-modal-title"
                 style="
                   font-size: 15px;
                   font-weight: 600;
@@ -2940,20 +2940,22 @@
                 بيانات الدفع
               </p>
               <p
-                id="pay-modal-sub"
+                id="modal-sub"
                 style="
                   font-size: 11px;
                   color: rgba(255, 255, 255, 0.72);
                   margin: 0;
                 "
-              ></p>
+              >
+                اختر طريقة الدفع
+              </p>
             </div>
           </div>
           <button
             onclick="closePayModal()"
             style="
-              width: 30px;
-              height: 30px;
+              width: 32px;
+              height: 32px;
               border-radius: 50%;
               background: rgba(255, 255, 255, 0.15);
               border: none;
@@ -2978,39 +2980,76 @@
           </button>
         </div>
 
-        <!-- Body -->
+        <!-- Step dots -->
         <div
           style="
-            padding: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 0 4px;
           "
         >
-          <!-- فودافون كاش -->
-          <div
+          <span
+            id="pay-d1"
             style="
-              border-radius: 12px;
-              border: 0.5px solid rgba(0, 0, 0, 0.08);
-              overflow: hidden;
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: #0079c2;
+              transition: all 0.3s;
+            "
+          ></span>
+          <span style="width: 24px; height: 1px; background: #e0e8f0"></span>
+          <span
+            id="pay-d2"
+            style="
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: #e0e8f0;
+              transition: all 0.3s;
+            "
+          ></span>
+        </div>
+
+        <!-- Step 1: Choose method -->
+        <div id="pay-step1" style="padding: 20px 24px 8px">
+          <p
+            style="
+              font-size: 12px;
+              color: #6b7a8d;
+              margin: 0 0 16px;
+              text-align: center;
             "
           >
-            <div
+            اختر طريقة الدفع المناسبة
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <button
+              onclick="paySelectMethod('vodafone')"
               style="
                 display: flex;
                 align-items: center;
-                gap: 10px;
-                padding: 11px 14px;
-                background: #e6f1fb;
-                border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+                gap: 16px;
+                padding: 16px 18px;
+                border-radius: 14px;
+                border: 1.5px solid #e6f1fb;
+                background: #fff;
+                cursor: pointer;
+                text-align: right;
+                width: 100%;
+                transition: all 0.25s;
               "
+              onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.08)'"
+              onmouseout="this.style.transform='';this.style.boxShadow=''"
             >
               <div
                 style="
-                  width: 30px;
-                  height: 30px;
-                  border-radius: 8px;
-                  background: #b5d4f4;
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 12px;
+                  background: #e6f1fb;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -3018,11 +3057,11 @@
                 "
               >
                 <svg
-                  width="15"
-                  height="15"
+                  width="20"
+                  height="20"
                   fill="none"
-                  stroke="#0C447C"
-                  stroke-width="2"
+                  stroke="#185FA5"
+                  stroke-width="1.8"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -3030,56 +3069,58 @@
                   />
                 </svg>
               </div>
-              <span style="font-size: 13px; font-weight: 600; color: #0c447c"
-                >فودافون كاش</span
+              <div style="flex: 1">
+                <p
+                  style="
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #1a2a3a;
+                    margin: 0;
+                  "
+                >
+                  فودافون كاش
+                </p>
+                <p style="font-size: 11px; color: #6b7a8d; margin: 4px 0 0">
+                  تحويل فوري عبر رقم الهاتف
+                </p>
+              </div>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="#6b7a8d"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                style="flex-shrink: 0; transform: rotate(180deg)"
               >
-            </div>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 10px 14px;
-              "
-            >
-              <span style="font-size: 12px; color: #6b7a8d">رقم الهاتف</span>
-              <span
-                id="pay-vodafone"
-                style="
-                  font-size: 13px;
-                  font-weight: 600;
-                  color: #185fa5;
-                  direction: ltr;
-                "
-                >—</span
-              >
-            </div>
-          </div>
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
 
-          <!-- تحويل بنكي -->
-          <div
-            style="
-              border-radius: 12px;
-              border: 0.5px solid rgba(0, 0, 0, 0.08);
-              overflow: hidden;
-            "
-          >
-            <div
+            <button
+              onclick="paySelectMethod('bank')"
               style="
                 display: flex;
                 align-items: center;
-                gap: 10px;
-                padding: 11px 14px;
-                background: #eaf3de;
-                border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+                gap: 16px;
+                padding: 16px 18px;
+                border-radius: 14px;
+                border: 1.5px solid #eaf3de;
+                background: #fff;
+                cursor: pointer;
+                text-align: right;
+                width: 100%;
+                transition: all 0.25s;
               "
+              onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.08)'"
+              onmouseout="this.style.transform='';this.style.boxShadow=''"
             >
               <div
                 style="
-                  width: 30px;
-                  height: 30px;
-                  border-radius: 8px;
-                  background: #c0dd97;
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 12px;
+                  background: #eaf3de;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -3087,133 +3128,69 @@
                 "
               >
                 <svg
-                  width="15"
-                  height="15"
+                  width="20"
+                  height="20"
                   fill="none"
                   stroke="#27500A"
-                  stroke-width="2"
+                  stroke-width="1.8"
                   viewBox="0 0 24 24"
                 >
                   <rect x="3" y="3" width="18" height="18" rx="2" />
                   <path d="M3 9h18M9 21V9" />
                 </svg>
               </div>
-              <span style="font-size: 13px; font-weight: 600; color: #27500a"
-                >تحويل بنكي</span
-              >
-            </div>
-            <div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 9px 14px;
-                  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
-                "
-              >
-                <span style="font-size: 12px; color: #6b7a8d">اسم البنك</span>
-                <span
-                  id="pay-bank-name"
+              <div style="flex: 1">
+                <p
                   style="
-                    font-size: 12px;
-                    font-weight: 500;
-                    color: var(--color-text-primary, #1a2233);
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #1a2a3a;
+                    margin: 0;
                   "
-                  >—</span
                 >
+                  تحويل بنكي
+                </p>
+                <p style="font-size: 11px; color: #6b7a8d; margin: 4px 0 0">
+                  تحويل عبر الحساب البنكي
+                </p>
               </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 9px 14px;
-                  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
-                "
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="#6b7a8d"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                style="flex-shrink: 0; transform: rotate(180deg)"
               >
-                <span style="font-size: 12px; color: #6b7a8d"
-                  >اسم صاحب الحساب</span
-                >
-                <span
-                  id="pay-account-owner"
-                  style="
-                    font-size: 12px;
-                    font-weight: 500;
-                    color: var(--color-text-primary, #1a2233);
-                  "
-                  >—</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 9px 14px;
-                  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
-                "
-              >
-                <span style="font-size: 12px; color: #6b7a8d">رقم الحساب</span>
-                <span
-                  id="pay-account-num"
-                  style="
-                    font-size: 12px;
-                    font-weight: 500;
-                    color: var(--color-text-primary, #1a2233);
-                    direction: ltr;
-                    font-family: monospace;
-                    letter-spacing: 0.5px;
-                  "
-                  >—</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 9px 14px;
-                "
-              >
-                <span style="font-size: 12px; color: #6b7a8d">الفرع</span>
-                <span
-                  id="pay-branch"
-                  style="
-                    font-size: 12px;
-                    font-weight: 500;
-                    color: var(--color-text-primary, #1a2233);
-                  "
-                  >—</span
-                >
-              </div>
-            </div>
-          </div>
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
 
-          <!-- تحويل بريدي -->
-          <div
-            style="
-              border-radius: 12px;
-              border: 0.5px solid rgba(0, 0, 0, 0.08);
-              overflow: hidden;
-            "
-          >
-            <div
+            <button
+              onclick="paySelectMethod('postal')"
               style="
                 display: flex;
                 align-items: center;
-                gap: 10px;
-                padding: 11px 14px;
-                background: #faeeda;
-                border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+                gap: 16px;
+                padding: 16px 18px;
+                border-radius: 14px;
+                border: 1.5px solid #faeeda;
+                background: #fff;
+                cursor: pointer;
+                text-align: right;
+                width: 100%;
+                transition: all 0.25s;
               "
+              onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(0,0,0,0.08)'"
+              onmouseout="this.style.transform='';this.style.boxShadow=''"
             >
               <div
                 style="
-                  width: 30px;
-                  height: 30px;
-                  border-radius: 8px;
-                  background: #fac775;
+                  width: 44px;
+                  height: 44px;
+                  border-radius: 12px;
+                  background: #faeeda;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -3221,11 +3198,11 @@
                 "
               >
                 <svg
-                  width="15"
-                  height="15"
+                  width="20"
+                  height="20"
                   fill="none"
                   stroke="#633806"
-                  stroke-width="2"
+                  stroke-width="1.8"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -3234,79 +3211,127 @@
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <span style="font-size: 13px; font-weight: 600; color: #633806"
-                >تحويل بريدي</span
-              >
-            </div>
-            <div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 9px 14px;
-                  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
-                "
-              >
-                <span style="font-size: 12px; color: #6b7a8d">الاسم</span>
-                <span
-                  id="pay-postal-name"
+              <div style="flex: 1">
+                <p
                   style="
-                    font-size: 12px;
-                    font-weight: 500;
-                    color: var(--color-text-primary, #1a2233);
-                  "
-                  >—</span
-                >
-              </div>
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  padding: 9px 14px;
-                "
-              >
-                <span style="font-size: 12px; color: #6b7a8d">رقم الهاتف</span>
-                <span
-                  id="pay-postal-phone"
-                  style="
-                    font-size: 13px;
+                    font-size: 14px;
                     font-weight: 600;
-                    color: #185fa5;
-                    direction: ltr;
+                    color: #1a2a3a;
+                    margin: 0;
                   "
-                  >—</span
                 >
+                  تحويل بريدي
+                </p>
+                <p style="font-size: 11px; color: #6b7a8d; margin: 4px 0 0">
+                  إرسال عبر البريد المصري
+                </p>
               </div>
-            </div>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="#6b7a8d"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                style="flex-shrink: 0; transform: rotate(180deg)"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
           </div>
+        </div>
+
+        <!-- Step 2: Fill fields -->
+        <div id="pay-step2" style="display: none; padding: 20px 24px 8px">
+          <button
+            onclick="payGoBack()"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              background: none;
+              border: none;
+              cursor: pointer;
+              color: #6b7a8d;
+              font-size: 12px;
+              font-family: Cairo, sans-serif;
+              margin-bottom: 16px;
+              padding: 0;
+            "
+          >
+            <svg
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+            رجوع
+          </button>
+          <div
+            id="pay-method-header"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 14px 16px;
+              border-radius: 12px;
+              margin-bottom: 20px;
+            "
+          ></div>
+          <div
+            id="pay-form-fields"
+            style="display: flex; flex-direction: column; gap: 14px"
+          ></div>
         </div>
 
         <!-- Footer -->
         <div
           style="
-            padding: 14px 20px;
-            border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+            padding: 16px 24px 20px;
+            border-top: 1px solid #f0f4f8;
+            margin-top: 16px;
             display: flex;
+            gap: 10px;
             justify-content: flex-end;
           "
         >
           <button
             onclick="closePayModal()"
             style="
-              padding: 8px 24px;
-              border-radius: 8px;
-              border: 0.5px solid rgba(0, 0, 0, 0.15);
+              padding: 9px 20px;
+              border-radius: 10px;
+              border: 1px solid #e0e8f0;
               background: transparent;
               font-size: 13px;
-              font-weight: 500;
               color: #334;
               cursor: pointer;
               font-family: Cairo, sans-serif;
             "
           >
             إغلاق
+          </button>
+          <button
+            id="pay-save-btn"
+            onclick="paySaveData()"
+            style="
+              display: none;
+              padding: 9px 24px;
+              border-radius: 10px;
+              border: none;
+              background: #0079c2;
+              color: #fff;
+              font-size: 13px;
+              font-weight: 600;
+              cursor: pointer;
+              font-family: Cairo, sans-serif;
+              transition: background 0.2s;
+            "
+          >
+            حفظ البيانات
           </button>
         </div>
       </div>
@@ -3319,31 +3344,139 @@
 
     <script src="../master.js"></script>
     <script>
-      /* ── Payment modal ── */
+      const payMethods = {
+        vodafone: {
+          label: "فودافون كاش",
+          bg: "#E6F1FB",
+          iconBg: "#B5D4F4",
+          textColor: "#0C447C",
+          icon: '<svg width="20" height="20" fill="none" stroke="#0C447C" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.4 1.13 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14v2.92z"/></svg>',
+          fields: [
+            {
+              id: "vf-phone",
+              label: "رقم الهاتف",
+              placeholder: "01xxxxxxxxx",
+              type: "tel",
+              dir: "ltr",
+            },
+          ],
+        },
+        bank: {
+          label: "تحويل بنكي",
+          bg: "#EAF3DE",
+          iconBg: "#C0DD97",
+          textColor: "#27500A",
+          icon: '<svg width="20" height="20" fill="none" stroke="#27500A" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
+          fields: [
+            {
+              id: "bk-name",
+              label: "اسم البنك",
+              placeholder: "مثال: البنك الأهلي",
+              type: "text",
+              dir: "rtl",
+            },
+            {
+              id: "bk-owner",
+              label: "اسم صاحب الحساب",
+              placeholder: "الاسم الكامل",
+              type: "text",
+              dir: "rtl",
+            },
+            {
+              id: "bk-num",
+              label: "رقم الحساب",
+              placeholder: "xxxxxxxxxxxxxxxxxx",
+              type: "text",
+              dir: "ltr",
+            },
+            {
+              id: "bk-branch",
+              label: "الفرع",
+              placeholder: "اسم الفرع",
+              type: "text",
+              dir: "rtl",
+            },
+          ],
+        },
+        postal: {
+          label: "تحويل بريدي",
+          bg: "#FAEEDA",
+          iconBg: "#FAC775",
+          textColor: "#633806",
+          icon: '<svg width="20" height="20" fill="none" stroke="#633806" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',
+          fields: [
+            {
+              id: "ps-name",
+              label: "الاسم",
+              placeholder: "الاسم الكامل",
+              type: "text",
+              dir: "rtl",
+            },
+            {
+              id: "ps-phone",
+              label: "رقم الهاتف",
+              placeholder: "01xxxxxxxxx",
+              type: "tel",
+              dir: "ltr",
+            },
+          ],
+        },
+      };
+
       function openPayModal(btn) {
-        const tr = btn.closest("tr");
-        const data = tr.dataset;
-
-        document.getElementById("pay-vodafone").textContent =
-          data.payVodafone || "—";
-        document.getElementById("pay-bank-name").textContent =
-          data.payBankName || "—";
-        document.getElementById("pay-account-owner").textContent =
-          data.payAccountOwner || "—";
-        document.getElementById("pay-account-num").textContent =
-          data.payAccountNum || "—";
-        document.getElementById("pay-branch").textContent =
-          data.payBranch || "—";
-        document.getElementById("pay-postal-name").textContent =
-          data.payPostalName || "—";
-        document.getElementById("pay-postal-phone").textContent =
-          data.payPostalPhone || "—";
-
+        payGoBack();
         document.getElementById("payModal").style.display = "flex";
       }
 
       function closePayModal() {
         document.getElementById("payModal").style.display = "none";
+        setTimeout(payGoBack, 300);
+      }
+
+      function paySelectMethod(key) {
+        const m = payMethods[key];
+        document.getElementById("pay-step1").style.display = "none";
+        document.getElementById("pay-step2").style.display = "block";
+        document.getElementById("pay-save-btn").style.display = "block";
+        document.getElementById("modal-sub").textContent = m.label;
+        document.getElementById("pay-d2").style.background = "#0079c2";
+
+        document.getElementById("pay-method-header").style.cssText =
+          `display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;margin-bottom:20px;background:${m.bg};`;
+        document.getElementById("pay-method-header").innerHTML =
+          `<div style="width:40px;height:40px;border-radius:10px;background:${m.iconBg};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${m.icon}</div>
+     <span style="font-size:14px;font-weight:600;color:${m.textColor};">${m.label}</span>`;
+
+        const ff = document.getElementById("pay-form-fields");
+        ff.innerHTML = "";
+        m.fields.forEach((f) => {
+          ff.innerHTML += `<div>
+      <label style="font-size:12px;color:#6b7a8d;margin:0 0 6px;display:block;" for="${f.id}">${f.label}</label>
+      <input id="${f.id}" type="${f.type}" placeholder="${f.placeholder}"
+        style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #e0e8f0;background:#f4f7fb;font-size:13px;color:#1a2a3a;font-family:Cairo,sans-serif;outline:none;box-sizing:border-box;direction:${f.dir};"
+        onfocus="this.style.borderColor='#0079c2';this.style.background='#fff'"
+        onblur="this.style.borderColor='#e0e8f0';this.style.background='#f4f7fb'" />
+    </div>`;
+        });
+      }
+
+      function payGoBack() {
+        document.getElementById("pay-step1").style.display = "block";
+        document.getElementById("pay-step2").style.display = "none";
+        document.getElementById("pay-save-btn").style.display = "none";
+        document.getElementById("modal-sub").textContent = "اختر طريقة الدفع";
+        document.getElementById("pay-d2").style.background = "#e0e8f0";
+      }
+
+      function paySaveData() {
+        const btn = document.getElementById("pay-save-btn");
+        btn.textContent = "✓ تم الحفظ";
+        btn.style.background = "#1a8c45";
+        setTimeout(() => {
+          btn.textContent = "حفظ البيانات";
+          btn.style.background = "#0079c2";
+        }, 2000);
+        showToast("تم حفظ بيانات الدفع بنجاح", "success");
       }
 
       document
