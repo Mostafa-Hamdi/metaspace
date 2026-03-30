@@ -271,6 +271,11 @@
     </section>
 
     <script>
+      document
+        .querySelector("input[type='date']")
+        .addEventListener("click", function () {
+          this.showPicker();
+        });
       // ── Eye toggles ──
       function setupEye(btnId, inputId, showId, hideId) {
         const btn = document.getElementById(btnId);
