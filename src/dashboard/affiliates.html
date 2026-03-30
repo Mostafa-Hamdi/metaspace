@@ -3,23 +3,237 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ميتا سبيس - الرئيسية</title>
+    <title>ميتا سبيس - الأدوار والصلاحيات</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Choices.js -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
-    />
     <link rel="stylesheet" href="../../dist/output.css" />
+    <style>
+      /* ================================================================
+         PAGE-SPECIFIC STYLES ONLY
+         (sidebar / header / layout styles live in your existing CSS)
+      ================================================================ */
+
+      /* ── Role badge variants ── */
+      .badge--admin {
+        background: rgba(0, 121, 194, 0.1);
+        color: #0079c2;
+        border: 1px solid rgba(0, 121, 194, 0.2);
+      }
+      .badge--manager {
+        background: rgba(249, 168, 37, 0.1);
+        color: #c17900;
+        border: 1px solid rgba(249, 168, 37, 0.25);
+      }
+      .badge--editor {
+        background: rgba(124, 58, 237, 0.1);
+        color: #5e35b1;
+        border: 1px solid rgba(124, 58, 237, 0.2);
+      }
+      .badge--viewer {
+        background: rgba(5, 150, 105, 0.1);
+        color: #047857;
+        border: 1px solid rgba(5, 150, 105, 0.2);
+      }
+      .badge--support {
+        background: rgba(219, 39, 119, 0.1);
+        color: #be185d;
+        border: 1px solid rgba(219, 39, 119, 0.2);
+      }
+
+      /* ── Permission tags ── */
+      .username {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        background: rgba(0, 121, 194, 0.08);
+        color: var(--primary);
+        border: 1px solid rgba(0, 121, 194, 0.15);
+        white-space: nowrap;
+      }
+
+      /* ── Stat cards ── */
+      .stat-card {
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid rgba(0, 121, 194, 0.08);
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 2px 12px rgba(0, 104, 174, 0.06);
+        animation: cardIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+        transition:
+          transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.25s;
+      }
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 28px rgba(0, 121, 194, 0.12);
+      }
+      .stat-card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .stat-card:nth-child(2) {
+        animation-delay: 0.12s;
+      }
+      .stat-card:nth-child(3) {
+        animation-delay: 0.19s;
+      }
+      .stat-card:nth-child(4) {
+        animation-delay: 0.26s;
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .stat-card:hover .stat-icon {
+        transform: scale(1.12) rotate(-6deg);
+      }
+      .sort-icon.asc,
+      .sort-icon.desc {
+        color: #0079c2;
+      }
+      th:hover .sort-icon {
+        color: #ccc;
+      }
+    </style>
+    <style>
+      /* ── Inline column filter inputs ── */
+      .col-filter {
+        width: 100%;
+        background: rgba(0, 121, 194, 0.05);
+        border: 1px solid rgba(0, 121, 194, 0.18);
+        border-radius: 7px;
+        padding: 5px 8px;
+        font-family: "Cairo", sans-serif;
+        font-size: 11px;
+        color: #334;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        min-width: 80px;
+      }
+      .col-filter:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(0, 121, 194, 0.1);
+        background: #fff;
+      }
+      .col-filter::placeholder {
+        color: var(--placeholder);
+      }
+
+      /* ── Freeze badge button ── */
+      .freeze-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 12px;
+        border-radius: 8px;
+        border: none;
+        font-family: "Cairo", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s;
+        background: linear-gradient(135deg, #ff6b6b, #ee0979);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(238, 9, 121, 0.22);
+      }
+      .freeze-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(238, 9, 121, 0.35);
+      }
+      .freeze-btn.active {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        box-shadow: 0 2px 8px rgba(22, 163, 74, 0.22);
+      }
+      .freeze-btn.active:hover {
+        box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+      }
+
+      /* ── Payment data button ── */
+      .btn--pay {
+        background: linear-gradient(135deg, var(--secondary), var(--dark-blue));
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 121, 194, 0.2);
+        font-size: 11px;
+        padding: 5px 10px;
+        gap: 4px;
+      }
+      .btn--pay:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(0, 121, 194, 0.35);
+      }
+
+      /* ── Status badge ── */
+      .badge--completed {
+        background: rgba(5, 150, 105, 0.1);
+        color: #047857;
+        border: 1px solid rgba(5, 150, 105, 0.2);
+      }
+
+      /* ── Stat info text inside stat-card ── */
+      .stat-info p:first-child {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a2a3a;
+        line-height: 1;
+      }
+      .stat-info p:last-child {
+        font-size: 12px;
+        color: #6b7a8d;
+        margin-top: 4px;
+      }
+
+      /* ── Contact name cell ── */
+      .contact-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a2a3a;
+        text-align: right;
+      }
+
+      /* ── Phone link ── */
+      .phone-link {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 12px;
+        direction: ltr;
+        display: inline-block;
+        text-decoration: none;
+      }
+      .phone-link:hover {
+        color: var(--secondary);
+      }
+
+      /* ── action-btn--lock already added before, but needed here ── */
+      .action-btn--lock {
+        background: linear-gradient(135deg, #7c3aed, #6d28d9);
+        box-shadow: 0 3px 10px rgba(124, 58, 237, 0.22);
+      }
+      .action-btn--lock:hover {
+        box-shadow: 0 5px 16px rgba(124, 58, 237, 0.38);
+      }
+    </style>
   </head>
   <body class="bg-[#f4f7fb]">
     <div class="flex h-screen overflow-hidden">
-      <!-- ══════════════════════════════════
-           SIDEBAR
-      ══════════════════════════════════ -->
+      <!-- ══ SIDEBAR placeholder — replace with your real sidebar ══ -->
       <aside
         id="sidebar"
         style="
@@ -1346,21 +1560,20 @@
         </div>
       </aside>
 
-      <!-- MAIN WRAPPER  -->
+      <!-- ══ MAIN WRAPPER ══ -->
       <div
         id="mainWrapper"
         class="flex flex-col flex-1 min-w-0 transition-all duration-300"
         style="margin-right: 220px"
       >
-        <!-- HEADER -->
+        <!-- ══ HEADER placeholder — replace with your real header ══ -->
         <header
           class="sticky top-0 z-30 bg-white border-b border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
         >
-          <div class="flex items-center px-4 sm:px-6 h-[64px] gap-3">
-            <!-- Desktop sidebar toggle -->
+          <div class="flex items-center px-6 h-[64px] gap-3">
             <button
               id="sidebarToggle"
-              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors flex-shrink-0"
+              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
             >
               <svg
                 class="w-5 h-5"
@@ -1373,42 +1586,212 @@
                 <line x1="9" y1="3" x2="9" y2="21" />
               </svg>
             </button>
-
-            <!-- Mobile menu toggle -->
-            <button
-              id="menuToggle"
-              class="lg:hidden flex items-center justify-center w-9 h-9 rounded-[10px] text-[#0079c2] hover:bg-[#f0f7ff] transition-colors flex-shrink-0"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            </button>
-
-            <!-- Search -->
             <div class="flex-1 min-w-0 max-w-[440px]">
               <div class="relative">
                 <input
                   type="text"
-                  placeholder="ابحث عن منتج أو عن عميل"
-                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white focus:shadow-[0_0_0_3px_rgba(0,121,194,0.1)] transition-all duration-200"
+                  placeholder="ابحث عن دور أو صلاحية"
+                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white transition-all"
                 />
                 <span
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0078B9]"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0079c2]"
                 >
-                  <svg
+                  <!-- <svg
                     class="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
                     viewBox="0 0 24 24"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                > -->
+                </span>
+              </div>
+            </div>
+            <div class="mr-auto flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-[#0079c2]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                  />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-right leading-tight">
+                <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                  مصطفى حمدى
+                </p>
+                <p class="text-[10px] text-[#0079c2] font-medium">
+                  مدير تنفيذى
+                </p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ══════════════════════════════════════
+             ✅ MAIN CONTENT
+        ══════════════════════════════════════ -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+          <!-- Breadcrumb -->
+          <div class="topbar">
+            <nav class="breadcrumb">
+              <a href="#" class="breadcrumb__link">الرئيسية</a>
+              <span class="breadcrumb__sep">›</span>
+              <a href="#" class="breadcrumb__link">أفيليت</a>
+              <span class="breadcrumb__sep">›</span>
+              <span class="breadcrumb__current">عرض</span>
+            </nav>
+            <span class="topbar-date" id="currentDate"></span>
+          </div>
+
+          <!-- Page Title -->
+          <h1 class="page-title">إدارة المستخدمين</h1>
+
+          <!-- Stats -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+          >
+            <div class="stat-card">
+              <div class="stat-icon" style="background: rgba(0, 121, 194, 0.1)">
+                <svg
+                  fill="none"
+                  stroke="#0079c2"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                  <path d="M16 3.13a4 4 0 010 7.75" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <p id="statTotal">355</p>
+                <p>إجمالي المستخدمين</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background: rgba(40, 167, 69, 0.1)">
+                <svg
+                  fill="none"
+                  stroke="#1a8c45"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <p>342</p>
+                <p>مستخدمين نشطين</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: rgba(249, 168, 37, 0.1)"
+              >
+                <svg
+                  fill="none"
+                  stroke="#c17900"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0110 0v4" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <p>13</p>
+                <p>حسابات مجمّدة</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: rgba(124, 58, 237, 0.1)"
+              >
+                <svg
+                  fill="none"
+                  stroke="#7c3aed"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <path d="M8 21h8M12 17v4" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <p>completed</p>
+                <p>الحالة الحالية</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Toolbar -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <!-- Right: status + per-page + search -->
+            <div class="flex flex-wrap items-center gap-3">
+              <!-- Status badge -->
+              <div
+                class="flex items-center gap-2 text-[13px] font-semibold text-[#334]"
+              >
+                <span class="text-[#6b7a8d]">الحالة:</span>
+                <span class="badge badge--completed">completed</span>
+              </div>
+
+              <!-- Per page -->
+              <div
+                class="flex items-center gap-2 text-[13px] text-[#6b7a8d] font-medium"
+              >
+                <span>عرض</span>
+                <select
+                  id="perPage"
+                  onchange="applyFilter()"
+                  class="form-select"
+                  style="min-width: 70px; padding: 7px 12px"
+                >
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50" selected>50</option>
+                  <option value="100">100</option>
+                </select>
+                <span>من العناصر</span>
+              </div>
+
+              <!-- Search -->
+              <div class="form-input-wrap" style="max-width: 220px">
+                <input
+                  class="form-input"
+                  type="text"
+                  placeholder="البحث..."
+                  id="searchInput"
+                  oninput="filterTable()"
+                />
+                <span class="form-input-icon">
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
                   >
                     <circle cx="11" cy="11" r="8" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -1417,400 +1800,39 @@
               </div>
             </div>
 
-            <!-- Right actions -->
-            <div class="flex items-center gap-1.5 mr-auto flex-shrink-0">
-              <!-- ── Notifications dropdown ── -->
-              <div class="relative" id="notifWrap">
-                <button
-                  onclick="toggleDrop('notifDrop','notifWrap')"
-                  class="relative flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
-                >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                    <path d="M13.73 21a2 2 0 01-3.46 0" />
-                  </svg>
-                  <span
-                    class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#f22828] rounded-full"
-                  ></span>
-                </button>
-                <div
-                  id="notifDrop"
-                  class="hdr-dropdown"
-                  style="left: 0; width: 300px"
-                >
-                  <div
-                    class="flex items-center justify-between px-4 py-3 border-b border-[#f0f4f8]"
-                  >
-                    <span class="text-[13px] font-semibold text-[#1a2a3a]"
-                      >الإشعارات</span
-                    >
-                    <span
-                      class="text-[11px] text-[#0079c2] font-medium cursor-pointer hover:underline"
-                      >تعيين الكل كمقروء</span
-                    >
-                  </div>
-                  <ul
-                    class="max-h-[260px] overflow-y-auto divide-y divide-[#f4f7fb]"
-                  >
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#0079c2]/15 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#0079c2]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                          />
-                          <rect x="9" y="3" width="6" height="4" rx="1" />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          طلب جديد #1325105415
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 5 دقائق
-                        </p>
-                      </div>
-                      <div
-                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
-                      ></div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 bg-[#f0f7ff] hover:bg-[#e8f3fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#f22828]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#f22828]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-9.5z"
-                          />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          تنبيه نقص المخزن
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 30 دقيقة
-                        </p>
-                      </div>
-                      <div
-                        class="w-2 h-2 bg-[#0079c2] rounded-full mt-2 flex-shrink-0"
-                      ></div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#43a047]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#43a047]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
-                          <polyline points="22 4 12 14.01 9 11.01" />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          تم شحن الطلب بنجاح
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ ساعتين
-                        </p>
-                      </div>
-                    </li>
-                    <li
-                      class="flex items-start gap-3 px-4 py-3 hover:bg-[#f4f7fb] cursor-pointer"
-                    >
-                      <div
-                        class="w-8 h-8 rounded-full bg-[#f9a825]/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#f9a825]"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
-                          />
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                          رسالة جديدة من أحمد
-                        </p>
-                        <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                          منذ 3 ساعات
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                  <div
-                    class="px-4 py-2.5 border-t border-[#f0f4f8] text-center"
-                  >
-                    <a
-                      href="#"
-                      class="text-[12px] text-[#0079c2] font-medium hover:underline"
-                      >عرض كل الإشعارات</a
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <!-- ── User dropdown ── -->
-              <div class="relative" id="userWrap">
-                <button
-                  onclick="toggleDrop('userDrop','userWrap')"
-                  class="flex items-center gap-2 px-2 py-1.5 rounded-[12px] hover:bg-[#f0f7ff] transition-colors"
-                >
-                  <div
-                    class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center flex-shrink-0"
-                  >
-                    <svg
-                      class="w-5 h-5 text-[#0079c2]"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="hidden sm:block text-right leading-tight">
-                    <p class="text-[12px] font-semibold text-[#1a2a3a]">
-                      مصطفى حمدى
-                    </p>
-                    <p class="text-[10px] text-[#0079c2] font-medium">
-                      مدير تنفيذى
-                    </p>
-                  </div>
-                  <svg
-                    class="hidden sm:block w-3.5 h-3.5 text-[#9eb0c8]"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-                <div
-                  id="userDrop"
-                  class="hdr-dropdown"
-                  style="left: 0; min-width: 200px"
-                >
-                  <div class="px-4 py-3 border-b border-[#f0f4f8]">
-                    <p class="text-[13px] font-semibold text-[#1a2a3a]">
-                      مصطفى حمدى
-                    </p>
-                    <p class="text-[11px] text-[#6b7a8d] mt-0.5">
-                      mahmoud@metaspace.com
-                    </p>
-                  </div>
-                  <ul class="py-1.5">
-                    <li>
-                      <a
-                        href="#"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                        الملف الشخصي
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#374151] hover:bg-[#f4f7fb] hover:text-[#0079c2] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle cx="12" cy="12" r="3" />
-                          <path
-                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
-                          />
-                        </svg>
-                        الإعدادات
-                      </a>
-                    </li>
-                    <li class="border-t border-[#f0f4f8] mt-1 pt-1">
-                      <a
-                        href="/login"
-                        class="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#f22828] hover:bg-[#fff5f5] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-                          <polyline points="16 17 21 12 16 7" />
-                          <line x1="21" y1="12" x2="9" y2="12" />
-                        </svg>
-                        تسجيل خروج
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <!-- MAIN CONTENT -->
-        <main class="flex-1 overflow-y-auto p-6 lg:p-8">
-          <!-- Top Bar -->
-          <div class="topbar">
-            <nav class="breadcrumb">
-              <a href="#" class="breadcrumb__link">الرئيسية</a>
-              <span class="breadcrumb__sep">›</span>
-              <a href="#" class="breadcrumb__link">إدارة المنتجات</a>
-              <span class="breadcrumb__sep">›</span>
-              <span class="breadcrumb__current">الاقسام</span>
-            </nav>
-            <span class="topbar-date">2025/12/20 &nbsp; 02:13 pm</span>
-          </div>
-
-          <!-- Page Title -->
-          <h1 class="page-title">الاقسام</h1>
-
-          <!-- Toolbar -->
-          <div
-            class="toolbar flex flex-column md:flex-row flex-wrap gap-3 justify-between md:items-center mb-5"
-          >
-            <div
-              class="toolbar__search grid grid-cols-1 md:grid-cols-2 gap-3 grow"
-            >
-              <form action="" class="flex items-center gap-3">
-                <div class="form-input-wrap">
-                  <input
-                    class="form-input"
-                    type="text"
-                    placeholder="ابحث عن قسم"
-                  />
-                  <span class="form-input-icon">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <circle cx="11" cy="11" r="8" />
-                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                  </span>
-                </div>
-
-                <button class="btn btn--blue">بحث</button>
-              </form>
-
-              <form action="" class="flex items-center gap-3">
-                <div class="form-select-wrap">
-                  <select id="filterSelect" multiple>
-                    <option value="">فلتر حسب</option>
-                    <option value="main">رئيسي</option>
-                    <option value="sub">فرعي</option>
-                    <option value="active">نشط</option>
-                    <option value="inactive">غير نشط</option>
-                  </select>
-                  <span class="form-select-icon">
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                      stroke-linecap="round"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </span>
-                </div>
-
-                <button class="btn btn--blue">بحث</button>
-              </form>
-            </div>
+            <!-- Left: export + refresh -->
             <div class="toolbar__actions">
-              <button class="btn btn--primary">
+              <button class="btn btn--primary" onclick="exportAll()">
                 <svg
                   width="15"
                   height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.6"
-                  stroke-linecap="round"
-                >
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-                إضافة قسم جديد
-              </button>
-
-              <button class="btn btn--gold">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2.2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  viewBox="0 0 24 24"
                 >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                رفع بالحملة (Excel)
+                تصدير الكل
+              </button>
+              <button class="btn btn--outline" onclick="refreshData()">
+                <svg
+                  width="15"
+                  height="15"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="23 4 23 10 17 10" />
+                  <polyline points="1 20 1 14 7 14" />
+                  <path
+                    d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
+                  />
+                </svg>
+                تحديث البيانات
               </button>
             </div>
           </div>
@@ -1821,92 +1843,363 @@
               <table class="data-table">
                 <thead>
                   <tr>
+                    <!-- Checkbox -->
                     <th>
                       <div class="checkbox-wrapper">
                         <input
                           class="checkbox-input"
-                          id="rememberMe"
+                          id="checkAll"
                           type="checkbox"
+                          onchange="document.querySelectorAll('.row-check').forEach(c=>c.checked=this.checked)"
                         />
-                        <label class="checkbox-label" for="rememberMe">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
+                        <label class="checkbox-label" for="checkAll">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
                         </label>
                       </div>
                     </th>
-                    <th>صورة القسم</th>
-                    <th>اسم القسم</th>
-                    <th>نوع القسم</th>
-                    <th>عدد المنتجات</th>
-                    <th>المنتج الاكثر طلبا</th>
-                    <th>الحالة</th>
-                    <th>الاجراءات</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Row 1 -->
-                  <tr>
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input"
-                          id="rememberMe1"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="rememberMe1">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop"
-                        alt="الاحذية"
-                      />
-                    </td>
-                    <td style="font-weight: 600; color: #1a2a3a">الاحذية</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">350 منتج</span></td>
-                    <td>كوتشي اديدس</td>
-                    <td><span class="badge badge--active">نشط</span></td>
-                    <td>
-                      <div class="actions">
-                        <button class="action-btn action-btn--delete">
+                    <th
+                      onclick="sortTable(0)"
+                      class="cursor-pointer select-none"
+                    >
+                      <div class="flex items-center justify-center gap-1.5">
+                        م
+                        <span
+                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
+                          data-col="0"
+                        >
                           <svg
-                            width="13"
-                            height="13"
+                            width="16"
+                            height="16"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2.3"
+                            stroke-width="2.5"
                             stroke-linecap="round"
                             stroke-linejoin="round"
                           >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
+                            <path d="M8 20V8M8 8L5 11M8 8L11 11" opacity="1" />
+                            <path
+                              d="M16 4V16M16 16L13 13M16 16L19 13"
+                              opacity="1"
+                            />
                           </svg>
-                        </button>
-                        <button class="action-btn action-btn--edit">
+                        </span>
+                      </div>
+                    </th>
+                    <th
+                      onclick="sortTable(1)"
+                      class="cursor-pointer select-none"
+                    >
+                      <div class="flex items-center gap-1.5">
+                        الاسم
+                        <span
+                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
+                          data-col="1"
+                        >
                           <svg
-                            width="13"
-                            height="13"
+                            width="16"
+                            height="16"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2.3"
+                            stroke-width="2.5"
                             stroke-linecap="round"
                             stroke-linejoin="round"
+                          >
+                            <path d="M8 20V8M8 8L5 11M8 8L11 11" />
+                            <path d="M16 4V16M16 16L13 13M16 16L19 13" />
+                          </svg>
+                        </span>
+                      </div>
+                    </th>
+                    <th
+                      onclick="sortTable(2)"
+                      class="cursor-pointer select-none"
+                    >
+                      <div class="flex items-center gap-1.5">
+                        الكود
+                        <span
+                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
+                          data-col="2"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M8 20V8M8 8L5 11M8 8L11 11" />
+                            <path d="M16 4V16M16 16L13 13M16 16L19 13" />
+                          </svg>
+                        </span>
+                      </div>
+                    </th>
+                    <th
+                      onclick="sortTable(3)"
+                      class="cursor-pointer select-none"
+                    >
+                      <div class="flex items-center gap-1.5">
+                        الإيميل
+                        <span
+                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
+                          data-col="3"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M8 20V8M8 8L5 11M8 8L11 11" />
+                            <path d="M16 4V16M16 16L13 13M16 16L19 13" />
+                          </svg>
+                        </span>
+                      </div>
+                    </th>
+                    <th
+                      onclick="sortTable(4)"
+                      class="cursor-pointer select-none"
+                    >
+                      <div class="flex items-center gap-1.5">
+                        الهاتف
+                        <span
+                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
+                          data-col="4"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M8 20V8M8 8L5 11M8 8L11 11" />
+                            <path d="M16 4V16M16 16L13 13M16 16L19 13" />
+                          </svg>
+                        </span>
+                      </div>
+                    </th>
+                    <th
+                      onclick="sortTable(5)"
+                      class="cursor-pointer select-none"
+                    >
+                      <div class="flex items-center gap-1.5">
+                        تاريخ الانضمام
+                        <span
+                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
+                          data-col="5"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M8 20V8M8 8L5 11M8 8L11 11" />
+                            <path d="M16 4V16M16 16L13 13M16 16L19 13" />
+                          </svg>
+                        </span>
+                      </div>
+                    </th>
+                    <th>تجميد المستخدم</th>
+                    <th
+                      onclick="sortTable(6)"
+                      class="cursor-pointer select-none"
+                    >
+                      <div class="flex items-center gap-1.5">
+                        عدد الطلبات
+                        <span
+                          class="sort-icon inline-flex items-center text-white transition-colors duration-200"
+                          data-col="6"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M8 20V8M8 8L5 11M8 8L11 11" />
+                            <path d="M16 4V16M16 16L13 13M16 16L19 13" />
+                          </svg>
+                        </span>
+                      </div>
+                    </th>
+                    <th>العمليات</th>
+                  </tr>
+                  <!-- ── Column inline filters ── -->
+                  <tr style="background: rgba(0, 121, 194, 0.04)">
+                    <td colspan="2" style="padding: 6px 10px"></td>
+                    <!-- Name filter -->
+                    <td style="padding: 6px 8px">
+                      <input
+                        class="col-filter"
+                        type="text"
+                        placeholder="الاسم..."
+                        oninput="filterCol(this,1)"
+                      />
+                    </td>
+                    <!-- Code filter -->
+                    <td style="padding: 6px 8px">
+                      <input
+                        class="col-filter"
+                        type="text"
+                        placeholder="الكود..."
+                        oninput="filterCol(this,2)"
+                      />
+                    </td>
+                    <!-- Email filter -->
+                    <td style="padding: 6px 8px">
+                      <input
+                        class="col-filter"
+                        type="text"
+                        placeholder="الإيميل..."
+                        oninput="filterCol(this,3)"
+                      />
+                    </td>
+                    <!-- Phone filter -->
+                    <td style="padding: 6px 8px">
+                      <input
+                        class="col-filter"
+                        type="text"
+                        placeholder="الهاتف..."
+                        oninput="filterCol(this,4)"
+                      />
+                    </td>
+                    <td colspan="4" style="padding: 6px 8px"></td>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <!-- Row 1 -->
+                  <tr
+                    data-name="danang"
+                    data-code="931259"
+                    data-email="pekyte@cyclelove.cc"
+                    data-phone="12345678910"
+                  >
+                    <td>
+                      <div class="checkbox-wrapper-dark">
+                        <input
+                          class="checkbox-input row-check"
+                          id="u1"
+                          type="checkbox"
+                        />
+                        <label class="checkbox-label" for="u1">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-semibold text-[#6b7a8d]">1</td>
+                    <td><div class="contact-name">Danang</div></td>
+                    <td class="text-[12px] font-bold text-[#0079c2]">931259</td>
+                    <td
+                      class="text-[12px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      pekyte@cyclelove.cc
+                    </td>
+                    <td>
+                      <a href="tel:12345678910" class="phone-link">
+                        12345678910</a
+                      >
+                    </td>
+                    <td
+                      class="text-[11px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      2026-03-12<br />19:53:48
+                    </td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle">
+                          <input type="checkbox" checked />
+                          <span class="toggle-slider"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-bold text-[#334]">0</td>
+                    <td>
+                      <div class="actions">
+                        <button class="action-btn action-btn--view" title="عرض">
+                          <svg
+                            width="13"
+                            height="13"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        </button>
+                        <button
+                          class="btn btn--pay action-btn"
+                          style="width: auto; height: 32px; border-radius: 8px"
+                          title="بيانات الدفع"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect x="1" y="4" width="22" height="16" rx="2" />
+                            <line x1="1" y1="10" x2="23" y2="10" />
+                          </svg>
+                          بيانات الدفع
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
+                          <svg
+                            width="13"
+                            height="13"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.3"
+                            viewBox="0 0 24 24"
                           >
                             <path
                               d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
@@ -1914,23 +2207,6 @@
                             <path
                               d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
                             />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
                       </div>
@@ -1938,65 +2214,108 @@
                   </tr>
 
                   <!-- Row 2 -->
-                  <tr>
+                  <tr
+                    data-name="manar"
+                    data-code="931258"
+                    data-email="yhy@gmail.com"
+                    data-phone="01208668132"
+                  >
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
-                          class="checkbox-input"
-                          id="rememberMe2"
+                          class="checkbox-input row-check"
+                          id="u2"
                           type="checkbox"
                         />
-                        <label class="checkbox-label" for="rememberMe2">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
+                        <label class="checkbox-label" for="u2">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
                         </label>
                       </div>
                     </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=60&h=60&fit=crop"
-                        alt="الملابس"
-                      />
+                    <td class="font-semibold text-[#6b7a8d]">2</td>
+                    <td><div class="contact-name">Manar</div></td>
+                    <td class="text-[12px] font-bold text-[#0079c2]">931258</td>
+                    <td
+                      class="text-[12px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      yhy@gmail.com
                     </td>
-                    <td style="font-weight: 600; color: #1a2a3a">الملابس</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">1080 منتج</span></td>
-                    <td>تيشرت رجالي اسود</td>
-                    <td><span class="badge badge--inactive">غير نشط</span></td>
+                    <td>
+                      <a href="tel:01208668132" class="phone-link">
+                        01208668132</a
+                      >
+                    </td>
+                    <td
+                      class="text-[11px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      2026-03-08<br />09:32:42
+                    </td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle">
+                          <input type="checkbox" />
+                          <span class="toggle-slider"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-bold text-[#334]">0</td>
                     <td>
                       <div class="actions">
-                        <button class="action-btn action-btn--delete">
+                        <button class="action-btn action-btn--view" title="عرض">
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
-                        <button class="action-btn action-btn--edit">
+                        <button
+                          class="btn btn--pay action-btn"
+                          style="width: auto; height: 32px; border-radius: 8px"
+                          title="بيانات الدفع"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect x="1" y="4" width="22" height="16" rx="2" />
+                            <line x1="1" y1="10" x2="23" y2="10" />
+                          </svg>
+                          بيانات الدفع
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
                             <path
                               d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
@@ -2004,23 +2323,6 @@
                             <path
                               d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
                             />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
                       </div>
@@ -2028,67 +2330,108 @@
                   </tr>
 
                   <!-- Row 3 -->
-                  <tr>
+                  <tr
+                    data-name="manar"
+                    data-code="398370"
+                    data-email="tyr@gmail.com"
+                    data-phone="01208660132"
+                  >
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
-                          class="checkbox-input"
-                          id="rememberMe3"
+                          class="checkbox-input row-check"
+                          id="u3"
                           type="checkbox"
                         />
-                        <label class="checkbox-label" for="rememberMe3">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
+                        <label class="checkbox-label" for="u3">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
                         </label>
                       </div>
                     </td>
+                    <td class="font-semibold text-[#6b7a8d]">3</td>
+                    <td><div class="contact-name">Manar</div></td>
+                    <td class="text-[12px] font-bold text-[#0079c2]">398370</td>
+                    <td
+                      class="text-[12px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      tyr@gmail.com
+                    </td>
                     <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=60&h=60&fit=crop"
-                        alt="ملابس رجالي"
-                      />
+                      <a href="tel:01208660132" class="phone-link">
+                        01208660132</a
+                      >
                     </td>
-                    <td style="font-weight: 600; color: #1a2a3a">
-                      ملابس رجالي
+                    <td
+                      class="text-[11px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      2026-03-08<br />09:24:50
                     </td>
-                    <td>فرعي من الملابس</td>
-                    <td><span class="badge badge--count">180 منتج</span></td>
-                    <td>تيشرت رجالي اسود</td>
-                    <td><span class="badge badge--inactive">غير نشط</span></td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle">
+                          <input type="checkbox" checked />
+                          <span class="toggle-slider"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-bold text-[#334]">0</td>
                     <td>
                       <div class="actions">
-                        <button class="action-btn action-btn--delete">
+                        <button class="action-btn action-btn--view" title="عرض">
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
-                        <button class="action-btn action-btn--edit">
+                        <button
+                          class="btn btn--pay action-btn"
+                          style="width: auto; height: 32px; border-radius: 8px"
+                          title="بيانات الدفع"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect x="1" y="4" width="22" height="16" rx="2" />
+                            <line x1="1" y1="10" x2="23" y2="10" />
+                          </svg>
+                          بيانات الدفع
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
                             <path
                               d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
@@ -2096,23 +2439,6 @@
                             <path
                               d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
                             />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
                       </div>
@@ -2120,65 +2446,108 @@
                   </tr>
 
                   <!-- Row 4 -->
-                  <tr>
+                  <tr
+                    data-name="manar"
+                    data-code="540859"
+                    data-email="op@gmail.com"
+                    data-phone="01208660932"
+                  >
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
-                          class="checkbox-input"
-                          id="rememberMe4"
+                          class="checkbox-input row-check"
+                          id="u4"
                           type="checkbox"
                         />
-                        <label class="checkbox-label" for="rememberMe4">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
+                        <label class="checkbox-label" for="u4">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
                         </label>
                       </div>
                     </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop"
-                        alt="الاحذية"
-                      />
+                    <td class="font-semibold text-[#6b7a8d]">4</td>
+                    <td><div class="contact-name">Manar</div></td>
+                    <td class="text-[12px] font-bold text-[#0079c2]">540859</td>
+                    <td
+                      class="text-[12px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      op@gmail.com
                     </td>
-                    <td style="font-weight: 600; color: #1a2a3a">الاحذية</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">350 منتج</span></td>
-                    <td>كوتشي اديدس</td>
-                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <a href="tel:01208660932" class="phone-link">
+                        01208660932</a
+                      >
+                    </td>
+                    <td
+                      class="text-[11px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      2026-03-08<br />09:17:55
+                    </td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle">
+                          <input type="checkbox" />
+                          <span class="toggle-slider"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-bold text-[#334]">0</td>
                     <td>
                       <div class="actions">
-                        <button class="action-btn action-btn--delete">
+                        <button class="action-btn action-btn--view" title="عرض">
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
-                        <button class="action-btn action-btn--edit">
+                        <button
+                          class="btn btn--pay action-btn"
+                          style="width: auto; height: 32px; border-radius: 8px"
+                          title="بيانات الدفع"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect x="1" y="4" width="22" height="16" rx="2" />
+                            <line x1="1" y1="10" x2="23" y2="10" />
+                          </svg>
+                          بيانات الدفع
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
                             <path
                               d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
@@ -2186,23 +2555,6 @@
                             <path
                               d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
                             />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
                       </div>
@@ -2210,67 +2562,108 @@
                   </tr>
 
                   <!-- Row 5 -->
-                  <tr>
+                  <tr
+                    data-name="manar"
+                    data-code="924607"
+                    data-email="v@gmail.com"
+                    data-phone="01193789898"
+                  >
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
-                          class="checkbox-input"
-                          id="rememberMe5"
+                          class="checkbox-input row-check"
+                          id="u5"
                           type="checkbox"
                         />
-                        <label class="checkbox-label" for="rememberMe5">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
+                        <label class="checkbox-label" for="u5">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
                         </label>
                       </div>
                     </td>
+                    <td class="font-semibold text-[#6b7a8d]">5</td>
+                    <td><div class="contact-name">Manar</div></td>
+                    <td class="text-[12px] font-bold text-[#0079c2]">924607</td>
+                    <td
+                      class="text-[12px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      v@gmail.com
+                    </td>
                     <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=60&h=60&fit=crop"
-                        alt="الاكسسوارات"
-                      />
+                      <a href="tel:01193789898" class="phone-link">
+                        01193789898</a
+                      >
                     </td>
-                    <td style="font-weight: 600; color: #1a2a3a">
-                      الاكسسوارات
+                    <td
+                      class="text-[11px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      2026-03-08<br />09:12:32
                     </td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">210 منتج</span></td>
-                    <td>ساعة كاسيو</td>
-                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle">
+                          <input type="checkbox" />
+                          <span class="toggle-slider"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-bold text-[#334]">0</td>
                     <td>
                       <div class="actions">
-                        <button class="action-btn action-btn--delete">
+                        <button class="action-btn action-btn--view" title="عرض">
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
+                            <path
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                            />
+                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
-                        <button class="action-btn action-btn--edit">
+                        <button
+                          class="btn btn--pay action-btn"
+                          style="width: auto; height: 32px; border-radius: 8px"
+                          title="بيانات الدفع"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect x="1" y="4" width="22" height="16" rx="2" />
+                            <line x1="1" y1="10" x2="23" y2="10" />
+                          </svg>
+                          بيانات الدفع
+                        </button>
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
                             <path
                               d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
@@ -2278,23 +2671,6 @@
                             <path
                               d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
                             />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
                       </div>
@@ -2302,84 +2678,72 @@
                   </tr>
 
                   <!-- Row 6 -->
-                  <tr>
+                  <tr
+                    data-name="manar"
+                    data-code="656583"
+                    data-email="yr@gmail.com"
+                    data-phone="01218960932"
+                  >
                     <td>
                       <div class="checkbox-wrapper-dark">
                         <input
-                          class="checkbox-input"
-                          id="rememberMe6"
+                          class="checkbox-input row-check"
+                          id="u6"
                           type="checkbox"
                         />
-                        <label class="checkbox-label" for="rememberMe6">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
+                        <label class="checkbox-label" for="u6">
+                          <span
+                            ><svg
+                              width="12px"
+                              height="10px"
+                              viewBox="0 0 12 10"
+                            >
+                              <polyline
+                                points="1.5 6 4.5 9 10.5 1"
+                              ></polyline></svg
+                          ></span>
                         </label>
                       </div>
                     </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=60&h=60&fit=crop"
-                        alt="الحقائب"
-                      />
+                    <td class="font-semibold text-[#6b7a8d]">6</td>
+                    <td><div class="contact-name">Manar</div></td>
+                    <td class="text-[12px] font-bold text-[#0079c2]">656583</td>
+                    <td
+                      class="text-[12px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      yr@gmail.com
                     </td>
-                    <td style="font-weight: 600; color: #1a2a3a">الحقائب</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">430 منتج</span></td>
-                    <td>شنطة مايكل كورس</td>
-                    <td><span class="badge badge--active">نشط</span></td>
+                    <td>
+                      <a href="tel:01218960932" class="phone-link">
+                        01218960932</a
+                      >
+                    </td>
+                    <td
+                      class="text-[11px] text-[#6b7a8d]"
+                      style="direction: ltr"
+                    >
+                      2026-03-08<br />09:08:11
+                    </td>
+                    <td>
+                      <div class="toggle-wrap">
+                        <label class="toggle">
+                          <input type="checkbox" />
+                          <span class="toggle-slider"></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="font-bold text-[#334]">0</td>
                     <td>
                       <div class="actions">
-                        <button class="action-btn action-btn--delete">
+                        <button class="action-btn action-btn--view" title="عرض">
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--edit">
-                          <svg
-                            width="13"
-                            height="13"
                             viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            />
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
                           >
                             <path
                               d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
@@ -2387,72 +2751,35 @@
                             <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <!-- Row 7 -->
-                  <tr>
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input"
-                          id="rememberMe7"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="rememberMe7">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=60&h=60&fit=crop"
-                        alt="ملابس نسائية"
-                      />
-                    </td>
-                    <td style="font-weight: 600; color: #1a2a3a">
-                      ملابس نسائية
-                    </td>
-                    <td>فرعي من الملابس</td>
-                    <td><span class="badge badge--count">520 منتج</span></td>
-                    <td>فستان سهرة</td>
-                    <td><span class="badge badge--active">نشط</span></td>
-                    <td>
-                      <div class="actions">
-                        <button class="action-btn action-btn--delete">
+                        <button
+                          class="btn btn--pay action-btn"
+                          style="width: auto; height: 32px; border-radius: 8px"
+                          title="بيانات الدفع"
+                        >
                           <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
+                            width="12"
+                            height="12"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
                           >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
+                            <rect x="1" y="4" width="22" height="16" rx="2" />
+                            <line x1="1" y1="10" x2="23" y2="10" />
                           </svg>
+                          بيانات الدفع
                         </button>
-                        <button class="action-btn action-btn--edit">
+                        <button
+                          class="action-btn action-btn--edit"
+                          title="تعديل"
+                        >
                           <svg
                             width="13"
                             height="13"
-                            viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            viewBox="0 0 24 24"
                           >
                             <path
                               d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
@@ -2460,383 +2787,6 @@
                             <path
                               d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
                             />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <!-- Row 8 -->
-                  <tr>
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input"
-                          id="rememberMe8"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="rememberMe8">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=60&h=60&fit=crop"
-                        alt="العطور"
-                      />
-                    </td>
-                    <td style="font-weight: 600; color: #1a2a3a">العطور</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">95 منتج</span></td>
-                    <td>عطر شانيل</td>
-                    <td><span class="badge badge--inactive">غير نشط</span></td>
-                    <td>
-                      <div class="actions">
-                        <button class="action-btn action-btn--delete">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--edit">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            />
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <!-- Row 9 -->
-                  <tr>
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input"
-                          id="rememberMe9"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="rememberMe9">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=60&h=60&fit=crop"
-                        alt="الساعات"
-                      />
-                    </td>
-                    <td style="font-weight: 600; color: #1a2a3a">الساعات</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">160 منتج</span></td>
-                    <td>ساعة رولكس</td>
-                    <td><span class="badge badge--active">نشط</span></td>
-                    <td>
-                      <div class="actions">
-                        <button class="action-btn action-btn--delete">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--edit">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            />
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <!-- Row 10 -->
-                  <tr>
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input"
-                          id="rememberMe10"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="rememberMe10">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop"
-                        alt="الاحذية"
-                      />
-                    </td>
-                    <td style="font-weight: 600; color: #1a2a3a">الاحذية</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">350 منتج</span></td>
-                    <td>كوتشي اديدس</td>
-                    <td><span class="badge badge--active">نشط</span></td>
-                    <td>
-                      <div class="actions">
-                        <button class="action-btn action-btn--delete">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--edit">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            />
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <!-- Row 11 -->
-                  <tr>
-                    <td>
-                      <div class="checkbox-wrapper-dark">
-                        <input
-                          class="checkbox-input"
-                          id="rememberMe11"
-                          type="checkbox"
-                        />
-                        <label class="checkbox-label" for="rememberMe11">
-                          <span>
-                            <svg width="12px" height="10px" viewBox="0 0 12 10">
-                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <img
-                        class="table-img"
-                        src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=60&h=60&fit=crop"
-                        alt="الملابس"
-                      />
-                    </td>
-                    <td style="font-weight: 600; color: #1a2a3a">الملابس</td>
-                    <td>رئيسي</td>
-                    <td><span class="badge badge--count">780 منتج</span></td>
-                    <td>بنطلون جينز</td>
-                    <td><span class="badge badge--active">نشط</span></td>
-                    <td>
-                      <div class="actions">
-                        <button class="action-btn action-btn--delete">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14H6L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4h6v2" />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--edit">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            />
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            />
-                          </svg>
-                        </button>
-                        <button class="action-btn action-btn--view">
-                          <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path
-                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                            />
-                            <circle cx="12" cy="12" r="3" />
                           </svg>
                         </button>
                       </div>
@@ -2856,7 +2806,6 @@
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2.2"
-                  stroke-linecap="round"
                 >
                   <polyline points="13 17 18 12 13 7" />
                   <polyline points="6 17 11 12 6 7" />
@@ -2870,18 +2819,15 @@
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2.2"
-                  stroke-linecap="round"
                 >
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </button>
-
               <button class="page-btn page-btn--active">1</button>
               <button class="page-btn">2</button>
               <button class="page-btn">3</button>
-              <span class="page-dots">…</span>
-              <button class="page-btn">10</button>
-
+              <span class="page-dots">···</span>
+              <button class="page-btn">8</button>
               <button class="page-btn">
                 <svg
                   width="13"
@@ -2890,7 +2836,6 @@
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2.2"
-                  stroke-linecap="round"
                 >
                   <polyline points="15 18 9 12 15 6" />
                 </svg>
@@ -2903,7 +2848,6 @@
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2.2"
-                  stroke-linecap="round"
                 >
                   <polyline points="11 17 6 12 11 7" />
                   <polyline points="18 17 13 12 18 7" />
@@ -2911,173 +2855,111 @@
               </button>
             </div>
           </div>
-          <!-- /table-card -->
+          <!-- /.table-card -->
         </main>
+
+        <!-- /main content -->
       </div>
+      <!-- /mainWrapper -->
     </div>
 
-    <!-- Mobile overlay -->
+    <!-- Toast container -->
     <div
-      id="overlay"
-      class="fixed inset-0 bg-black/40 z-30 hidden"
-      onclick="closeMobile()"
+      class="fixed bottom-6 left-6 flex flex-col gap-2 z-[600]"
+      id="toastContainer"
     ></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-
+    <script src="../master.js"></script>
     <script>
-      const sidebar = document.getElementById("sidebar");
-      const mainWrapper = document.getElementById("mainWrapper");
-      const overlay = document.getElementById("overlay");
-      const closeBtn = document.getElementById("sidebarCloseBtn");
-      const COLLAPSED_W = "60px";
-      const EXPANDED_W = "220px";
-      let collapsed = false;
-      const isMobile = () => window.innerWidth < 1024;
-
-      /* ── Sub-nav accordion ── */
-      function toggleSub(parent) {
-        if (collapsed && !isMobile()) return;
-        if (isMobile() && !sidebar.classList.contains("mobile-open")) return;
-        const sub = parent.nextElementSibling;
-        const isOpen = sub && sub.classList.contains("open");
-        document
-          .querySelectorAll(".sub-nav.open")
-          .forEach((el) => el.classList.remove("open"));
-        document
-          .querySelectorAll(".nav-parent.open")
-          .forEach((el) => el.classList.remove("open"));
-        if (!isOpen && sub) {
-          sub.classList.add("open");
-          parent.classList.add("open");
-        }
+      /* ── Column filter ── */
+      const colFilters = {};
+      function filterCol(input, colIdx) {
+        colFilters[colIdx] = input.value.trim().toLowerCase();
+        applyAllFilters();
       }
 
-      /* ── Desktop collapse toggle ── */
-      document.getElementById("sidebarToggle").addEventListener("click", () => {
-        collapsed = !collapsed;
-        if (collapsed) {
-          sidebar.classList.add("collapsed");
-          sidebar.style.width = COLLAPSED_W;
-          mainWrapper.style.marginRight = COLLAPSED_W;
-          document
-            .querySelectorAll(".sub-nav")
-            .forEach((el) => el.classList.remove("open"));
-          document
-            .querySelectorAll(".nav-parent")
-            .forEach((el) => el.classList.remove("open"));
-        } else {
-          sidebar.classList.remove("collapsed");
-          sidebar.style.width = EXPANDED_W;
-          mainWrapper.style.marginRight = EXPANDED_W;
-        }
-      });
-
-      /* ── Mobile open ── */
-      document.getElementById("menuToggle").addEventListener("click", () => {
-        sidebar.classList.add("mobile-open");
-        overlay.classList.remove("hidden");
-        requestAnimationFrame(() => overlay.classList.add("active"));
-      });
-
-      /* ── Mobile close ── */
-      function closeMobile() {
-        sidebar.classList.remove("mobile-open");
-        overlay.classList.remove("active");
-        setTimeout(() => overlay.classList.add("hidden"), 250);
-        document
-          .querySelectorAll(".sub-nav")
-          .forEach((el) => el.classList.remove("open"));
-        document
-          .querySelectorAll("checkbo.nav-parent")
-          .forEach((el) => el.classList.remove("open"));
+      /* ── Global search ── */
+      function filterTable() {
+        applyAllFilters();
       }
 
-      /* ── Resize handler ── */
-      function handleResize() {
-        if (isMobile()) {
-          sidebar.style.width = "";
-          sidebar.style.transform = "";
-          sidebar.classList.remove("mobile-open", "collapsed");
-          mainWrapper.style.marginRight = COLLAPSED_W;
-          overlay.classList.add("hidden");
-          overlay.classList.remove("active");
-        } else {
-          sidebar.classList.remove("mobile-open");
-          overlay.classList.add("hidden");
-          overlay.classList.remove("active");
-          if (collapsed) {
-            sidebar.classList.add("collapsed");
-            sidebar.style.width = COLLAPSED_W;
-            mainWrapper.style.marginRight = COLLAPSED_W;
-          } else {
-            sidebar.classList.remove("collapsed");
-            sidebar.style.width = EXPANDED_W;
-            mainWrapper.style.marginRight = EXPANDED_W;
-          }
-        }
-      }
-      window.addEventListener("resize", handleResize);
-      handleResize();
+      function applyAllFilters() {
+        const globalQ = (document.getElementById("searchInput")?.value || "")
+          .trim()
+          .toLowerCase();
+        document.querySelectorAll("#tableBody tr").forEach((tr) => {
+          // global search across all data attrs
+          const allText = Object.values(tr.dataset).join(" ").toLowerCase();
+          const globalOk = !globalQ || allText.includes(globalQ);
 
-      /* ── Header dropdowns ── */
-      function toggleDrop(dropId, wrapId) {
-        const drop = document.getElementById(dropId);
-        const isOpen = drop.classList.contains("open");
-        document
-          .querySelectorAll(".hdr-dropdown.open")
-          .forEach((d) => d.classList.remove("open"));
-        if (!isOpen) drop.classList.add("open");
-      }
-      document.addEventListener("click", (e) => {
-        if (!e.target.closest("#notifWrap") && !e.target.closest("#userWrap")) {
-          document
-            .querySelectorAll(".hdr-dropdown.open")
-            .forEach((d) => d.classList.remove("open"));
-        }
-      });
-      /* ── Init Choices.js ── */
-      document.addEventListener("DOMContentLoaded", function () {
-        const filterSelect = document.getElementById("filterSelect");
-        if (filterSelect && window.Choices) {
-          new Choices(filterSelect, {
-            removeItemButton: true,
-            placeholder: true,
-            placeholderValue: "فلتر حسب",
-            searchEnabled: false,
-            shouldSort: false,
-            noResultsText: "لا توجد نتائج",
-            noChoicesText: "لا توجد خيارات",
-            itemSelectText: "",
-            classNames: {
-              containerOuter: "choices",
-              containerInner: "choices__inner",
-              input: "choices__input",
-              inputCloned: "choices__input--cloned",
-              list: "choices__list",
-              listItems: "choices__list--multiple",
-              listSingle: "choices__list--single",
-              listDropdown: "choices__list--dropdown",
-              item: "choices__item",
-              itemSelectable: "choices__item--selectable",
-              itemDisabled: "choices__item--disabled",
-              itemChoice: "choices__item--choice",
-              placeholder: "choices__placeholder",
-              group: "choices__group",
-              groupHeading: "choices__heading",
-              button: "choices__button",
-              activeState: "is-active",
-              focusState: "is-focused",
-              openState: "is-open",
-              disabledState: "is-disabled",
-              highlightedState: "is-highlighted",
-              selectedState: "is-selected",
-              flippedState: "is-flipped",
-              loadingState: "is-loading",
-            },
+          // per-column filters
+          const colOk = Object.entries(colFilters).every(([colIdx, q]) => {
+            if (!q) return true;
+            const keys = ["", "name", "code", "email", "phone"];
+            const key = keys[colIdx];
+            return key
+              ? (tr.dataset[key] || "").toLowerCase().includes(q)
+              : true;
           });
-        }
+
+          tr.style.display = globalOk && colOk ? "" : "none";
+        });
+      }
+
+      function applyFilter() {
+        applyAllFilters();
+      }
+
+      /* ── Freeze toggle ── */
+      /* ── Freeze toggle ── */
+      document.addEventListener("change", function (e) {
+        if (!e.target.closest(".toggle-wrap")) return;
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+        const name = tr.dataset.name;
+        const isFrozen = e.target.checked;
+        showToast(
+          isFrozen ? `تم تجميد "${name}"` : `تم رفع التجميد عن "${name}"`,
+          isFrozen ? "error" : "success",
+        );
       });
+
+      /* ── Export ── */
+      function exportAll() {
+        showToast("جاري تصدير البيانات...", "info");
+      }
+
+      /* ── Refresh ── */
+      function refreshData() {
+        showToast("تم تحديث البيانات", "success");
+      }
+
+      /* ── Toast ── */
+      function showToast(msg, type) {
+        const colors = {
+          success: "#1a8c45",
+          error: "#ee0979",
+          info: "#0079c2",
+        };
+        const icons = { success: "✓", error: "✕", info: "ℹ" };
+        const c = document.getElementById("toastContainer");
+        const t = document.createElement("div");
+        t.style.cssText =
+          "display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;font-family:Cairo,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,0.14);min-width:240px;color:#fff;animation:toastIn 0.3s ease;background:" +
+          (colors[type] || colors.info);
+        t.innerHTML =
+          '<span style="font-size:16px;">' +
+          (icons[type] || "ℹ") +
+          "</span><span>" +
+          msg +
+          "</span>";
+        c.appendChild(t);
+        setTimeout(() => {
+          t.style.transition = "opacity 0.35s";
+          t.style.opacity = "0";
+          setTimeout(() => t.remove(), 350);
+        }, 3500);
+      }
     </script>
   </body>
 </html>
