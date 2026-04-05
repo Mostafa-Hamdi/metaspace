@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixed Horizontal Scrollbar Table</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        font-size: 14px;
+        padding: 2rem;
+        background: #f5f5f5;
+      }
+
+      .label {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      /* Outer wrapper: hides overflow, gives fixed height */
+      .table-outer {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        height: 300px;
+        background: #fff;
+      }
+
+      /* Inner scroll area: vertical + horizontal scroll, but horizontal scrollbar is hidden via padding-bottom */
+      .table-scroll {
+        overflow-y: auto;
+        overflow-x: auto;
+        height: 100%;
+        padding-bottom: 18px; /* hides the native horizontal scrollbar */
+        box-sizing: border-box;
+      }
+
+      /* Fixed horizontal scrollbar pinned to bottom */
+      .h-scrollbar-track {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 18px;
+        background: #f0f0f0;
+        border-top: 1px solid #ddd;
+        overflow-x: scroll;
+        overflow-y: hidden;
+      }
+
+      /* This inner div must match the table's full scroll width */
+      .h-scrollbar-inner {
+        height: 1px;
+      }
+
+      /* Table styles */
+      table {
+        border-collapse: collapse;
+        white-space: nowrap;
+        width: max-content;
+        min-width: 100%;
+      }
+
+      thead th {
+        background: #f8f8f8;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        padding: 10px 18px;
+        font-weight: 600;
+        font-size: 13px;
+        color: #555;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      tbody td {
+        padding: 9px 18px;
+        border-bottom: 1px solid #eee;
+        color: #222;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      tbody tr:hover td {
+        background: #fafafa;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .badge-green {
+        background: #e6f4d7;
+        color: #3a6b10;
+      }
+      .badge-amber {
+        background: #fef3d0;
+        color: #7a4a0a;
+      }
+      .badge-red {
+        background: #fde8e8;
+        color: #9b2c2c;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="label">
+      Scroll vertically — horizontal scrollbar stays fixed at bottom
+    </p>
+
+    <div class="table-outer" id="tableOuter">
+      <!-- Scrollable area (horizontal scrollbar hidden by padding-bottom) -->
+      <div class="table-scroll" id="tableScroll">
+        <table id="mainTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Location</th>
+              <th>Project</th>
+              <th>Status</th>
+              <th>Budget</th>
+              <th>Deadline</th>
+              <th>Manager</th>
+              <th>Team Size</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Fixed horizontal scrollbar at bottom -->
+      <div class="h-scrollbar-track" id="hTrack">
+        <div class="h-scrollbar-inner" id="hInner"></div>
+      </div>
+    </div>
+
+    <script>
+      // Generate dummy rows
+      const names = [
+        "Alice Johnson",
+        "Bob Martinez",
+        "Carol White",
+        "David Lee",
+        "Eva Brown",
+        "Frank Kim",
+        "Grace Chen",
+        "Hank Patel",
+        "Iris Nguyen",
+        "Jake Wilson",
+      ];
+      const depts = [
+        "Engineering",
+        "Design",
+        "Marketing",
+        "Finance",
+        "Product",
+        "HR",
+        "Sales",
+        "Legal",
+        "DevOps",
+        "Research",
+      ];
+      const locs = [
+        "Cairo",
+        "London",
+        "New York",
+        "Berlin",
+        "Tokyo",
+        "Dubai",
+        "Paris",
+        "Sydney",
+        "Toronto",
+        "Singapore",
+      ];
+      const projs = [
+        "Apollo",
+        "Beacon",
+        "Cipher",
+        "Delta",
+        "Echo",
+        "Falcon",
+        "Genesis",
+        "Horizon",
+        "Iris",
+        "Jupiter",
+      ];
+      const statuses = [
+        ["Active", "green"],
+        ["On Hold", "amber"],
+        ["Closed", "red"],
+      ];
+      const mgrs = [
+        "Sarah K.",
+        "Tom L.",
+        "Amy N.",
+        "John D.",
+        "Mia T.",
+        "Leo V.",
+        "Zara M.",
+        "Alex P.",
+        "Nina R.",
+        "Chris H.",
+      ];
+
+      const tbody = document.getElementById("tbody");
+      for (let i = 1; i <= 20; i++) {
+        const s = statuses[i % 3];
+        tbody.innerHTML += `<tr>
+        <td>${i}</td>
+        <td>${names[i % 10]}</td>
+        <td>${depts[i % 10]}</td>
+        <td>${locs[i % 10]}</td>
+        <td>${projs[i % 10]}</td>
+        <td><span class="badge badge-${s[1]}">${s[0]}</span></td>
+        <td>$${(12 + i) * 1000}K</td>
+        <td>2025-0${(i % 9) + 1}-15</td>
+        <td>${mgrs[i % 10]}</td>
+        <td>${(i % 8) + 2}</td>
+      </tr>`;
+      }
+
+      const scroll = document.getElementById("tableScroll");
+      const hTrack = document.getElementById("hTrack");
+      const hInner = document.getElementById("hInner");
+      const table = document.getElementById("mainTable");
+
+      // Match the fake scrollbar width to the actual table scroll width
+      function syncInnerWidth() {
+        hInner.style.width = table.scrollWidth + "px";
+      }
+
+      syncInnerWidth();
+      new ResizeObserver(syncInnerWidth).observe(table);
+
+      // Sync scrollbars without causing infinite loops
+      let syncingFromScroll = false;
+      let syncingFromTrack = false;
+
+      scroll.addEventListener("scroll", () => {
+        if (syncingFromTrack) return;
+        syncingFromScroll = true;
+        hTrack.scrollLeft = scroll.scrollLeft;
+        syncingFromScroll = false;
+      });
+
+      hTrack.addEventListener("scroll", () => {
+        if (syncingFromScroll) return;
+        syncingFromTrack = true;
+        scroll.scrollLeft = hTrack.scrollLeft;
+        syncingFromTrack = false;
+      });
+    </script>
+  </body>
+</html>
