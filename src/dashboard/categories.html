@@ -14,6 +14,7 @@
       .cat-thumb {
         width: 46px;
         height: 46px;
+        margin: auto;
         border-radius: 10px;
         object-fit: cover;
         border: 1.5px solid rgba(0, 121, 194, 0.14);
@@ -246,6 +247,7 @@
       /* ── Category name cell ── */
       .cat-name-cell {
         display: flex;
+        justify-content: center;
         align-items: center;
         gap: 12px;
       }
@@ -2109,7 +2111,7 @@
                       onclick="sortCatTable(1)"
                       class="cursor-pointer select-none"
                     >
-                      <div class="flex items-center gap-1.5">
+                      <div class="flex justify-center items-center gap-1.5">
                         الاسم
                         <span
                           class="sort-icon inline-flex items-center text-white"
@@ -2156,7 +2158,13 @@
                   </div>
                 </div>
               </td>
-              <td><span class="badge badge--active">نشط</span></td>
+              <td> <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox" checked /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div></td>
               <td>
                 <div class="actions">
                   <button class="action-btn action-btn--view" title="عرض في الموقع" onclick="viewCat(101)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
@@ -2184,7 +2192,13 @@
         <div><span class="cat-name-text">الملابس والأزياء</span></div>
       </div>
     </td>
-    <td><span class="badge badge--inactive">غير نشط</span></td>
+    <td> <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox"  /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div></td>
     <td>
       <div class="actions">
         <button class="action-btn action-btn--view" title="عرض" onclick="viewCat(102)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
@@ -2212,7 +2226,13 @@
         <div><span class="cat-name-text">العروض الرمضانية</span></div>
       </div>
     </td>
-    <td><span class="badge badge--archived">مؤرشف</span></td>
+    <td> <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox" checked /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div></td>
     <td>
       <div class="actions">
         <button class="action-btn action-btn--view" title="عرض" onclick="viewCat(103)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
@@ -2243,7 +2263,13 @@
         </div>
       </div>
     </td>
-    <td><span class="badge badge--active">نشط</span></td>
+    <td> <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox"  /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div></td>
     <td>
       <div class="actions">
         <button class="action-btn action-btn--view" onclick="viewCat(104)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
@@ -2271,7 +2297,13 @@
         <div><span class="cat-name-text">مستلزمات رياضية</span></div>
       </div>
     </td>
-    <td><span class="badge badge--active">نشط</span></td>
+    <td> <div class="toggle-wrap">
+                        <label class="toggle"
+                          ><input type="checkbox" checked /><span
+                            class="toggle-slider"
+                          ></span
+                        ></label>
+                      </div></td>
     <td>
       <div class="actions">
         <button class="action-btn action-btn--view" onclick="viewCat(105)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
