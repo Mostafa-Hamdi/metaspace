@@ -1,0 +1,2150 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ميتا سبيس - تعديل قسم</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="../../dist/output.css" />
+    <style>
+        /* ══ CREATE SECTION PAGE ══ */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Form inputs override for this page */
+.form-row { margin-bottom: 20px; }
+.form-row:last-child { margin-bottom: 0; }
+
+.input-wrap { position: relative; }
+.input-wrap i.icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9eb0c8;
+  font-size: 15px;
+  pointer-events: none;
+}
+
+.form-input.ltr { direction: ltr; text-align: right; }
+.form-input.slug-f {
+  direction: ltr;
+  text-align: left;
+  letter-spacing: 0.3px;
+}
+textarea.form-input {
+  resize: vertical;
+  min-height: 90px;
+  padding-top: 10px;
+}
+
+/* Slug preview */
+.slug-preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(0,121,194,0.05);
+  border: 1px solid rgba(0,121,194,0.12);
+  font-size: 12px;
+}
+.slug-preview i { color: #0079c2; font-size: 13px; }
+.slug-preview .base { color: #9eb0c8; }
+.slug-preview .val { color: #0079c2; font-weight: 700; direction: ltr; }
+
+.slug-warn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  margin-top: 7px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  color: #b91c1c;
+  background: rgba(185,28,28,0.06);
+  border: 1px solid rgba(185,28,28,0.15);
+}
+.slug-warn.show { display: flex; }
+
+/* Status radios */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.status-option { display: none; }
+.status-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-radius: 9px;
+  border: 1.5px solid rgba(0,121,194,0.15);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.18s;
+  background: rgba(0,121,194,0.02);
+  user-select: none;
+}
+.status-label:hover {
+  border-color: rgba(0,121,194,0.35);
+  background: rgba(0,121,194,0.05);
+}
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.s-draft .status-dot { background: #888; }
+input.s-draft:checked + .status-label { border-color: #888; background: rgba(136,136,136,0.07); color: #444; border-width: 2px; }
+.s-pending .status-dot { background: #d97706; }
+input.s-pending:checked + .status-label { border-color: #d97706; background: rgba(217,119,6,0.07); color: #92400e; border-width: 2px; }
+.s-active .status-dot { background: #059669; }
+input.s-active:checked + .status-label { border-color: #059669; background: rgba(5,150,105,0.08); color: #047857; border-width: 2px; }
+.s-hidden .status-dot { background: #6366f1; }
+input.s-hidden:checked + .status-label { border-color: #6366f1; background: rgba(99,102,241,0.07); color: #4338ca; border-width: 2px; }
+.s-suspended .status-dot { background: #dc2626; }
+input.s-suspended:checked + .status-label { border-color: #dc2626; background: rgba(220,38,38,0.07); color: #991b1b; border-width: 2px; }
+.s-archived .status-dot { background: #0079c2; }
+input.s-archived:checked + .status-label { border-color: #0079c2; background: rgba(0,121,194,0.08); color: #0079c2; border-width: 2px; }
+
+.status-desc {
+  margin-top: 12px;
+  padding: 9px 13px;
+  border-radius: 9px;
+  background: rgba(0,121,194,0.04);
+  border: 1px solid rgba(0,121,194,0.1);
+  font-size: 12px;
+  color: #6b7a8d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-desc i { color: #0079c2; font-size: 14px; flex-shrink: 0; }
+
+/* Permissions list */
+.perm-list { display: flex; flex-direction: column; gap: 6px; }
+.perm-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: 1px solid rgba(0,121,194,0.1);
+  background: rgba(0,121,194,0.02);
+  transition: background 0.15s;
+}
+.perm-row:hover { background: rgba(0,121,194,0.05); }
+.perm-info { display: flex; align-items: center; gap: 10px; }
+.perm-info > i { font-size: 16px; color: #0079c2; }
+.perm-name { font-size: 12.5px; font-weight: 700; color: #1a2a3a; }
+.perm-hint { font-size: 11px; color: #9eb0c8; margin-top: 1px; }
+.perm-control { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.toggle-lbl { font-size: 11.5px; color: #9eb0c8; min-width: 36px; text-align: center; }
+
+/* Impact box */
+.impact-box {
+  background: rgba(0,121,194,0.04);
+  border: 1px solid rgba(0,121,194,0.13);
+  border-radius: 10px;
+  padding: 16px;
+}
+.impact-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0079c2;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.impact-title i { font-size: 15px; }
+.impact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,121,194,0.07);
+  font-size: 12px;
+}
+.impact-row:last-child { border-bottom: none; }
+.impact-row .lbl { color: #6b7a8d; }
+.impact-val { font-weight: 700; color: #1a2a3a; }
+.impact-val.zero { color: #9eb0c8; font-weight: 400; }
+
+/* Audit log */
+.audit-feed { display: flex; flex-direction: column; }
+.audit-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(0,121,194,0.07);
+  font-size: 12px;
+}
+.audit-entry:last-child { border-bottom: none; }
+.audit-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0079c2;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.audit-text { color: #6b7a8d; flex: 1; }
+.audit-text b { color: #1a2a3a; }
+.audit-time { color: #9eb0c8; font-size: 11px; flex-shrink: 0; }
+
+/* Section tag badge */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  background: rgba(5,150,105,0.1);
+  color: #047857;
+  border: 1px solid rgba(5,150,105,0.2);
+}
+
+/* card-header badge overrides */
+.badge-blue {
+  background: rgba(0,121,194,0.1);
+  color: #0079c2;
+  border: 1px solid rgba(0,121,194,0.2);
+}
+.badge-green {
+  background: rgba(5,150,105,0.1);
+  color: #047857;
+  border: 1px solid rgba(5,150,105,0.2);
+}
+
+@media (max-width: 600px) {
+  .two-col { grid-template-columns: 1fr; }
+  .status-grid { grid-template-columns: repeat(2, 1fr); }
+}
+    </style>
+  </head>
+  <body class="bg-[#f4f7fb]">
+    <div class="flex h-screen overflow-hidden">
+      <!-- ══ SIDEBAR placeholder — replace with your real sidebar ══ -->
+      <aside
+        id="sidebar"
+        style="
+          position: fixed;
+          right: 0;
+          top: 0;
+          height: 100%;
+          width: 220px;
+          background: #0079c2;
+          display: flex;
+          flex-direction: column;
+          z-index: 40;
+          transition: width 0.3s ease;
+          box-shadow: -4px 0 24px rgba(0, 121, 194, 0.18);
+          overflow: hidden;
+        "
+      >
+        <!-- Logo -->
+        <div
+          class="logo-wrap flex items-center justify-center min-h-[72px] flex-shrink-0"
+          style="position: relative"
+        >
+          <img
+            src="../../assets/logo.png"
+            alt="شعار"
+            class="logo-full h-12 object-contain"
+          />
+          <div
+            class="logo-ms hidden w-10 h-10 rounded-[10px] bg-white/20 items-center justify-center flex-shrink-0"
+          >
+            <span class="text-white font-bold text-sm">MS</span>
+          </div>
+
+          <!-- Close button (mobile only) -->
+          <button
+            id="sidebarCloseBtn"
+            onclick="closeMobile()"
+            style="
+              display: none;
+              position: absolute;
+              left: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 32px;
+              height: 32px;
+              background: rgba(255, 255, 255, 0.15);
+              border: none;
+              border-radius: 8px;
+              color: #fff;
+              cursor: pointer;
+              align-items: center;
+              justify-content: center;
+              transition: background 0.2s;
+              flex-shrink: 0;
+            "
+            onmouseenter="this.style.background='rgba(255,255,255,0.28)'"
+            onmouseleave="this.style.background='rgba(255,255,255,0.15)'"
+          >
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Nav -->
+        <nav style="flex: 1; overflow-y: auto; padding: 12px 8px">
+          <ul
+            style="
+              list-style: none;
+              margin: 0;
+              padding: 0;
+              display: flex;
+              flex-direction: column;
+              gap: 2px;
+            "
+          >
+            <!-- الصفحة الرئيسية -->
+            <li>
+              <a
+                href="/src/index.html"
+                class="nav-parent open mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: #0068ae;
+                  font-weight: 600;
+                  font-size: 14px;
+                  background: #98cdea;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  style="width: 18px; height: 18px; flex-shrink: 0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M3 9.75L12 3l9 6.75V21a1 1 0 01-1 1H4a1 1 0 01-1-1V9.75z"
+                  />
+                  <path d="M9 22V12h6v10" />
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >الصفحة الرئيسية</span
+                >
+              </a>
+            </li>
+            <!-- الصلاحيات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    <circle
+                      cx="12"
+                      cy="16"
+                      r="1.5"
+                      fill="currentColor"
+                      stroke="none"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الصلاحيات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="./permissions.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    كل الصلاحيات
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./addRole.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    إضافة صلاحية
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المديرين -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2" />
+                    <path d="M19 8v6m3-3h-6" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">إدارة المديرين</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="./managers.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    كل المديرين
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./addManager.html"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                  >
+                    إضافة مدير
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- الرسائل -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">chat-messages</title>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M5 12a5 5 0 0 1 7 7m-7-7a5 5 0 0 0-2 4a5 5 0 0 0 .224 1.483c.272.88.076 1.86-.099 2.784a.468.468 0 0 0 .592.539c.848-.232 1.691-.43 2.557-.112A5 5 0 0 0 8 21a4.99 4.99 0 0 0 4-2m-7-7c0-4.685 2.875-9 8-9a8 8 0 0 1 7.532 10.7c-.476 1.326.037 3.102.337 4.568a.451.451 0 0 1-.584.526c-1.312-.41-2.852-.986-4.085-.466c-1.334.562-2.736.672-4.2.672"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الرسائل</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >البريد الوارد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الرسائل المرسلة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إنشاء رسالة</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المنتجات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">box-linear</title>
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                    d="m15.578 3.382l2 1.05c2.151 1.129 3.227 1.693 3.825 2.708C22 8.154 22 9.417 22 11.942v.117c0 2.524 0 3.787-.597 4.801c-.598 1.015-1.674 1.58-3.825 2.709l-2 1.049C13.822 21.539 12.944 22 12 22s-1.822-.46-3.578-1.382l-2-1.05c-2.151-1.129-3.227-1.693-3.825-2.708C2 15.846 2 14.583 2 12.06v-.117c0-2.525 0-3.788.597-4.802c.598-1.015 1.674-1.58 3.825-2.708l2-1.05C10.178 2.461 11.056 2 12 2s1.822.46 3.578 1.382ZM21 7.5l-4 2M12 12L3 7.5m9 4.5v9.5m0-9.5l4.5-2.25l.5-.25m0 0V13m0-3.5l-9.5-5"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">إدارة المنتجات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل المنتجات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إضافة منتج</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الفئات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الطلبات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 16 16"
+                >
+                  <title xmlns="">task-list-square-16-regular</title>
+                  <path
+                    fill="currentColor"
+                    d="M2 4.5A2.5 2.5 0 0 1 4.5 2h7A2.5 2.5 0 0 1 14 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 11.5zM4.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zm4 7.5A.5.5 0 0 1 9 10h2.25a.5.5 0 0 1 0 1H9a.5.5 0 0 1-.5-.5M9 6a.5.5 0 0 0 0 1h2.25a.5.5 0 0 0 0-1zM7.354 9.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.748-.748a.5.5 0 1 1 .708-.708l.394.395l1.146-1.147a.5.5 0 0 1 .708 0m0-3.292a.5.5 0 1 0-.708-.708L5.5 6.293l-.394-.395a.5.5 0 0 0-.708.708l.748.748a.5.5 0 0 0 .708 0z"
+                  />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الطلبات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل الطلبات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الطلبات الجديدة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >قيد التجهيز</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >جاهزة للشحن</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- المخزن -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 48 48"
+                >
+                  <title xmlns="">warehouse-1</title>
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="3"
+                  >
+                    <path
+                      d="M26.815 4.16c7.235 3.211 12.719 7.43 15.554 9.867c1.433 1.232 2.232 3.005 2.33 4.892C44.836 21.51 45 25.565 45 30c0 4.237-.15 8.293-.282 11.038a3.835 3.835 0 0 1-3.687 3.66C37.669 44.835 31.926 45 24 45c-7.927 0-13.67-.166-17.032-.301c-2-.08-3.59-1.661-3.687-3.661A238 238 0 0 1 3 30c0-4.435.165-8.49.3-11.081c.1-1.887.898-3.66 2.331-4.892c2.835-2.438 8.32-6.656 15.554-9.867a6.94 6.94 0 0 1 5.63 0Z"
+                    />
+                    <path
+                      d="M38.547 44.788C38.751 42.618 39 38.784 39 33c0-4.802-.172-7.923-.346-9.858c-.159-1.751-1.314-3.119-3.048-3.412c-2.12-.36-5.73-.73-11.606-.73s-9.485.37-11.606.73c-1.734.293-2.89 1.66-3.048 3.412C9.171 25.077 9 28.198 9 33c0 5.784.249 9.618.453 11.788"
+                    />
+                    <path
+                      d="M14.063 33.806c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 14 36c0-.943.027-1.659.063-2.194Z"
+                    />
+                    <path
+                      d="M24.063 33.806c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 24 36c0-.943.027-1.659.063-2.194Zm-5-8c.06-.896.675-1.564 1.569-1.66c.732-.08 1.812-.146 3.368-.146s2.636.067 3.368.146c.894.096 1.51.764 1.57 1.66c.035.535.062 1.251.062 2.194s-.027 1.659-.063 2.194c-.06.896-.675 1.564-1.569 1.66c-.732.08-1.812.146-3.368.146s-2.636-.067-3.368-.146c-.894-.096-1.51-.764-1.57-1.66A33 33 0 0 1 19 28c0-.943.027-1.659.063-2.194Z"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">المخزن</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >نظرة عامة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >نقص المخزن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إدارة المخزن</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- التقارير -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  style="width: 18px; height: 18px; flex-shrink: 0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+                  />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+                <span class="sidebar-text" style="flex: 1">التقارير</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المبيعات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المخزن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تقارير المالية</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- المحفظة/المالية -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 14 14"
+                >
+                  <title xmlns="">wallet</title>
+                  <g
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M12 10.5v2a1 1 0 0 1-1 1H1.5a1 1 0 0 1-1-1V5a3 3 0 0 1 3-3H10v2.5"
+                    />
+                    <path
+                      d="M13 7.5H9.5A.5.5 0 0 0 9 8v2a.5.5 0 0 0 .5.5H13a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5m-1 0v-2a1 1 0 0 0-1-1H3.5"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >المحفظة/المالية</span
+                >
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الرصيد الحالي</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >المعاملات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >السحب والإيداع</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- إدارة المستخدمين -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 20 20"
+                >
+                  <title xmlns="">people</title>
+                  <g
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                  >
+                    <path
+                      d="M5 9a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+                    />
+                    <path
+                      d="M3.854 8.896a.5.5 0 0 1 0 .708l-.338.337A3.47 3.47 0 0 0 2.5 12.394v1.856a.5.5 0 1 1-1 0v-1.856a4.47 4.47 0 0 1 1.309-3.16l.337-.338a.5.5 0 0 1 .708 0m11.792-.3a.5.5 0 0 0 0 .708l.338.337A3.47 3.47 0 0 1 17 12.094v2.156a.5.5 0 0 0 1 0v-2.156a4.47 4.47 0 0 0-1.309-3.16l-.337-.338a.5.5 0 0 0-.708 0"
+                    />
+                    <path
+                      d="M14 9a2 2 0 1 1 0-4a2 2 0 0 1 0 4m0 1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m-4.5 3.25a2.5 2.5 0 0 0-2.5 2.5v1.3a.5.5 0 0 1-1 0v-1.3a3.5 3.5 0 0 1 7 0v1.3a.5.5 0 1 1-1 0v-1.3a2.5 2.5 0 0 0-2.5-2.5"
+                    />
+                    <path
+                      d="M9.5 11.75a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+                    />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1"
+                  >إدارة المستخدمين</span
+                >
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >كل المستخدمين</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إضافة مستخدم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الصلاحيات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الاعدادات -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                >
+                  <title xmlns="">setting-alt-line</title>
+                  <g fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M3.082 13.945c-.529-.95-.793-1.426-.793-1.945s.264-.994.793-1.944L4.43 7.63l1.426-2.381c.559-.933.838-1.4 1.287-1.66c.45-.259.993-.267 2.08-.285L12 3.26l2.775.044c1.088.018 1.631.026 2.08.286s.73.726 1.288 1.659L19.57 7.63l1.35 2.426c.528.95.792 1.425.792 1.944s-.264.994-.793 1.944L19.57 16.37l-1.426 2.381c-.559.933-.838 1.4-1.287 1.66c-.45.259-.993.267-2.08.285L12 20.74l-2.775-.044c-1.088-.018-1.631-.026-2.08-.286s-.73-.726-1.288-1.659L4.43 16.37z"
+                    />
+                    <circle cx="12" cy="12" r="3" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الاعدادات</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الإعدادات العامة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الأمان</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >الإشعارات</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- الدعم الفني -->
+            <li>
+              <div
+                class="nav-parent mb-1"
+                onclick="toggleSub(this)"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  padding: 10px 12px;
+                  border-radius: 10px;
+                  color: rgba(255, 255, 255, 0.75);
+                  font-size: 14px;
+                  cursor: pointer;
+                  user-select: none;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 21 21"
+                >
+                  <title xmlns="">warning-hex</title>
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    transform="translate(-1 -1)"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.517 3.5l4.983 5v6l-4.983 5H8.5l-5-5v-6l5-5zm-3.017 9v-5"
+                    />
+                    <circle cx="11.5" cy="15.5" r="1" fill="currentColor" />
+                  </g>
+                </svg>
+                <span class="sidebar-text" style="flex: 1">الدعم الفني</span>
+                <svg
+                  class="chevron"
+                  style="width: 14px; height: 14px; opacity: 0.7"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </div>
+              <ul
+                class="sub-nav"
+                style="
+                  list-style: none;
+                  margin: 0;
+                  padding: 2px 0 0 0;
+                  padding-right: 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 2px;
+                "
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >تذاكر الدعم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="sub-link"
+                    style="
+                      display: block;
+                      padding: 8px 12px;
+                      border-radius: 8px;
+                      color: rgba(255, 255, 255, 0.7);
+                      font-size: 12px;
+                      text-decoration: none;
+                    "
+                    >إنشاء تذكرة</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Logout -->
+        <div
+          class="logout-wrap"
+          style="
+            padding: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+          "
+        >
+          <a
+            href="/login"
+            class="logout-link"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 10px 12px;
+              border-radius: 10px;
+              color: rgba(255, 255, 255, 0.75);
+              font-size: 14px;
+              text-decoration: none;
+            "
+          >
+            <svg
+              style="width: 18px; height: 18px; flex-shrink: 0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span class="logout-text sidebar-text">تسجيل خروج</span>
+          </a>
+        </div>
+      </aside>
+      <div
+        id="mainWrapper"
+        class="flex flex-col flex-1 min-w-0 transition-all duration-300"
+        style="margin-right: 220px"
+      >
+        <!-- ══ HEADER placeholder — replace with your real header ══ -->
+        <header
+          class="sticky top-0 z-30 bg-white border-b border-[#e8edf4] shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
+        >
+          <div class="flex items-center px-6 h-[64px] gap-3">
+            <button
+              id="sidebarToggle"
+              class="hidden lg:flex items-center justify-center w-9 h-9 rounded-[10px] text-[#6b7a8d] hover:bg-[#f0f7ff] hover:text-[#0079c2] transition-colors"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="9" y1="3" x2="9" y2="21" />
+              </svg>
+            </button>
+            <div class="flex-1 min-w-0 max-w-[440px]">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="ابحث عن دور أو صلاحية"
+                  class="w-full bg-[#E6EAEC] border border-[#e0e8f0] rounded-[200px] pr-9 pl-4 py-2 text-sm text-[#666] outline-none placeholder:text-[#9eb0c8] focus:border-[#0079c2] focus:bg-white transition-all"
+                />
+                <span
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#0079c2]"
+                >
+                  <!-- <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+                > -->
+                </span>
+              </div>
+            </div>
+            <div class="mr-auto flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-[#e8f3fb] border-2 border-[#0079c2] flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-[#0079c2]"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                  />
+                </svg>
+              </div>
+              <div class="hidden sm:block text-right leading-tight">
+                <p class="text-[12px] font-semibold text-[#1a2a3a]">
+                  مصطفى حمدى
+                </p>
+                <p class="text-[10px] text-[#0079c2] font-medium">
+                  مدير تنفيذى
+                </p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+
+  <!-- Breadcrumb -->
+  <div class="topbar">
+    <nav class="breadcrumb">
+      <a href="#" class="breadcrumb__link">الرئيسية</a>
+      <span class="breadcrumb__sep">›</span>
+      <a href="#" class="breadcrumb__link">إدارة الأقسام</a>
+      <span class="breadcrumb__sep">›</span>
+      <span class="breadcrumb__current">إنشاء قسم جديد</span>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+    <h1 class="page-title mb-0 pb-0 border-0">
+      <svg width="22" height="22" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24" class="inline-block ml-2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      إنشاء قسم جديد
+    </h1>
+    <span class="section-tag">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      قسم جديد
+    </span>
+  </div>
+
+  <!-- ── Card 1: Basic Info ── -->
+  <div class="table-card mb-[18px]">
+    <div class="flex items-center gap-3 flex-wrap px-6 py-4 border-b border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.022)]">
+      <h2 class="text-[14px] font-bold text-[#1a2a3a] flex items-center gap-2">
+        <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        بيانات القسم الأساسية
+      </h2>
+      <span id="typeBadge" class="badge badge-blue" style="margin-right:auto;display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        قسم رئيسي
+      </span>
+    </div>
+    <div class="p-6">
+
+      <!-- Parent -->
+      <div class="form-row">
+        <label class="text-[12.5px] font-semibold text-[#334455] block mb-[7px]" for="fParent">
+          القسم الرئيسي
+          <span class="text-[11px] font-normal text-[#9eb0c8] mr-1">(اختياري — اتركه فارغاً لإنشاء قسم رئيسي)</span>
+        </label>
+        <div class="input-wrap">
+          <svg class="icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <select class="form-input" id="fParent" style="padding-right:38px">
+            <option value="">— بدون قسم رئيسي (قسم رئيسي جديد) —</option>
+            <option value="electronics">الأجهزة الإلكترونية</option>
+            <option value="clothes">الملابس والأزياء</option>
+            <option value="furniture">أثاث منزلي</option>
+            <option value="sport">مستلزمات رياضية</option>
+            <option value="books">كتب وقرطاسية</option>
+            <option value="beauty">مستحضرات تجميل</option>
+            <option value="toys">ألعاب أطفال</option>
+            <option value="food">طعام وشراب</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Names -->
+      <div class="two-col form-row">
+        <div>
+          <label class="text-[12.5px] font-semibold text-[#334455] block mb-[7px]" for="fNameAr">اسم القسم بالعربية <span class="text-[#ee0979]">*</span></label>
+          <div class="input-wrap">
+            <svg class="icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <input class="form-input" type="text" id="fNameAr" placeholder="مثال: ملابس رجالي، أحذية ...">
+          </div>
+        </div>
+        <div>
+          <label class="text-[12.5px] font-semibold text-[#334455] block mb-[7px]" for="fNameEn">اسم القسم بالإنجليزية <span class="text-[#ee0979]">*</span></label>
+          <div class="input-wrap">
+            <svg class="icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <input class="form-input ltr" type="text" id="fNameEn" placeholder="e.g. Men Clothes, Shoes ...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Slug -->
+      <div class="form-row">
+        <label class="text-[12.5px] font-semibold text-[#334455] block mb-[7px]" for="fSlug">
+          Slug (رابط القسم) <span class="text-[#ee0979]">*</span>
+          <span class="text-[11px] font-normal text-[#9eb0c8] mr-1">(حروف إنجليزية وأرقام وشرطة فقط)</span>
+        </label>
+        <div class="input-wrap">
+          <svg class="icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <input class="form-input slug-f" type="text" id="fSlug" placeholder="e.g. men-clothes">
+        </div>
+        <div class="slug-preview">
+          <svg width="13" height="13" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="base">/categories/</span>
+          <span class="val" id="slugVal">—</span>
+        </div>
+        <div class="slug-warn" id="slugWarn">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          هذا الـ Slug مستخدم مسبقاً — يرجى اختيار اسم آخر
+        </div>
+      </div>
+
+      <!-- Owner + Purpose -->
+      <div class="two-col form-row">
+        <div>
+          <label class="text-[12.5px] font-semibold text-[#334455] block mb-[7px]" for="fOwner">المسؤول (Owner) <span class="text-[#ee0979]">*</span></label>
+          <div class="input-wrap">
+            <svg class="icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <select class="form-input" id="fOwner" style="padding-right:38px">
+              <option value="">— اختر المسؤول —</option>
+              <option value="1">أحمد محمد</option>
+              <option value="2">مصطفى حمدى</option>
+              <option value="3">سارة علي</option>
+              <option value="4">محمود إبراهيم</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="text-[12.5px] font-semibold text-[#334455] block mb-[7px]" for="fPurpose">الغرض (Purpose) <span class="text-[#ee0979]">*</span></label>
+          <div class="input-wrap">
+            <svg class="icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            <select class="form-input" id="fPurpose" style="padding-right:38px">
+              <option value="">— اختر الغرض —</option>
+              <option value="org">تنظيم المنتجات</option>
+              <option value="campaign">حملة تسويقية</option>
+              <option value="seasonal">موسمي (عروض)</option>
+              <option value="internal">داخلي فقط</option>
+              <option value="partner">شراكة خارجية</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-row">
+        <label class="text-[12.5px] font-semibold text-[#334455] block mb-[7px]" for="fDesc">
+          الوصف <span class="text-[11px] font-normal text-[#9eb0c8] mr-1">(اختياري)</span>
+        </label>
+        <textarea class="form-input" id="fDesc" rows="3" placeholder="وصف مختصر للقسم ..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Card 2: Status ── -->
+  <div class="table-card mb-[18px]">
+    <div class="flex items-center gap-3 px-6 py-4 border-b border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.022)]">
+      <h2 class="text-[14px] font-bold text-[#1a2a3a] flex items-center gap-2">
+        <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        حالة القسم (Section Status)
+      </h2>
+    </div>
+    <div class="p-6">
+      <div class="status-grid">
+        <div><input type="radio" name="sStatus" id="sDraft"     class="status-option s-draft"     value="draft"      checked><label for="sDraft"     class="status-label"><span class="status-dot"></span> مسودة (Draft)</label></div>
+        <div><input type="radio" name="sStatus" id="sPending"   class="status-option s-pending"   value="pending">   <label for="sPending"   class="status-label"><span class="status-dot"></span> قيد الموافقة (Pending)</label></div>
+        <div><input type="radio" name="sStatus" id="sActive"    class="status-option s-active"    value="active">    <label for="sActive"    class="status-label"><span class="status-dot"></span> نشط (Active)</label></div>
+        <div><input type="radio" name="sStatus" id="sHidden"    class="status-option s-hidden"    value="hidden">    <label for="sHidden"    class="status-label"><span class="status-dot"></span> مخفي (Hidden)</label></div>
+        <div><input type="radio" name="sStatus" id="sSuspended" class="status-option s-suspended" value="suspended"> <label for="sSuspended" class="status-label"><span class="status-dot"></span> موقوف (Suspended)</label></div>
+        <div><input type="radio" name="sStatus" id="sArchived"  class="status-option s-archived"  value="archived">  <label for="sArchived"  class="status-label"><span class="status-dot"></span> مؤرشف (Archived)</label></div>
+      </div>
+      <div class="status-desc">
+        <svg width="14" height="14" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span id="statusDescText">القسم في مسودة — غير مرئي للمستخدمين حتى يتم تفعيله.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Card 3: Permissions ── -->
+  <div class="table-card mb-[18px]">
+    <div class="flex items-center gap-3 px-6 py-4 border-b border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.022)]">
+      <h2 class="text-[14px] font-bold text-[#1a2a3a] flex items-center gap-2">
+        <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        الصلاحيات (Permissions)
+      </h2>
+    </div>
+    <div class="p-6">
+      <div class="perm-list">
+
+        <div class="perm-row">
+          <div class="perm-info">
+            <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <div><div class="perm-name">عرض القسم</div><div class="perm-hint">من يستطيع رؤية هذا القسم</div></div>
+          </div>
+          <div class="perm-control">
+            <select class="form-select" style="min-width:140px;font-size:12px;padding:7px 12px">
+              <option>الكل</option><option>المديرون فقط</option><option>محدد</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="perm-row">
+          <div class="perm-info">
+            <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <div><div class="perm-name">تعديل القسم</div><div class="perm-hint">من يستطيع تعديل بيانات القسم</div></div>
+          </div>
+          <div class="perm-control">
+            <select class="form-select" style="min-width:140px;font-size:12px;padding:7px 12px">
+              <option>المديرون فقط</option><option>الكل</option><option>محدد</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="perm-row">
+          <div class="perm-info">
+            <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><path d="m15.578 3.382 2 1.05C19.729 5.561 20.805 6.125 21.403 7.14 22 8.154 22 9.417 22 11.942v.117c0 2.524 0 3.787-.597 4.801-.598 1.015-1.674 1.58-3.825 2.709l-2 1.049C13.822 21.539 12.944 22 12 22s-1.822-.46-3.578-1.382l-2-1.05c-2.151-1.129-3.227-1.693-3.825-2.708C2 15.846 2 14.583 2 12.06v-.117c0-2.525 0-3.788.597-4.802.598-1.015 1.674-1.58 3.825-2.708l2-1.05C10.178 2.461 11.056 2 12 2s1.822.46 3.578 1.382Z"/></svg>
+            <div><div class="perm-name">إضافة منتجات</div><div class="perm-hint">من يستطيع ربط منتجات بهذا القسم</div></div>
+          </div>
+          <div class="perm-control">
+            <select class="form-select" style="min-width:140px;font-size:12px;padding:7px 12px">
+              <option>المديرون فقط</option><option>الكل</option><option>محدد</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="perm-row">
+          <div class="perm-info">
+            <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+            <div>
+              <div class="perm-name">أرشفة القسم <span class="text-[10.5px] text-[#9eb0c8] font-normal">(بدل الحذف)</span></div>
+              <div class="perm-hint">يُحفظ القسم ولا يُحذف نهائياً</div>
+            </div>
+          </div>
+          <div class="perm-control">
+            <span class="toggle-lbl" id="archiveLbl">مفعّل</span>
+            <label class="toggle" style="display:inline-block;position:relative;width:52px;height:26px">
+              <input type="checkbox" checked onchange="onToggle(this,'archiveLbl')" style="opacity:0;width:0;height:0">
+              <span class="toggle-slider" style="position:absolute;cursor:pointer;inset:0;background:#e2e8f0;border-radius:34px;transition:background .28s">
+                <span style="position:absolute;width:20px;height:20px;right:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform .28s;box-shadow:0 2px 6px rgba(0,0,0,.16);display:block"></span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="perm-row">
+          <div class="perm-info">
+            <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <div>
+              <div class="perm-name">نظام الموافقة (Approval)</div>
+              <div class="perm-hint">Maker → Checker: التعديلات تحتاج موافقة مدير</div>
+            </div>
+          </div>
+          <div class="perm-control">
+            <span class="toggle-lbl" id="approvalLbl">مفعّل</span>
+            <label class="toggle" style="display:inline-block;position:relative;width:52px;height:26px">
+              <input type="checkbox" id="approvalToggle" checked onchange="onToggle(this,'approvalLbl');updateImpact()" style="opacity:0;width:0;height:0">
+              <span class="toggle-slider" style="position:absolute;cursor:pointer;inset:0;background:#e2e8f0;border-radius:34px;transition:background .28s">
+                <span style="position:absolute;width:20px;height:20px;right:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform .28s;box-shadow:0 2px 6px rgba(0,0,0,.16);display:block"></span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Card 4: Impact Preview ── -->
+  <div class="table-card mb-[18px]">
+    <div class="flex items-center gap-3 px-6 py-4 border-b border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.022)]">
+      <h2 class="text-[14px] font-bold text-[#1a2a3a] flex items-center gap-2">
+        <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        معاينة التأثير (Impact Preview)
+      </h2>
+    </div>
+    <div class="p-6">
+      <div class="impact-box">
+        <div class="impact-title">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          ما الذي سيتأثر بإنشاء هذا القسم؟
+        </div>
+        <div class="impact-row"><span class="lbl">المنتجات المرتبطة حالياً</span><span class="impact-val zero">0 منتج</span></div>
+        <div class="impact-row"><span class="lbl">القسم الأب المختار</span><span class="impact-val" id="impactParent">—</span></div>
+        <div class="impact-row"><span class="lbl">الحالة المبدئية</span><span class="impact-val" id="impactStatus">مسودة</span></div>
+        <div class="impact-row"><span class="lbl">الأقسام الفرعية</span><span class="impact-val zero">0 قسم فرعي</span></div>
+        <div class="impact-row"><span class="lbl">يتطلب موافقة قبل التفعيل</span><span class="impact-val" id="impactApproval">نعم</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Card 5: Audit Log ── -->
+  <div class="table-card mb-[18px]">
+    <div class="flex items-center gap-3 px-6 py-4 border-b border-[rgba(0,121,194,0.08)] bg-[rgba(0,121,194,0.022)]">
+      <h2 class="text-[14px] font-bold text-[#1a2a3a] flex items-center gap-2">
+        <svg width="16" height="16" fill="none" stroke="#0079c2" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+        سجل التغييرات (Audit Log)
+      </h2>
+    </div>
+    <div class="p-6">
+      <div class="audit-feed" id="auditFeed">
+        <div class="audit-entry">
+          <div class="audit-dot"></div>
+          <div class="audit-text">بدأ <b>مصطفى حمدى</b> إنشاء قسم جديد</div>
+          <div class="audit-time" id="initTime"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer Actions ── -->
+  <div class="table-card">
+    <div class="flex items-center justify-center gap-3 flex-wrap px-6 py-5 bg-[rgba(0,121,194,0.012)]">
+      <button class="btn btn--outline" onclick="cancelForm()">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+        رجوع
+      </button>
+      <button class="btn btn--outline" onclick="saveDraft()" style="color:#0079c2;border-color:rgba(0,121,194,0.3)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        حفظ كمسودة
+      </button>
+      <button class="btn btn--primary" onclick="submitForm()">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        إنشاء القسم
+      </button>
+    </div>
+  </div>
+
+</main>
+
+        <!-- /main content -->
+      </div>
+      <!-- /mainWrapper -->
+    </div>
+
+    <!-- Toast container -->
+    <div
+      class="fixed bottom-6 left-6 flex flex-col gap-2 z-[600]"
+      id="toastContainer"
+    ></div>
+    <script src="../master.js"></script>
+    
+   <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script>
+    /* ── Choices.js ── */
+    new Choices('#fParent', {
+        searchEnabled: true, searchPlaceholderValue: 'ابحث عن قسم...',
+        itemSelectText: '', noResultsText: 'لا توجد نتائج', allowHTML: false
+    });
+
+    /* ── Toggle fix (plain HTML toggles) ── */
+    document.querySelectorAll('.toggle input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', function() {
+        const track = this.nextElementSibling;
+        const thumb = track.querySelector('span');
+        if (this.checked) {
+            track.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+            thumb.style.transform = 'translateX(-26px)';
+        } else {
+            track.style.background = '#e2e8f0';
+            thumb.style.transform = 'translateX(0)';
+        }
+        });
+        // init state
+        if (cb.checked) {
+        cb.nextElementSibling.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+        cb.nextElementSibling.querySelector('span').style.transform = 'translateX(-26px)';
+        }
+    });
+
+    function onToggle(el, lblId) {
+        document.getElementById(lblId).textContent = el.checked ? 'مفعّل' : 'معطّل';
+    }
+
+    /* ── Data ── */
+    const USED_SLUGS = ['electronics','clothes','furniture','food','beauty','books','toys','sport'];
+    const STATUS_DESC = {
+        draft:     'القسم في مسودة — غير مرئي للمستخدمين حتى يتم تفعيله.',
+        pending:   'قيد الموافقة — في انتظار مراجعة المدير (Checker) قبل النشر.',
+        active:    'نشط — مرئي للمستخدمين ويمكن ربط المنتجات به.',
+        hidden:    'مخفي — موجود في النظام لكن غير ظاهر للمستخدمين.',
+        suspended: 'موقوف مؤقتاً — لن تظهر منتجاته حتى يُرفع التعليق.',
+        archived:  'مؤرشف نهائياً — لا يمكن إضافة منتجات جديدة إليه (ولا يُحذف).'
+    };
+    const STATUS_AR = { draft:'مسودة', pending:'قيد الموافقة', active:'نشط', hidden:'مخفي', suspended:'موقوف', archived:'مؤرشف' };
+
+    function nowTime() {
+        return new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+    }
+    document.getElementById('initTime').textContent = nowTime();
+
+    /* ── Parent change ── */
+    document.getElementById('fParent').addEventListener('change', function() {
+        const v = this.value;
+        const badge = document.getElementById('typeBadge');
+        const sel = this.options[this.selectedIndex];
+        if (!v) {
+        badge.className = 'badge badge-blue';
+        badge.style.cssText = 'margin-right:auto;display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;';
+        badge.innerHTML = '<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg> قسم رئيسي';
+        document.getElementById('impactParent').textContent = '—';
+        } else {
+        badge.className = 'badge badge-green';
+        badge.style.cssText = 'margin-right:auto;display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;';
+        badge.innerHTML = '<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg> قسم فرعي تحت: ' + sel.text;
+        document.getElementById('impactParent').textContent = sel.text;
+        }
+        addAudit(v ? 'تم تحديد القسم الأب: ' + sel.text : 'إلغاء القسم الأب (قسم رئيسي)');
+    });
+
+    /* ── Slug ── */
+    function toSlug(s) {
+        return s.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'').replace(/-+/g,'-').replace(/^-|-$/g,'');
+    }
+    document.getElementById('fNameAr').addEventListener('input', function() {
+        const slugEl = document.getElementById('fSlug');
+        if (!slugEl.dataset.manual) { slugEl.value = toSlug(this.value); updateSlugPreview(slugEl.value); }
+    });
+    document.getElementById('fSlug').addEventListener('input', function() {
+        this.dataset.manual = '1'; this.value = toSlug(this.value); updateSlugPreview(this.value);
+    });
+    function updateSlugPreview(v) {
+        document.getElementById('slugVal').textContent = v || '—';
+        const warn = document.getElementById('slugWarn');
+        const input = document.getElementById('fSlug');
+        if (v && USED_SLUGS.includes(v)) {
+        warn.classList.add('show');
+        input.style.borderColor = '#b91c1c';
+        input.style.boxShadow = '0 0 0 3px rgba(185,28,28,0.09)';
+        } else {
+        warn.classList.remove('show');
+        input.style.borderColor = '';
+        input.style.boxShadow = '';
+        }
+    }
+
+    /* ── Status ── */
+    document.querySelectorAll('input[name="sStatus"]').forEach(r => {
+        r.addEventListener('change', function() {
+        document.getElementById('statusDescText').textContent = STATUS_DESC[this.value];
+        document.getElementById('impactStatus').textContent = STATUS_AR[this.value];
+        document.getElementById('impactApproval').textContent = (this.value==='pending'||this.value==='active') ? 'نعم' : 'لا';
+        addAudit('تم تغيير الحالة إلى: ' + STATUS_AR[this.value]);
+        });
+    });
+
+    /* ── Impact ── */
+    function updateImpact() {
+        document.getElementById('impactApproval').textContent = document.getElementById('approvalToggle').checked ? 'نعم' : 'لا';
+    }
+
+    /* ── Audit ── */
+    function addAudit(txt) {
+        const feed = document.getElementById('auditFeed');
+        const entry = document.createElement('div');
+        entry.className = 'audit-entry';
+        entry.innerHTML = `<div class="audit-dot"></div><div class="audit-text">${txt}</div><div class="audit-time">${nowTime()}</div>`;
+        feed.insertBefore(entry, feed.firstChild);
+        if (feed.children.length > 7) feed.removeChild(feed.lastChild);
+    }
+
+    /* ── Validate ── */
+    function validate() {
+        const checks = [
+        [document.getElementById('fNameAr').value.trim(), 'يرجى إدخال اسم القسم بالعربية'],
+        [document.getElementById('fNameEn').value.trim(), 'يرجى إدخال اسم القسم بالإنجليزية'],
+        [document.getElementById('fSlug').value.trim(),   'يرجى إدخال Slug للقسم'],
+        [document.getElementById('fOwner').value,         'يرجى اختيار المسؤول'],
+        [document.getElementById('fPurpose').value,       'يرجى اختيار الغرض من القسم'],
+        ];
+        for (const [val, msg] of checks) { if (!val) { showToast(msg, 'error'); return false; } }
+        if (USED_SLUGS.includes(document.getElementById('fSlug').value.trim())) { showToast('هذا الـ Slug مستخدم مسبقاً', 'error'); return false; }
+        return true;
+    }
+
+    /* ── Submit ── */
+    function submitForm() {
+        if (!validate()) return;
+        const nameAr = document.getElementById('fNameAr').value.trim();
+        const status = document.querySelector('input[name="sStatus"]:checked').value;
+        if (status==='pending' || document.getElementById('approvalToggle').checked) {
+        showToast('تم إرسال القسم "' + nameAr + '" للموافقة ✓', 'info');
+        addAudit('تم إرسال القسم للموافقة بواسطة مصطفى حمدى');
+        } else {
+        showToast('تم إنشاء القسم "' + nameAr + '" بنجاح ✓', 'success');
+        addAudit('تم إنشاء القسم بنجاح');
+        }
+    }
+
+    /* ── Save Draft ── */
+    function saveDraft() {
+        const nameAr = document.getElementById('fNameAr').value.trim();
+        if (!nameAr) { showToast('يرجى إدخال اسم القسم أولاً', 'error'); return; }
+        document.getElementById('sDraft').checked = true;
+        document.getElementById('statusDescText').textContent = STATUS_DESC['draft'];
+        document.getElementById('impactStatus').textContent = STATUS_AR['draft'];
+        showToast('تم حفظ "' + nameAr + '" كمسودة', 'info');
+        addAudit('تم حفظ القسم كمسودة');
+    }
+
+    function cancelForm() { showToast('تم الإلغاء والرجوع', 'info'); }
+
+    /* ── Toast ── */
+    function showToast(msg, type) {
+        const cols  = { success:'#1a8c45', error:'#ee0979', info:'#0079c2' };
+        const icons = { success:'✓', error:'✕', info:'ℹ' };
+        const c = document.getElementById('toastContainer');
+        const t = document.createElement('div');
+        t.style.cssText = `display:flex;align-items:center;gap:10px;padding:11px 18px;border-radius:10px;font-size:13px;font-weight:600;font-family:Cairo,sans-serif;color:#fff;min-width:240px;box-shadow:0 6px 20px rgba(0,0,0,0.14);animation:toastIn 0.3s ease;background:${cols[type]||cols.info}`;
+        t.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ'}</span><span>${msg}</span>`;
+        c.appendChild(t);
+        setTimeout(()=>{ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); }, 3200);
+    }
+    </script>
+  </body>
+</html>
